@@ -7,6 +7,20 @@ export default function Home() {
   const [asignaciones, setAsignaciones] = useState([]);
   const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState("");
 
+  // Datos de los responsables y sus números de teléfono
+  const responsables = {
+    "HARO CUADRADO ALEX FERNANDO": "+593995112077",
+    "OJEDA GUAMBO DARIO JAVIER": "+593961058610",
+    "PEREZ BAYAS JEFFERSON ISRAEL": "+593999975232",
+    "URQUIZO EGAS JOSE ANDRES": "+593998205266",
+    "VARGAS PAUCAR KEVIN RONALDO": "+593987888767",
+    "CARRION ESPINOSA JUAN PABLO": "+593999431363",
+    "CISNEROS BARRIOS CARLOS ANDRÉS": "+593969752709",
+    "CORDOVA VACA ROBERTO ALEJANDRO": "+593960155937",
+    "LOZADA VILLACIS MIGUEL ANGEL": "+593995861481",
+    "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
+  };
+
   useEffect(() => {
     async function cargarDatos() {
       const res = await fetch("/data/turnos.json");
@@ -35,7 +49,7 @@ export default function Home() {
 
       const listaTecnicos = Array.from(
         new Set(data.asignaciones.map(t => t.nombre))
-      );
+      ).sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
       setTecnicos(listaTecnicos);
 
       setAsignaciones(data.asignaciones);
@@ -188,11 +202,27 @@ export default function Home() {
                 </div>
                 <div style={styles.tecnicosList}>
                   {tecnicosHoy.length > 0 ? (
-                    tecnicosHoy.map((nombre, idx) => (
-                      <div key={idx} style={styles.tecnicoChip}>
-                        {formatearNombre(nombre)}
-                      </div>
-                    ))
+                    tecnicosHoy.map((nombre, idx) => {
+                      // Buscar el número de teléfono del responsable
+                      const telefonoResponsable = responsables[nombre] || null;
+                      const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
+
+                      return (
+                        <div key={idx} style={styles.tecnicoChip}>
+                          {formatearNombre(nombre)}
+                          {enlaceWhatsApp && (
+                            <a
+                              href={enlaceWhatsApp}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={styles.telefonoEnlace}
+                            >
+                              📞 llamar
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })
                   ) : (
                     <div style={styles.sinAsignacion}>Sin asignación</div>
                   )}
@@ -339,6 +369,9 @@ const styles = {
     borderRadius: '8px',
     fontSize: '0.8rem',
     fontWeight: '500',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   sinAsignacion: {
     color: '#94a3b8',
@@ -411,5 +444,12 @@ const styles = {
     borderRadius: '6px',
     fontSize: '0.75rem',
     fontWeight: '500',
+  },
+  telefonoEnlace: {
+    color: '#3490dc',
+    fontSize: '0.8rem',
+    fontWeight: '500',
+    textDecoration: 'none',
+    marginLeft: '0.5rem',
   },
 };
