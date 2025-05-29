@@ -8,7 +8,7 @@
     {
       "nombre": "PEREZ ISRAEL",
       "planta": "CMA",
-      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16", "2025-05-29", "2025-06-02"]
+      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16"]
     },
     {
       "nombre": "PEÑALOZA ARAUJO CARLOS ANDRES",
@@ -28,7 +28,7 @@
     {
       "nombre": "ERAZO BENITES JORGE LUIS",
       "planta": "CMA",
-      "fechas": ["2025-05-02", "2025-05-04", "2025-05-13", "2025-05-15", "2025-05-17", "2025-05-19", "2025-05-28", "2025-05-30", "2025-06-01"]
+      "fechas": ["2025-05-02", "2025-05-04", "2025-05-13", "2025-05-15", "2025-05-17", "2025-05-19", "2025-05-28"]
     },
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
@@ -111,6 +111,16 @@
       "fechas": ["2025-05-20", "2025-05-24"]
     },
     {
+      "nombre": "CELA JEFFERSON",
+      "planta": "CMA",
+      "fechas": ["2025-05-29", "2025-06-02"]
+    },
+    {
+      "nombre": "JEREZ MIGUEL",
+      "planta": "CMA",
+      "fechas": ["2025-05-30", "2025-06-01"]
+    },
+    {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMA",
       "fechas": ["2025-05-31"]
@@ -118,7 +128,7 @@
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMS",
-      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16", "2025-06-02"]
+      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16"]
     },
     {
       "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
@@ -143,7 +153,7 @@
     {
       "nombre": "PEREZ ISRAEL",
       "planta": "CMS",
-      "fechas": ["2025-05-03", "2025-05-14", "2025-05-18", "2025-05-27", "2025-05-31"]
+      "fechas": ["2025-05-03", "2025-05-14", "2025-05-18", "2025-05-27"]
     },
     {
       "nombre": "MOSQUERA JHONNY",
@@ -153,7 +163,7 @@
     {
       "nombre": "APARICIO OLMEDO ALDO ALEJANDRO",
       "planta": "CMS",
-      "fechas": ["2025-05-04", "2025-05-15", "2025-05-19", "2025-05-28", "2025-06-01"]
+      "fechas": ["2025-05-04", "2025-05-15", "2025-05-19", "2025-05-28"]
     },
     {
       "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
@@ -198,12 +208,17 @@
     {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMS",
-      "fechas": ["2025-05-15", "2025-05-19", "2025-05-28", "2025-06-01"]
+      "fechas": ["2025-05-15", "2025-05-19", "2025-05-28"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMS",
       "fechas": ["2025-05-29"]
+    },
+    {
+      "nombre": "CELA JEFFERSON",
+      "planta": "CMS",
+      "fechas": ["2025-05-31"]
     }
   ]
 }

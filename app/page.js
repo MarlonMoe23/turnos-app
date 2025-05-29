@@ -168,7 +168,7 @@ export default function Home() {
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <h1 style={styles.title}>🔧 Turnos de Limpieza</h1>
+        <h1 style={styles.title}>Turnos de Limpieza de Filtros</h1>
         <p style={styles.subtitle}>Complejo Hidroeléctrico Toachi Pilatón</p>
         
         <div style={styles.turnoActivoCard}>
