@@ -33,7 +33,7 @@
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-05-03", "2025-05-14", "2025-05-18", "2025-05-27", "2025-05-31"]
+      "fechas": ["2025-05-03", "2025-05-14", "2025-05-18", "2025-05-27"]
     },
     {
       "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
@@ -111,14 +111,19 @@
       "fechas": ["2025-05-20", "2025-05-24"]
     },
     {
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "planta": "CMA",
+      "fechas": ["2025-05-31"]
+    },
+    {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMS",
-      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16", "2025-05-29", "2025-06-02"]
+      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16", "2025-06-02"]
     },
     {
       "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
       "planta": "CMS",
-      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16", "2025-05-29", "2025-06-02"]
+      "fechas": ["2025-05-01", "2025-05-05", "2025-05-16", "2025-05-29"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
@@ -194,6 +199,11 @@
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMS",
       "fechas": ["2025-05-15", "2025-05-19", "2025-05-28", "2025-06-01"]
+    },
+    {
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "planta": "CMS",
+      "fechas": ["2025-05-29"]
     }
   ]
 }
