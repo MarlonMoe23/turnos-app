@@ -1,95 +1,91 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [turnosHoy, setTurnosHoy] = useState([]);
+  const [tecnicos, setTecnicos] = useState([]);
+  const [asignaciones, setAsignaciones] = useState([]);
+  const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState("");
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  useEffect(() => {
+    async function cargarDatos() {
+      const res = await fetch("/data/turnos.json");
+      const data = await res.json();
+
+      const hoy = new Date().toISOString().split("T")[0];
+
+      // Técnicos asignados para hoy
+      const asignadosHoy = data.asignaciones.filter(t =>
+        t.fechas.includes(hoy)
+      );
+      setTurnosHoy(asignadosHoy);
+
+      // Lista única de técnicos
+      const listaTecnicos = Array.from(
+        new Set(data.asignaciones.map(t => t.nombre))
+      );
+      setTecnicos(listaTecnicos);
+
+      // Guardar todas las asignaciones
+      setAsignaciones(data.asignaciones);
+    }
+
+    cargarDatos();
+  }, []);
+
+  function verTurnos(nombre) {
+    const tecnico = asignaciones.filter(t => t.nombre === nombre);
+    if (tecnico.length === 0) return null;
+
+    return (
+      <ul>
+        {tecnico.map((t, i) => (
+          <li key={i}>
+            {t.planta}: {t.fechas.join(", ")}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  return (
+    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+      <h1>🔧 Turno de limpieza de filtros - Hoy</h1>
+      <ul>
+        {["CMA", "CMS"].map(planta => (
+          <li key={planta}>
+            <strong>{planta}:</strong>{" "}
+            {
+              turnosHoy
+                .filter(t => t.planta === planta)
+                .map(t => t.nombre)
+                .join(", ") || "Sin asignación"
+            }
+          </li>
+        ))}
+      </ul>
+
+      <h2 style={{ marginTop: "2rem" }}>🔍 Ver asignación por técnico</h2>
+      <select
+        onChange={e => setTecnicoSeleccionado(e.target.value)}
+        style={{ padding: "8px", fontSize: "16px", width: "100%" }}
+      >
+        <option value="">Selecciona un técnico</option>
+        {tecnicos.map((nombre, idx) => (
+          <option key={idx} value={nombre}>
+            {nombre}
+          </option>
+        ))}
+      </select>
+
+      <div id="detalle-tecnico" style={{ marginTop: "1rem" }}>
+        {tecnicoSeleccionado && (
+          <>
+            <h3>Turnos de {tecnicoSeleccionado}:</h3>
+            {verTurnos(tecnicoSeleccionado)}
+          </>
+        )}
+      </div>
+    </main>
   );
 }

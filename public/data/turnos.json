@@ -1,0 +1,29 @@
+{
+  "asignaciones": [
+    {
+      "nombre": "Juan Pérez",
+      "planta": "CMA",
+      "fechas": ["2025-05-29"]
+    },
+    {
+      "nombre": "María Díaz",
+      "planta": "CMA",
+      "fechas": ["2025-05-29"]
+    },
+    {
+      "nombre": "José Ortiz",
+      "planta": "CMA",
+      "fechas": ["2025-05-29"]
+    },
+    {
+      "nombre": "Carla Jiménez",
+      "planta": "CMS",
+      "fechas": ["2025-05-29"]
+    },
+    {
+      "nombre": "David Cedeño",
+      "planta": "CMS",
+      "fechas": ["2025-05-29"]
+    }
+  ]
+}
