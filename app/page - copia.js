@@ -12,24 +12,10 @@ export default function Home() {
       const res = await fetch("/data/turnos.json");
       const data = await res.json();
 
-      // Obtener fecha actual en Ecuador
-      const ahora = new Date();
-      const horaActual = ahora.getHours();
-      
-      // Si son menos de las 8am, mostrar turnos del día anterior
-      // porque el turno va de 5pm a 8am del día siguiente
-      let fechaTurno;
-      if (horaActual < 8) {
-        // Restar un día
-        const ayer = new Date(ahora);
-        ayer.setDate(ayer.getDate() - 1);
-        fechaTurno = ayer.toISOString().split("T")[0];
-      } else {
-        fechaTurno = ahora.toISOString().split("T")[0];
-      }
+      const hoy = new Date().toISOString().split("T")[0];
 
       const asignadosHoy = data.asignaciones.filter(t =>
-        t.fechas.includes(fechaTurno)
+        t.fechas.includes(hoy)
       );
       setTurnosHoy(asignadosHoy);
 
@@ -44,7 +30,7 @@ export default function Home() {
     cargarDatos();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
     const saved = localStorage.getItem("tecnicoSeleccionado");
     if (saved) setTecnicoSeleccionado(saved);
   }, []);
@@ -55,99 +41,40 @@ export default function Home() {
     }
   }, [tecnicoSeleccionado]);
 
-  function formatearNombre(nombreCompleto) {
-    const palabras = nombreCompleto.split(' ');
-    if (palabras.length >= 3) {
-      return `${palabras[0]} ${palabras[2]}`; // Primera palabra y tercera
-    } else if (palabras.length === 2) {
-      return `${palabras[0]} ${palabras[1]}`;
-    } else {
-      return palabras[0];
-    }
-  }
 
-  function formatearFecha(fecha) {
-    const fechaObj = new Date(fecha + 'T00:00:00');
-    return fechaObj.toLocaleDateString('es-EC', {
-      weekday: 'short',
-      day: '2-digit',
-      month: 'short'
-    });
-  }
 
   function verTurnos(nombre) {
-    const hoy = new Date().toISOString().split("T")[0];
-    
-    const tecnico = asignaciones.filter(t => 
-      t.nombre === nombre && 
-      t.fechas.some(fecha => fecha >= hoy) // Solo fechas de hoy en adelante
-    );
-    
+    const tecnico = asignaciones.filter(t => t.nombre === nombre);
     if (tecnico.length === 0) return null;
 
     return (
       <div style={styles.turnosContainer}>
-        {tecnico.map((t, i) => {
-          // Filtrar solo las fechas de hoy en adelante
-          const fechasFuturas = t.fechas.filter(fecha => fecha >= hoy);
-          
-          if (fechasFuturas.length === 0) return null;
-          
-          return (
-            <div key={i} style={styles.turnoCard}>
-              <div style={styles.plantaBadge}>
-                {t.planta}
-              </div>
-              <div style={styles.fechas}>
-                {fechasFuturas.map((fecha, idx) => (
-                  <span key={idx} style={styles.fechaTag}>
-                    {formatearFecha(fecha)}
-                  </span>
-                ))}
-              </div>
+        {tecnico.map((t, i) => (
+          <div key={i} style={styles.turnoCard}>
+            <div style={styles.plantaBadge}>
+              {t.planta}
             </div>
-          );
-        }).filter(Boolean)}
+            <div style={styles.fechas}>
+              {t.fechas.map((fecha, idx) => (
+                <span key={idx} style={styles.fechaTag}>
+                  {new Date(fecha + 'T00:00:00').toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: 'short'
+                  })}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
 
-  // Calcular fechas del turno activo
-  function obtenerFechasTurnoActivo() {
-    const ahora = new Date();
-    const horaActual = ahora.getHours();
-    
-    let fechaInicio, fechaFin;
-    
-    if (horaActual < 8) {
-      // Turno empezó ayer a las 5pm, termina hoy a las 8am
-      const ayer = new Date(ahora);
-      ayer.setDate(ayer.getDate() - 1);
-      fechaInicio = ayer;
-      fechaFin = new Date(ahora);
-    } else {
-      // Turno empieza hoy a las 5pm, termina mañana a las 8am
-      fechaInicio = new Date(ahora);
-      const manana = new Date(ahora);
-      manana.setDate(manana.getDate() + 1);
-      fechaFin = manana;
-    }
-    
-    return { fechaInicio, fechaFin };
-  }
-
-  const { fechaInicio, fechaFin } = obtenerFechasTurnoActivo();
-  
-  const fechaInicioFormateada = fechaInicio.toLocaleDateString('es-EC', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-  });
-  
-  const fechaFinFormateada = fechaFin.toLocaleDateString('es-EC', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
+  const fechaHoy = new Date().toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   });
 
   return (
@@ -156,22 +83,15 @@ export default function Home() {
       <div style={styles.header}>
         <h1 style={styles.title}>🔧 Turnos de Limpieza</h1>
         <p style={styles.subtitle}>Complejo Hidroeléctrico Toachi Pilatón</p>
-        
-        <div style={styles.turnoActivoCard}>
-          <div style={styles.turnoLabel}>
-            🟢 TURNO ACTIVO
-          </div>
-          <div style={styles.fechasContainer}>
-            <span style={styles.fechaTexto}>
-              {fechaInicioFormateada} 5PM - {fechaFinFormateada} 8AM
-            </span>
-          </div>
+        <div style={styles.dateCard}>
+          <span style={styles.dateLabel}>HOY</span>
+          <span style={styles.dateText}>{fechaHoy}</span>
         </div>
       </div>
 
       {/* Turnos de hoy */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados</h2>
+        <h2 style={styles.sectionTitle}>📅 Asignaciones de Hoy</h2>
         <div style={styles.plantasGrid}>
           {["CMA", "CMS"].map(planta => {
             const tecnicosHoy = turnosHoy
@@ -190,7 +110,7 @@ export default function Home() {
                   {tecnicosHoy.length > 0 ? (
                     tecnicosHoy.map((nombre, idx) => (
                       <div key={idx} style={styles.tecnicoChip}>
-                        {formatearNombre(nombre)}
+                        {nombre.split(' ').slice(0, 2).join(' ')}
                       </div>
                     ))
                   ) : (
@@ -224,9 +144,6 @@ export default function Home() {
             <h3 style={styles.tecnicoNombre}>
               👤 {tecnicoSeleccionado}
             </h3>
-            <div style={styles.proximosTurnos}>
-              <span style={styles.proximosLabel}>Próximos turnos:</span>
-            </div>
             {verTurnos(tecnicoSeleccionado)}
           </div>
         )}
@@ -244,48 +161,36 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '1.5rem', // Reducido
+    marginBottom: '2rem',
   },
   title: {
-    fontSize: '1.5rem', // Reducido
+    fontSize: '2rem',
     fontWeight: 'bold',
     color: '#1e293b',
     margin: '0 0 0.5rem 0',
   },
   subtitle: {
     color: '#64748b',
-    fontSize: '0.8rem', // Reducido
+    fontSize: '0.9rem',
     margin: '0 0 1rem 0',
   },
-  turnoActivoCard: {
-    backgroundColor: 'white',
-    borderRadius: '12px', // Reducido
-    padding: '0.75rem', // Reducido
-    boxShadow: '0 4px 12px -2px rgba(0, 0, 0, 0.1)', // Reducido
-    border: '2px solid #10b981',
-    maxWidth: '400px', // Reducido
-    margin: '0 auto',
+  dateCard: {
+    backgroundColor: '#3b82f6',
+    color: 'white',
+    padding: '0.75rem 1.5rem',
+    borderRadius: '12px',
+    display: 'inline-block',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
   },
-  turnoLabel: {
-    fontSize: '0.9rem', // Reducido
+  dateLabel: {
+    fontSize: '0.75rem',
     fontWeight: 'bold',
-    color: '#10b981',
-    marginBottom: '0.5rem', // Reducido
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '0.25rem', // Reducido
-  },
-  fechasContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  fechaTexto: {
+    opacity: 0.9,
     display: 'block',
-    fontSize: '0.9rem', // Reducido
-    fontWeight: '600',
-    color: '#1e293b',
+  },
+  dateText: {
+    fontSize: '0.9rem',
+    fontWeight: '500',
   },
   section: {
     marginBottom: '2rem',
@@ -368,15 +273,7 @@ const styles = {
     fontSize: '1.1rem',
     fontWeight: '600',
     color: '#1e293b',
-    marginBottom: '0.5rem',
-  },
-  proximosTurnos: {
     marginBottom: '1rem',
-  },
-  proximosLabel: {
-    fontSize: '0.9rem',
-    color: '#64748b',
-    fontWeight: '500',
   },
   turnosContainer: {
     display: 'flex',
