@@ -234,6 +234,8 @@ export default function Home() {
       </div>
 
       <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
 
       {/* Consulta por técnico */}
       <div style={styles.section}>
