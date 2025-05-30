@@ -29,7 +29,7 @@ export default function Home() {
       // Obtener fecha actual en Ecuador
       const ahora = new Date();
       const horaActual = ahora.getHours();
-      
+
       // Si son menos de las 8am, mostrar turnos del día anterior
       // porque el turno va de 5pm a 8am del día siguiente
       let fechaTurno;
@@ -91,12 +91,12 @@ export default function Home() {
 
   function verTurnos(nombre) {
     const hoy = new Date().toISOString().split("T")[0];
-    
-    const tecnico = asignaciones.filter(t => 
-      t.nombre === nombre && 
+
+    const tecnico = asignaciones.filter(t =>
+      t.nombre === nombre &&
       t.fechas.some(fecha => fecha >= hoy) // Solo fechas de hoy en adelante
     );
-    
+
     if (tecnico.length === 0) return null;
 
     return (
@@ -104,9 +104,9 @@ export default function Home() {
         {tecnico.map((t, i) => {
           // Filtrar solo las fechas de hoy en adelante
           const fechasFuturas = t.fechas.filter(fecha => fecha >= hoy);
-          
+
           if (fechasFuturas.length === 0) return null;
-          
+
           return (
             <div key={i} style={styles.turnoCard}>
               <div style={styles.plantaBadge}>
@@ -130,9 +130,9 @@ export default function Home() {
   function obtenerFechasTurnoActivo() {
     const ahora = new Date();
     const horaActual = ahora.getHours();
-    
+
     let fechaInicio, fechaFin;
-    
+
     if (horaActual < 8) {
       // Turno empezó ayer a las 5pm, termina hoy a las 8am
       const ayer = new Date(ahora);
@@ -146,18 +146,18 @@ export default function Home() {
       manana.setDate(manana.getDate() + 1);
       fechaFin = manana;
     }
-    
+
     return { fechaInicio, fechaFin };
   }
 
   const { fechaInicio, fechaFin } = obtenerFechasTurnoActivo();
-  
+
   const fechaInicioFormateada = fechaInicio.toLocaleDateString('es-EC', {
     weekday: 'short',
     day: 'numeric',
     month: 'short',
   });
-  
+
   const fechaFinFormateada = fechaFin.toLocaleDateString('es-EC', {
     weekday: 'short',
     day: 'numeric',
@@ -169,8 +169,8 @@ export default function Home() {
       {/* Header */}
       <div style={styles.header}>
         <h1 style={styles.title}>Turnos de Limpieza de Filtros</h1>
-        <p style={styles.subtitle}>Complejo Hidroeléctrico Toachi Pilatón</p>
-        
+
+
         <div style={styles.turnoActivoCard}>
           <div style={styles.turnoLabel}>
             🟢 TURNO ACTIVO
@@ -185,13 +185,13 @@ export default function Home() {
 
       {/* Turnos de hoy */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados</h2>
+        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoy</h2>
         <div style={styles.plantasGrid}>
           {["CMA", "CMS"].map(planta => {
             const tecnicosHoy = turnosHoy
               .filter(t => t.planta === planta)
               .map(t => t.nombre);
-            
+
             return (
               <div key={planta} style={styles.plantaCard}>
                 <div style={styles.plantaHeader}>
@@ -233,9 +233,11 @@ export default function Home() {
         </div>
       </div>
 
+      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+
       {/* Consulta por técnico */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>🔍 Consultar por Técnico</h2>
+        <h2 style={styles.sectionTitle}>🔍 Consultar Turnos por Técnico</h2>
         <select
           onChange={e => setTecnicoSeleccionado(e.target.value)}
           value={tecnicoSeleccionado}
@@ -255,11 +257,36 @@ export default function Home() {
               👤 {tecnicoSeleccionado}
             </h3>
             <div style={styles.proximosTurnos}>
-              <span style={styles.proximosLabel}>Próximos turnos:</span>
+              <span style={styles.proximosLabel}>Próximos turnos que tienes:</span>
             </div>
             {verTurnos(tecnicoSeleccionado)}
           </div>
         )}
+      </div>
+
+      {/* Debug: Fecha y hora actual */}
+      <div style={styles.debugContainer}>
+        <h3 style={styles.debugTitle}>🕐 Debug - Información del Sistema</h3>
+        <div style={styles.debugInfo}>
+          <div style={styles.debugItem}>
+            <strong>Fecha y hora actual:</strong> {new Date().toLocaleString('es-EC', {
+              timeZone: 'America/Guayaquil',
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            })}
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Hora actual (24h):</strong> {new Date().getHours()}:00
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Fecha ISO:</strong> {new Date().toISOString().split("T")[0]}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -451,5 +478,32 @@ const styles = {
     fontWeight: '500',
     textDecoration: 'none',
     marginLeft: '0.5rem',
+  },
+  debugContainer: {
+    marginTop: '2rem',
+    backgroundColor: '#fff3cd',
+    borderRadius: '8px',
+    padding: '1rem',
+    border: '1px solid #ffeaa7',
+  },
+  debugTitle: {
+    fontSize: '1rem',
+    fontWeight: '600',
+    color: '#856404',
+    marginBottom: '0.75rem',
+    margin: 0,
+  },
+  debugInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.5rem',
+  },
+  debugItem: {
+    fontSize: '0.85rem',
+    color: '#856404',
+    backgroundColor: '#fff',
+    padding: '0.5rem',
+    borderRadius: '4px',
+    border: '1px solid #ffeaa7',
   },
 };

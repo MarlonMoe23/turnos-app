@@ -7,10 +7,18 @@ export default function Home() {
   const [asignaciones, setAsignaciones] = useState([]);
   const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState("");
 
-  // Datos de los números de teléfono (¡reemplaza con los reales!)
-  const numerosDeTelefono = {
-    "CMA": "+593987654321",
-    "CMS": "+593991234567"
+  // Datos de los responsables y sus números de teléfono
+  const responsables = {
+    "HARO CUADRADO ALEX FERNANDO": "+593995112077",
+    "OJEDA GUAMBO DARIO JAVIER": "+593961058610",
+    "PEREZ BAYAS JEFFERSON ISRAEL": "+593999975232",
+    "URQUIZO EGAS JOSE ANDRES": "+593998205266",
+    "VARGAS PAUCAR KEVIN RONALDO": "+593987888767",
+    "CARRION ESPINOSA JUAN PABLO": "+593999431363",
+    "CISNEROS BARRIOS CARLOS ANDRÉS": "+593969752709",
+    "CORDOVA VACA ROBERTO ALEJANDRO": "+593960155937",
+    "LOZADA VILLACIS MIGUEL ANGEL": "+593995861481",
+    "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
   useEffect(() => {
@@ -160,8 +168,8 @@ export default function Home() {
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <h1 style={styles.title}>🔧 Turnos de Limpieza</h1>
-        <p style={styles.subtitle}>Complejo Hidroeléctrico Toachi Pilatón</p>
+        <h1 style={styles.title}>Turnos de Limpieza de Filtros</h1>
+        
         
         <div style={styles.turnoActivoCard}>
           <div style={styles.turnoLabel}>
@@ -177,42 +185,44 @@ export default function Home() {
 
       {/* Turnos de hoy */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados</h2>
+        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoy</h2>
         <div style={styles.plantasGrid}>
           {["CMA", "CMS"].map(planta => {
             const tecnicosHoy = turnosHoy
               .filter(t => t.planta === planta)
               .map(t => t.nombre);
             
-            // Obtener el número de teléfono del objeto
-            const telefono = numerosDeTelefono[planta] || "Número no disponible";
-            
-            // Crear el enlace de WhatsApp
-            const enlaceWhatsApp = `https://wa.me/${telefono}`;
-            
             return (
               <div key={planta} style={styles.plantaCard}>
                 <div style={styles.plantaHeader}>
                   <span style={styles.plantaName}>{planta}</span>
-                  <a
-                    href={enlaceWhatsApp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={styles.telefonoEnlace}
-                  >
-                    📞 {telefono}
-                  </a>
                   <span style={styles.contadorTecnicos}>
                     {tecnicosHoy.length} técnico{tecnicosHoy.length !== 1 ? 's' : ''}
                   </span>
                 </div>
                 <div style={styles.tecnicosList}>
                   {tecnicosHoy.length > 0 ? (
-                    tecnicosHoy.map((nombre, idx) => (
-                      <div key={idx} style={styles.tecnicoChip}>
-                        {formatearNombre(nombre)}
-                      </div>
-                    ))
+                    tecnicosHoy.map((nombre, idx) => {
+                      // Buscar el número de teléfono del responsable
+                      const telefonoResponsable = responsables[nombre] || null;
+                      const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
+
+                      return (
+                        <div key={idx} style={styles.tecnicoChip}>
+                          {formatearNombre(nombre)}
+                          {enlaceWhatsApp && (
+                            <a
+                              href={enlaceWhatsApp}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={styles.telefonoEnlace}
+                            >
+                              📞 llamar
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })
                   ) : (
                     <div style={styles.sinAsignacion}>Sin asignación</div>
                   )}
@@ -223,9 +233,11 @@ export default function Home() {
         </div>
       </div>
 
+<hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+
       {/* Consulta por técnico */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>🔍 Consultar por Técnico</h2>
+        <h2 style={styles.sectionTitle}>🔍 Consultar Turnos por Técnico</h2>
         <select
           onChange={e => setTecnicoSeleccionado(e.target.value)}
           value={tecnicoSeleccionado}
@@ -245,7 +257,7 @@ export default function Home() {
               👤 {tecnicoSeleccionado}
             </h3>
             <div style={styles.proximosTurnos}>
-              <span style={styles.proximosLabel}>Próximos turnos:</span>
+              <span style={styles.proximosLabel}>Próximos turnos que tienes:</span>
             </div>
             {verTurnos(tecnicoSeleccionado)}
           </div>
@@ -359,6 +371,9 @@ const styles = {
     borderRadius: '8px',
     fontSize: '0.8rem',
     fontWeight: '500',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   sinAsignacion: {
     color: '#94a3b8',
