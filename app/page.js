@@ -28,15 +28,15 @@ export default function Home() {
 
       // Obtener fecha y hora actual en Ecuador
       const ahora = new Date();
-      
+
       // Convertir la fecha actual a formato ISO (YYYY-MM-DD)
       const fechaActual = ahora.toISOString().split("T")[0];
-      
+
       // Crear fecha con hora 8am de hoy
       const ochoAMHoy = new Date(fechaActual + "T08:00:00");
-      
+
       let fechaTurno;
-      
+
       // Si la hora actual es antes de las 8am, el turno activo comenzó ayer
       if (ahora < ochoAMHoy) {
         const ayer = new Date(ahora);
@@ -135,28 +135,27 @@ export default function Home() {
   function obtenerFechasTurnoActivo() {
     const ahora = new Date();
     const fechaActual = ahora.toISOString().split("T")[0];
-    const ochoAMHoy = new Date(fechaActual + "T08:00:00");
-    
+    const ochoAMHoy = new Date(fechaActual);
+    ochoAMHoy.setHours(8, 0, 0, 0);
+
     let fechaInicio, fechaFin;
-    
+
     if (ahora < ochoAMHoy) {
       // Si es antes de las 8am, el turno comenzó ayer a las 8am
-      fechaInicio = new Date(fechaActual);
+      fechaInicio = new Date(ochoAMHoy);
       fechaInicio.setDate(fechaInicio.getDate() - 1);
-      fechaInicio.setHours(8, 0, 0, 0);
-      
+
       // Y termina hoy a las 8am
       fechaFin = new Date(ochoAMHoy);
     } else {
       // Si es después de las 8am, el turno comenzó hoy a las 8am
       fechaInicio = new Date(ochoAMHoy);
-      
+
       // Y termina mañana a las 8am
-      fechaFin = new Date(fechaActual);
+      fechaFin = new Date(ochoAMHoy);
       fechaFin.setDate(fechaFin.getDate() + 1);
-      fechaFin.setHours(8, 0, 0, 0);
     }
-    
+
     return { fechaInicio, fechaFin };
   }
 
@@ -187,7 +186,7 @@ export default function Home() {
           </div>
           <div style={styles.fechasContainer}>
             <span style={styles.fechaTexto}>
-              {fechaInicioFormateada} 8AM - {fechaFinFormateada} 8AM
+              {fechaInicioFormateada} 5PM - {fechaFinFormateada} 8AM
             </span>
           </div>
         </div>
@@ -275,33 +274,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Debug: Fecha y hora actual */}
-      <div style={styles.debugContainer}>
-        <h3 style={styles.debugTitle}>🕐 Debug - Información del Sistema</h3>
-        <div style={styles.debugInfo}>
-          <div style={styles.debugItem}>
-            <strong>Fecha y hora actual:</strong> {new Date().toLocaleString('es-EC', {
-              timeZone: 'America/Guayaquil',
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit'
-            })}
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Hora actual (24h):</strong> {new Date().getHours()}:00
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Fecha ISO:</strong> {new Date().toISOString().split("T")[0]}
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Fecha turno activo:</strong> {fechaInicio.toISOString().split("T")[0]}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
