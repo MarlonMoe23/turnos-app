@@ -138,12 +138,12 @@
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMA",
-      "fechas": ["2025-06-10", "2025-06-14", "2025-06-28"]
+      "fechas": ["2025-06-10", "2025-06-14", "2025-06-28", "2025-05-31"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMS",
-      "fechas": ["2025-06-12", "2025-06-16", "2025-06-26"]
+      "fechas": ["2025-06-12", "2025-06-16", "2025-06-26", "2025-06-02"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
@@ -153,7 +153,7 @@
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMA",
-      "fechas": ["2025-06-13", "2025-06-24", "2025-06-26"]
+      "fechas": ["2025-06-13", "2025-06-24", "2025-06-26", "2025-06-01"]
     },
     {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
@@ -163,12 +163,12 @@
     {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMS",
-      "fechas": ["2025-06-13", "2025-06-24", "2025-06-27"]
+      "fechas": ["2025-06-13", "2025-06-24", "2025-06-27", "2025-06-01"]
     },
     {
       "nombre": "APARICIO OLMEDO ALDO ALEJANDRO",
       "planta": "CMS",
-      "fechas": ["2025-06-10", "2025-06-24"]
+      "fechas": ["2025-06-10", "2025-06-24", "2025-06-01"]
     },
     {
       "nombre": "APARICIO OLMEDO ALDO ALEJANDRO",
@@ -178,7 +178,7 @@
     {
       "nombre": "CELA CEVALLOS JEFFERSON GABRIEL",
       "planta": "CMA",
-      "fechas": ["2025-06-10", "2025-06-12", "2025-06-25", "2025-06-30"]
+      "fechas": ["2025-06-10", "2025-06-12", "2025-06-25", "2025-06-30", "2025-06-01"]
     },
     {
       "nombre": "CELA CEVALLOS JEFFERSON GABRIEL",
@@ -203,7 +203,7 @@
     {
       "nombre": "JEREZ MIGUEL",
       "planta": "CMA",
-      "fechas": ["2025-06-13", "2025-06-15", "2025-06-24", "2025-06-29"]
+      "fechas": ["2025-06-13", "2025-06-15", "2025-06-24", "2025-06-29", "2025-06-01"]
     },
     {
       "nombre": "MARQUEZ GERARDO",
@@ -218,12 +218,12 @@
     {
       "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
       "planta": "CMA",
-      "fechas": ["2025-06-11", "2025-06-16", "2025-06-28"]
+      "fechas": ["2025-06-11", "2025-06-16", "2025-06-28", "2025-05-31"]
     },
     {
       "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
       "planta": "CMS",
-      "fechas": ["2025-06-14", "2025-06-26"]
+      "fechas": ["2025-06-14", "2025-06-26", "2025-06-02"]
     },
     {
       "nombre": "PEÑALOZA ARAUJO CARLOS ANDRES",
@@ -233,7 +233,7 @@
     {
       "nombre": "PEÑALOZA ARAUJO CARLOS ANDRES",
       "planta": "CMA",
-      "fechas": ["2025-06-14", "2025-06-16", "2025-06-26"]
+      "fechas": ["2025-06-14", "2025-06-16", "2025-06-26", "2025-05-31", "2025-06-02"]
     },
     {
       "nombre": "MOLINA DANIEL",
@@ -243,12 +243,12 @@
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMA",
-      "fechas": ["2025-06-25", "2025-06-30"]
+      "fechas": ["2025-06-25", "2025-06-30", "2025-06-02"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMS",
-      "fechas": ["2025-06-28"]
+      "fechas": ["2025-06-28", "2025-05-31"]
     },
     {
       "nombre": "ERAZO BENITES JORGE LUIS",
@@ -259,6 +259,16 @@
       "nombre": "ERAZO BENITES JORGE LUIS",
       "planta": "CMA",
       "fechas": ["2025-06-27", "2025-06-30"]
+    },
+    {
+      "nombre": "CELA JEFFERSON",
+      "planta": "CMA",
+      "fechas": ["2025-06-02"]
+    },
+    {
+      "nombre": "CELA JEFFERSON",
+      "planta": "CMS",
+      "fechas": ["2025-05-31"]
     }
   ]
 }
