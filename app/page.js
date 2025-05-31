@@ -201,6 +201,13 @@ export default function Home() {
               .filter(t => t.planta === planta)
               .map(t => t.nombre);
 
+            // Ordenar técnicos: primero los que tienen número de teléfono
+            const tecnicosOrdenados = [...tecnicosHoy].sort((a, b) => {
+              const tieneNumeroA = responsables[a] ? 1 : 0;
+              const tieneNumeroB = responsables[b] ? 1 : 0;
+              return tieneNumeroB - tieneNumeroA; // Orden descendente (primero los que tienen número)
+            });
+
             return (
               <div key={planta} style={styles.plantaCard}>
                 <div style={styles.plantaHeader}>
@@ -210,8 +217,8 @@ export default function Home() {
                   </span>
                 </div>
                 <div style={styles.tecnicosList}>
-                  {tecnicosHoy.length > 0 ? (
-                    tecnicosHoy.map((nombre, idx) => {
+                  {tecnicosOrdenados.length > 0 ? (
+                    tecnicosOrdenados.map((nombre, idx) => {
                       // Buscar el número de teléfono del responsable
                       const telefonoResponsable = responsables[nombre] || null;
                       const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
