@@ -26,20 +26,25 @@ export default function Home() {
       const res = await fetch("/data/turnos.json");
       const data = await res.json();
 
-      // Obtener fecha actual en Ecuador
+      // Obtener fecha y hora actual en Ecuador
       const ahora = new Date();
-      const horaActual = ahora.getHours();
-
-      // Si son menos de las 8am, mostrar turnos del día anterior
-      // porque el turno va de 5pm a 8am del día siguiente
+      
+      // Convertir la fecha actual a formato ISO (YYYY-MM-DD)
+      const fechaActual = ahora.toISOString().split("T")[0];
+      
+      // Crear fecha con hora 8am de hoy
+      const ochoAMHoy = new Date(fechaActual + "T08:00:00");
+      
       let fechaTurno;
-      if (horaActual < 8) {
-        // Restar un día
+      
+      // Si la hora actual es antes de las 8am, el turno activo comenzó ayer
+      if (ahora < ochoAMHoy) {
         const ayer = new Date(ahora);
         ayer.setDate(ayer.getDate() - 1);
         fechaTurno = ayer.toISOString().split("T")[0];
       } else {
-        fechaTurno = ahora.toISOString().split("T")[0];
+        // Si es después de las 8am, el turno activo comenzó hoy
+        fechaTurno = fechaActual;
       }
 
       const asignadosHoy = data.asignaciones.filter(t =>
@@ -129,24 +134,29 @@ export default function Home() {
   // Calcular fechas del turno activo
   function obtenerFechasTurnoActivo() {
     const ahora = new Date();
-    const horaActual = ahora.getHours();
-
+    const fechaActual = ahora.toISOString().split("T")[0];
+    const ochoAMHoy = new Date(fechaActual + "T08:00:00");
+    
     let fechaInicio, fechaFin;
-
-    if (horaActual < 8) {
-      // Turno empezó ayer a las 5pm, termina hoy a las 8am
-      const ayer = new Date(ahora);
-      ayer.setDate(ayer.getDate() - 1);
-      fechaInicio = ayer;
-      fechaFin = new Date(ahora);
+    
+    if (ahora < ochoAMHoy) {
+      // Si es antes de las 8am, el turno comenzó ayer a las 8am
+      fechaInicio = new Date(fechaActual);
+      fechaInicio.setDate(fechaInicio.getDate() - 1);
+      fechaInicio.setHours(8, 0, 0, 0);
+      
+      // Y termina hoy a las 8am
+      fechaFin = new Date(ochoAMHoy);
     } else {
-      // Turno empieza hoy a las 5pm, termina mañana a las 8am
-      fechaInicio = new Date(ahora);
-      const manana = new Date(ahora);
-      manana.setDate(manana.getDate() + 1);
-      fechaFin = manana;
+      // Si es después de las 8am, el turno comenzó hoy a las 8am
+      fechaInicio = new Date(ochoAMHoy);
+      
+      // Y termina mañana a las 8am
+      fechaFin = new Date(fechaActual);
+      fechaFin.setDate(fechaFin.getDate() + 1);
+      fechaFin.setHours(8, 0, 0, 0);
     }
-
+    
     return { fechaInicio, fechaFin };
   }
 
@@ -177,7 +187,7 @@ export default function Home() {
           </div>
           <div style={styles.fechasContainer}>
             <span style={styles.fechaTexto}>
-              {fechaInicioFormateada} 5PM - {fechaFinFormateada} 8AM
+              {fechaInicioFormateada} 8AM - {fechaFinFormateada} 8AM
             </span>
           </div>
         </div>
@@ -235,7 +245,6 @@ export default function Home() {
 
       <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
       <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
-      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
 
       {/* Consulta por técnico */}
       <div style={styles.section}>
@@ -287,6 +296,9 @@ export default function Home() {
           </div>
           <div style={styles.debugItem}>
             <strong>Fecha ISO:</strong> {new Date().toISOString().split("T")[0]}
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Fecha turno activo:</strong> {fechaInicio.toISOString().split("T")[0]}
           </div>
         </div>
       </div>
