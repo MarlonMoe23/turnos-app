@@ -92,6 +92,51 @@ export default function Home() {
     return { fechaInicio, fechaFin };
   }
 
+  // PWA: Registrar Service Worker
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('SW registrado:', registration);
+        })
+        .catch((error) => {
+          console.log('SW falló:', error);
+        });
+    }
+  }, []);
+
+  // PWA: Detectar si la app se puede instalar
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstallButton, setShowInstallButton] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallButton(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('PWA instalada');
+    }
+    
+    setDeferredPrompt(null);
+    setShowInstallButton(false);
+  };
+
   useEffect(() => {
     async function cargarDatos() {
       const res = await fetch("/data/turnos.json");
@@ -297,7 +342,17 @@ export default function Home() {
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <h1 style={styles.title}>Turnos de Limpieza de Filtros</h1>
+        <h1 style={styles.title}>Limpieza de Filtros</h1>
+        
+        {/* Botón de instalación PWA */}
+        {showInstallButton && (
+          <button 
+            onClick={handleInstallClick}
+            style={styles.installButton}
+          >
+            📱 Instalar App
+          </button>
+        )}
 
         <div style={styles.turnoActivoCard}>
           <div style={styles.turnoLabel}>
@@ -305,7 +360,7 @@ export default function Home() {
           </div>
           <div style={styles.fechasContainer}>
             <span style={styles.fechaTexto}>
-              {fechaInicioFormateada} 8AM - {fechaFinFormateada} 8AM
+              {fechaInicioFormateada} 5PM - {fechaFinFormateada} 8AM
             </span>
           </div>
         </div>
@@ -435,6 +490,19 @@ export default function Home() {
 }
 
 const styles = {
+  installButton: {
+    backgroundColor: '#3b82f6',
+    color: 'white',
+    border: 'none',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+    margin: '0.5rem 0 1rem 0',
+    boxShadow: '0 2px 4px rgba(59, 130, 246, 0.3)',
+    transition: 'all 0.2s ease',
+  },
   container: {
     minHeight: '100vh',
     backgroundColor: '#f8fafc',
