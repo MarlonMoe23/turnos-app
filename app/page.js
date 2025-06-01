@@ -21,26 +21,22 @@ export default function Home() {
     "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
-  // NUEVA LÓGICA - REESCRITA DESDE CERO
+  // NUEVA LÓGICA - PROBLEMA SOLUCIONADO: USAR FECHA LOCAL NO UTC
   function obtenerFechaTurnoActivo() {
     const ahora = new Date();
     console.log("🔍 Hora actual completa:", ahora);
-    console.log("🔍 Hora actual toString:", ahora.toString());
-    console.log("🔍 Hora actual toLocaleString:", ahora.toLocaleString('es-EC'));
     
-    // Obtener fecha actual en formato YYYY-MM-DD
-    const fechaActual = ahora.toISOString().split("T")[0];
-    console.log("🔍 Fecha actual (string):", fechaActual);
+    // USAR FECHA LOCAL NO UTC
+    const año = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+    const dia = String(ahora.getDate()).padStart(2, '0');
+    const fechaActual = `${año}-${mes}-${dia}`;
+    
+    console.log("🔍 Fecha actual (LOCAL):", fechaActual);
     
     // Obtener hora actual en formato 24h
     const horaActual = ahora.getHours();
     console.log("🔍 Hora actual (número):", horaActual);
-    console.log("🔍 Minutos actuales:", ahora.getMinutes());
-    console.log("🔍 Segundos actuales:", ahora.getSeconds());
-    
-    // REGLA SIMPLE:
-    // Si son las 8:00 AM o después → buscar técnicos de HOY
-    // Si es antes de las 8:00 AM → buscar técnicos de AYER
     
     console.log("🔍 Evaluando condición: horaActual >= 8");
     console.log("🔍 Es decir:", horaActual, ">=", 8);
@@ -54,8 +50,14 @@ export default function Home() {
       console.log("🔍 ❌ Es < 8AM, turno empezó AYER");
       const ayer = new Date(ahora);
       ayer.setDate(ayer.getDate() - 1);
-      const fechaAyer = ayer.toISOString().split("T")[0];
-      console.log("🔍 ❌ Fecha de ayer:", fechaAyer);
+      
+      // CALCULAR FECHA DE AYER EN LOCAL TAMBIÉN
+      const añoAyer = ayer.getFullYear();
+      const mesAyer = String(ayer.getMonth() + 1).padStart(2, '0');
+      const diaAyer = String(ayer.getDate()).padStart(2, '0');
+      const fechaAyer = `${añoAyer}-${mesAyer}-${diaAyer}`;
+      
+      console.log("🔍 ❌ Fecha de ayer (LOCAL):", fechaAyer);
       console.log("🔍 ❌ Retornando:", fechaAyer);
       return fechaAyer;
     }
