@@ -1,157 +1,4 @@
-"use client";
-import { useEffect, useState } from "react";
-
-export default function Home() {
-  const [turnosHoy, setTurnosHoy] = useState([]);
-  const [tecnicos, setTecnicos] = useState([]);
-  const [asignaciones, setAsignaciones] = useState([]);
-  const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState("");
-
-  // Datos de los responsables y sus números de teléfono
-  const responsables = {
-    "HARO CUADRADO ALEX FERNANDO": "+593995112077",
-    "OJEDA GUAMBO DARIO JAVIER": "+593961058610",
-    "PEREZ BAYAS JEFFERSON ISRAEL": "+593999975232",
-    "URQUIZO EGAS JOSE ANDRES": "+593998205266",
-    "VARGAS PAUCAR KEVIN RONALDO": "+593987888767",
-    "CARRION ESPINOSA JUAN PABLO": "+593999431363",
-    "CISNEROS BARRIOS CARLOS ANDRÉS": "+593969752709",
-    "CORDOVA VACA ROBERTO ALEJANDRO": "+593960155937",
-    "LOZADA VILLACIS MIGUEL ANGEL": "+593995861481",
-    "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
-  };
-
-  // NUEVA LÓGICA - PROBLEMA SOLUCIONADO: USAR FECHA LOCAL NO UTC
-  function obtenerFechaTurnoActivo() {
-    const ahora = new Date();
-    console.log("🔍 Hora actual completa:", ahora);
-    
-    // USAR FECHA LOCAL NO UTC
-    const año = ahora.getFullYear();
-    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-    const dia = String(ahora.getDate()).padStart(2, '0');
-    const fechaActual = `${año}-${mes}-${dia}`;
-    
-    console.log("🔍 Fecha actual (LOCAL):", fechaActual);
-    
-    // Obtener hora actual en formato 24h
-    const horaActual = ahora.getHours();
-    console.log("🔍 Hora actual (número):", horaActual);
-    
-    console.log("🔍 Evaluando condición: horaActual >= 8");
-    console.log("🔍 Es decir:", horaActual, ">=", 8);
-    console.log("🔍 Resultado de la condición:", horaActual >= 8);
-    
-    if (horaActual >= 8) {
-      console.log("🔍 ✅ Es >= 8AM, turno empezó HOY");
-      console.log("🔍 ✅ Retornando:", fechaActual);
-      return fechaActual;
-    } else {
-      console.log("🔍 ❌ Es < 8AM, turno empezó AYER");
-      const ayer = new Date(ahora);
-      ayer.setDate(ayer.getDate() - 1);
-      
-      // CALCULAR FECHA DE AYER EN LOCAL TAMBIÉN
-      const añoAyer = ayer.getFullYear();
-      const mesAyer = String(ayer.getMonth() + 1).padStart(2, '0');
-      const diaAyer = String(ayer.getDate()).padStart(2, '0');
-      const fechaAyer = `${añoAyer}-${mesAyer}-${diaAyer}`;
-      
-      console.log("🔍 ❌ Fecha de ayer (LOCAL):", fechaAyer);
-      console.log("🔍 ❌ Retornando:", fechaAyer);
-      return fechaAyer;
-    }
-  }
-
-  // NUEVA LÓGICA PARA EL HEADER - REESCRITA DESDE CERO
-  function obtenerRangoTurnoActivo() {
-    const ahora = new Date();
-    const horaActual = ahora.getHours();
-    
-    // Variables para las fechas de inicio y fin
-    let fechaInicio, fechaFin;
-    
-    if (horaActual >= 8) {
-      // Turno actual: HOY 8AM → MAÑANA 8AM
-      fechaInicio = new Date(ahora);
-      fechaInicio.setHours(8, 0, 0, 0);
-      
-      fechaFin = new Date(fechaInicio);
-      fechaFin.setDate(fechaFin.getDate() + 1);
-    } else {
-      // Turno actual: AYER 8AM → HOY 8AM
-      fechaFin = new Date(ahora);
-      fechaFin.setHours(8, 0, 0, 0);
-      
-      fechaInicio = new Date(fechaFin);
-      fechaInicio.setDate(fechaInicio.getDate() - 1);
-    }
-    
-    return { fechaInicio, fechaFin };
-  }
-
-  useEffect(() => {
-    async function cargarDatos() {
-      const res = await fetch("/data/turnos.json");
-      const data = await res.json();
-
-      // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
-      const fechaTurno = obtenerFechaTurnoActivo();
-
-      console.log("🔍 DEBUG - Fecha del turno activo:", fechaTurno);
-      console.log("🔍 DEBUG - Hora actual:", new Date().toLocaleString('es-EC'));
-
-      const asignadosHoy = data.asignaciones.filter(t =>
-        t.fechas.includes(fechaTurno)
-      );
-      
-      console.log("🔍 DEBUG - Técnicos asignados para hoy:", asignadosHoy);
-      
-      setTurnosHoy(asignadosHoy);
-
-      const listaTecnicos = Array.from(
-        new Set(data.asignaciones.map(t => t.nombre))
-      ).sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
-      setTecnicos(listaTecnicos);
-
-      setAsignaciones(data.asignaciones);
-    }
-
-    cargarDatos();
-  }, []);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("tecnicoSeleccionado");
-    if (saved) setTecnicoSeleccionado(saved);
-  }, []);
-
-  useEffect(() => {
-    if (tecnicoSeleccionado) {
-      localStorage.setItem("tecnicoSeleccionado", tecnicoSeleccionado);
-    }
-  }, [tecnicoSeleccionado]);
-
-  function formatearNombre(nombreCompleto) {
-    const palabras = nombreCompleto.split(' ');
-    if (palabras.length >= 3) {
-      return `${palabras[0]} ${palabras[2]}`; // Primera palabra y tercera
-    } else if (palabras.length === 2) {
-      return `${palabras[0]} ${palabras[1]}`;
-    } else {
-      return palabras[0];
-    }
-  }
-
-  function formatearFecha(fecha) {
-    const fechaObj = new Date(fecha + 'T00:00:00');
-    return fechaObj.toLocaleDateString('es-EC', {
-      weekday: 'short',
-      day: '2-digit',
-      month: 'short'
-    });
-  }
-
-  function verTurnos(nombre) {
+function verTurnos(nombre) {
     const hoy = new Date().toISOString().split("T")[0];
 
     const tecnico = asignaciones.filter(t =>
@@ -184,6 +31,214 @@ export default function Home() {
             </div>
           );
         }).filter(Boolean)}
+      </div>
+    );
+  }"use client";
+import { useEffect, useState } from "react";
+
+export default function Home() {
+  const [turnosHoy, setTurnosHoy] = useState([]);
+  const [tecnicos, setTecnicos] = useState([]);
+  const [asignaciones, setAsignaciones] = useState([]);
+  const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState("");
+  const [fechaSeleccionada, setFechaSeleccionada] = useState("");
+  const [fechasDisponibles, setFechasDisponibles] = useState([]);
+
+  // Datos de los responsables y sus números de teléfono
+  const responsables = {
+    "HARO CUADRADO ALEX FERNANDO": "+593995112077",
+    "OJEDA GUAMBO DARIO JAVIER": "+593961058610",
+    "PEREZ BAYAS JEFFERSON ISRAEL": "+593999975232",
+    "URQUIZO EGAS JOSE ANDRES": "+593998205266",
+    "VARGAS PAUCAR KEVIN RONALDO": "+593987888767",
+    "CARRION ESPINOSA JUAN PABLO": "+593999431363",
+    "CISNEROS BARRIOS CARLOS ANDRÉS": "+593969752709",
+    "CORDOVA VACA ROBERTO ALEJANDRO": "+593960155937",
+    "LOZADA VILLACIS MIGUEL ANGEL": "+593995861481",
+    "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
+  };
+
+  // LÓGICA PARA CALCULAR LA FECHA DEL TURNO ACTIVO (SIN LOGS)
+  function obtenerFechaTurnoActivo() {
+    const ahora = new Date();
+    
+    // USAR FECHA LOCAL NO UTC
+    const año = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+    const dia = String(ahora.getDate()).padStart(2, '0');
+    const fechaActual = `${año}-${mes}-${dia}`;
+    
+    const horaActual = ahora.getHours();
+    
+    if (horaActual >= 8) {
+      return fechaActual;
+    } else {
+      const ayer = new Date(ahora);
+      ayer.setDate(ayer.getDate() - 1);
+      
+      const añoAyer = ayer.getFullYear();
+      const mesAyer = String(ayer.getMonth() + 1).padStart(2, '0');
+      const diaAyer = String(ayer.getDate()).padStart(2, '0');
+      const fechaAyer = `${añoAyer}-${mesAyer}-${diaAyer}`;
+      
+      return fechaAyer;
+    }
+  }
+
+  // LÓGICA PARA EL HEADER (SIN LOGS)
+  function obtenerRangoTurnoActivo() {
+    const ahora = new Date();
+    const horaActual = ahora.getHours();
+    
+    let fechaInicio, fechaFin;
+    
+    if (horaActual >= 8) {
+      fechaInicio = new Date(ahora);
+      fechaInicio.setHours(8, 0, 0, 0);
+      
+      fechaFin = new Date(fechaInicio);
+      fechaFin.setDate(fechaFin.getDate() + 1);
+    } else {
+      fechaFin = new Date(ahora);
+      fechaFin.setHours(8, 0, 0, 0);
+      
+      fechaInicio = new Date(fechaFin);
+      fechaInicio.setDate(fechaInicio.getDate() - 1);
+    }
+    
+    return { fechaInicio, fechaFin };
+  }
+
+  useEffect(() => {
+    async function cargarDatos() {
+      const res = await fetch("/data/turnos.json");
+      const data = await res.json();
+
+      // USAR LA FUNCIÓN PARA OBTENER LA FECHA DEL TURNO ACTIVO
+      const fechaTurno = obtenerFechaTurnoActivo();
+
+      const asignadosHoy = data.asignaciones.filter(t =>
+        t.fechas.includes(fechaTurno)
+      );
+      
+      setTurnosHoy(asignadosHoy);
+
+      const listaTecnicos = Array.from(
+        new Set(data.asignaciones.map(t => t.nombre))
+      ).sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+      setTecnicos(listaTecnicos);
+
+      setAsignaciones(data.asignaciones);
+
+      // OBTENER FECHAS DISPONIBLES DESDE HOY EN ADELANTE
+      const hoy = new Date().toISOString().split("T")[0];
+      const todasLasFechas = new Set();
+      
+      data.asignaciones.forEach(asignacion => {
+        asignacion.fechas.forEach(fecha => {
+          if (fecha >= hoy) {
+            todasLasFechas.add(fecha);
+          }
+        });
+      });
+      
+      const fechasOrdenadas = Array.from(todasLasFechas).sort();
+      setFechasDisponibles(fechasOrdenadas);
+    }
+
+    cargarDatos();
+  }, []);
+
+  useEffect(() => {
+    const savedTecnico = localStorage.getItem("tecnicoSeleccionado");
+    const savedFecha = localStorage.getItem("fechaSeleccionada");
+    
+    if (savedTecnico) setTecnicoSeleccionado(savedTecnico);
+    if (savedFecha) setFechaSeleccionada(savedFecha);
+  }, []);
+
+  useEffect(() => {
+    if (tecnicoSeleccionado) {
+      localStorage.setItem("tecnicoSeleccionado", tecnicoSeleccionado);
+    }
+  }, [tecnicoSeleccionado]);
+
+  useEffect(() => {
+    if (fechaSeleccionada) {
+      localStorage.setItem("fechaSeleccionada", fechaSeleccionada);
+    }
+  }, [fechaSeleccionada]);
+
+  function formatearNombre(nombreCompleto) {
+    const palabras = nombreCompleto.split(' ');
+    if (palabras.length >= 3) {
+      return `${palabras[0]} ${palabras[2]}`; // Primera palabra y tercera
+    } else if (palabras.length === 2) {
+      return `${palabras[0]} ${palabras[1]}`;
+    } else {
+      return palabras[0];
+    }
+  }
+
+  function formatearFecha(fecha) {
+    const fechaObj = new Date(fecha + 'T00:00:00');
+    return fechaObj.toLocaleDateString('es-EC', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short'
+    });
+  }
+
+  function verTurnosPorFecha(fecha) {
+    const turnosFecha = asignaciones.filter(t =>
+      t.fechas.includes(fecha)
+    );
+
+    if (turnosFecha.length === 0) return null;
+
+    // Agrupar por planta
+    const turnosPorPlanta = {};
+    turnosFecha.forEach(turno => {
+      if (!turnosPorPlanta[turno.planta]) {
+        turnosPorPlanta[turno.planta] = [];
+      }
+      turnosPorPlanta[turno.planta].push(turno.nombre);
+    });
+
+    return (
+      <div style={styles.fechaResultadosContainer}>
+        {Object.keys(turnosPorPlanta).sort().map(planta => (
+          <div key={planta} style={styles.plantaCard}>
+            <div style={styles.plantaHeader}>
+              <span style={styles.plantaName}>{planta}</span>
+              <span style={styles.contadorTecnicos}>
+                {turnosPorPlanta[planta].length} técnico{turnosPorPlanta[planta].length !== 1 ? 's' : ''}
+              </span>
+            </div>
+            <div style={styles.tecnicosList}>
+              {turnosPorPlanta[planta].map((nombre, idx) => {
+                const telefonoResponsable = responsables[nombre] || null;
+                const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
+
+                return (
+                  <div key={idx} style={styles.tecnicoChip}>
+                    {formatearNombre(nombre)}
+                    {enlaceWhatsApp && (
+                      <a
+                        href={enlaceWhatsApp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={styles.telefonoEnlace}
+                      >
+                        📞 llamar
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
@@ -221,7 +276,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* DEBUG INFO - TEMPORAL PARA VERIFICAR FUNCIONAMIENTO */}
+      {/* DEBUG INFO - Se puede quitar después */}
       <div style={styles.debugContainer}>
         <h4 style={styles.debugTitle}>🐛 Info de Debug (temporal)</h4>
         <div style={styles.debugInfo}>
@@ -322,6 +377,35 @@ export default function Home() {
               <span style={styles.proximosLabel}>Próximos turnos que tienes:</span>
             </div>
             {verTurnos(tecnicoSeleccionado)}
+          </div>
+        )}
+      </div>
+
+      {/* NUEVA SECCIÓN: Consulta por fecha */}
+      <div style={styles.section}>
+        <h2 style={styles.sectionTitle}>📅 Consultar Turnos por Fecha</h2>
+        <select
+          onChange={e => setFechaSeleccionada(e.target.value)}
+          value={fechaSeleccionada}
+          style={styles.select}
+        >
+          <option value="">Selecciona una fecha...</option>
+          {fechasDisponibles.map((fecha, idx) => (
+            <option key={idx} value={fecha}>
+              {formatearFecha(fecha)} ({fecha})
+            </option>
+          ))}
+        </select>
+
+        {fechaSeleccionada && (
+          <div style={styles.detalleContainer}>
+            <h3 style={styles.tecnicoNombre}>
+              📅 {formatearFecha(fechaSeleccionada)} ({fechaSeleccionada})
+            </h3>
+            <div style={styles.proximosTurnos}>
+              <span style={styles.proximosLabel}>Técnicos asignados para esta fecha:</span>
+            </div>
+            {verTurnosPorFecha(fechaSeleccionada)}
           </div>
         )}
       </div>
@@ -524,6 +608,12 @@ const styles = {
     borderRadius: '8px',
     padding: '1rem',
     border: '1px solid #ffeaa7',
+  },
+  fechaResultadosContainer: {
+    display: 'grid',
+    gap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    marginTop: '1rem',
   },
   debugTitle: {
     fontSize: '1rem',

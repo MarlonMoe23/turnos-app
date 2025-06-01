@@ -21,29 +21,92 @@ export default function Home() {
     "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
+  // NUEVA LÓGICA - PROBLEMA SOLUCIONADO: USAR FECHA LOCAL NO UTC
+  function obtenerFechaTurnoActivo() {
+    const ahora = new Date();
+    console.log("🔍 Hora actual completa:", ahora);
+    
+    // USAR FECHA LOCAL NO UTC
+    const año = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+    const dia = String(ahora.getDate()).padStart(2, '0');
+    const fechaActual = `${año}-${mes}-${dia}`;
+    
+    console.log("🔍 Fecha actual (LOCAL):", fechaActual);
+    
+    // Obtener hora actual en formato 24h
+    const horaActual = ahora.getHours();
+    console.log("🔍 Hora actual (número):", horaActual);
+    
+    console.log("🔍 Evaluando condición: horaActual >= 8");
+    console.log("🔍 Es decir:", horaActual, ">=", 8);
+    console.log("🔍 Resultado de la condición:", horaActual >= 8);
+    
+    if (horaActual >= 8) {
+      console.log("🔍 ✅ Es >= 8AM, turno empezó HOY");
+      console.log("🔍 ✅ Retornando:", fechaActual);
+      return fechaActual;
+    } else {
+      console.log("🔍 ❌ Es < 8AM, turno empezó AYER");
+      const ayer = new Date(ahora);
+      ayer.setDate(ayer.getDate() - 1);
+      
+      // CALCULAR FECHA DE AYER EN LOCAL TAMBIÉN
+      const añoAyer = ayer.getFullYear();
+      const mesAyer = String(ayer.getMonth() + 1).padStart(2, '0');
+      const diaAyer = String(ayer.getDate()).padStart(2, '0');
+      const fechaAyer = `${añoAyer}-${mesAyer}-${diaAyer}`;
+      
+      console.log("🔍 ❌ Fecha de ayer (LOCAL):", fechaAyer);
+      console.log("🔍 ❌ Retornando:", fechaAyer);
+      return fechaAyer;
+    }
+  }
+
+  // NUEVA LÓGICA PARA EL HEADER - REESCRITA DESDE CERO
+  function obtenerRangoTurnoActivo() {
+    const ahora = new Date();
+    const horaActual = ahora.getHours();
+    
+    // Variables para las fechas de inicio y fin
+    let fechaInicio, fechaFin;
+    
+    if (horaActual >= 8) {
+      // Turno actual: HOY 8AM → MAÑANA 8AM
+      fechaInicio = new Date(ahora);
+      fechaInicio.setHours(8, 0, 0, 0);
+      
+      fechaFin = new Date(fechaInicio);
+      fechaFin.setDate(fechaFin.getDate() + 1);
+    } else {
+      // Turno actual: AYER 8AM → HOY 8AM
+      fechaFin = new Date(ahora);
+      fechaFin.setHours(8, 0, 0, 0);
+      
+      fechaInicio = new Date(fechaFin);
+      fechaInicio.setDate(fechaInicio.getDate() - 1);
+    }
+    
+    return { fechaInicio, fechaFin };
+  }
+
   useEffect(() => {
     async function cargarDatos() {
       const res = await fetch("/data/turnos.json");
       const data = await res.json();
 
-      // Obtener fecha actual en Ecuador
-      const ahora = new Date();
-      const horaActual = ahora.getHours();
+      // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
+      const fechaTurno = obtenerFechaTurnoActivo();
 
-      
-      let fechaTurno;
-      if (horaActual < 8) {
-        // Restar un día
-        const ayer = new Date(ahora);
-        ayer.setDate(ayer.getDate() - 1);
-        fechaTurno = ayer.toISOString().split("T")[0];
-      } else {
-        fechaTurno = ahora.toISOString().split("T")[0];
-      }
+      console.log("🔍 DEBUG - Fecha del turno activo:", fechaTurno);
+      console.log("🔍 DEBUG - Hora actual:", new Date().toLocaleString('es-EC'));
 
       const asignadosHoy = data.asignaciones.filter(t =>
         t.fechas.includes(fechaTurno)
       );
+      
+      console.log("🔍 DEBUG - Técnicos asignados para hoy:", asignadosHoy);
+      
       setTurnosHoy(asignadosHoy);
 
       const listaTecnicos = Array.from(
@@ -125,31 +188,8 @@ export default function Home() {
     );
   }
 
-  // Calcular fechas del turno activo
-  function obtenerFechasTurnoActivo() {
-    const ahora = new Date();
-    const horaActual = ahora.getHours();
-
-    let fechaInicio, fechaFin;
-
-    if (horaActual < 8) {
-      
-      const ayer = new Date(ahora);
-      ayer.setDate(ayer.getDate() - 1);
-      fechaInicio = ayer;
-      fechaFin = new Date(ahora);
-    } else {
-      
-      fechaInicio = new Date(ahora);
-      const manana = new Date(ahora);
-      manana.setDate(manana.getDate() + 1);
-      fechaFin = manana;
-    }
-
-    return { fechaInicio, fechaFin };
-  }
-
-  const { fechaInicio, fechaFin } = obtenerFechasTurnoActivo();
+  // USAR LA FUNCIÓN PARA EL HEADER
+  const { fechaInicio, fechaFin } = obtenerRangoTurnoActivo();
 
   const fechaInicioFormateada = fechaInicio.toLocaleDateString('es-EC', {
     weekday: 'short',
@@ -169,7 +209,6 @@ export default function Home() {
       <div style={styles.header}>
         <h1 style={styles.title}>Turnos de Limpieza de Filtros</h1>
 
-
         <div style={styles.turnoActivoCard}>
           <div style={styles.turnoLabel}>
             🟢 TURNO ACTIVO
@@ -178,6 +217,22 @@ export default function Home() {
             <span style={styles.fechaTexto}>
               {fechaInicioFormateada} 8AM - {fechaFinFormateada} 8AM
             </span>
+          </div>
+        </div>
+      </div>
+
+      {/* DEBUG INFO - TEMPORAL PARA VERIFICAR FUNCIONAMIENTO */}
+      <div style={styles.debugContainer}>
+        <h4 style={styles.debugTitle}>🐛 Info de Debug (temporal)</h4>
+        <div style={styles.debugInfo}>
+          <div style={styles.debugItem}>
+            <strong>Hora actual:</strong> {new Date().toLocaleString('es-EC')}
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Fecha del turno activo:</strong> {obtenerFechaTurnoActivo()}
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Técnicos asignados encontrados:</strong> {turnosHoy.length}
           </div>
         </div>
       </div>
@@ -191,6 +246,13 @@ export default function Home() {
               .filter(t => t.planta === planta)
               .map(t => t.nombre);
 
+            // Ordenar técnicos: primero los que tienen número de teléfono
+            const tecnicosOrdenados = [...tecnicosHoy].sort((a, b) => {
+              const tieneNumeroA = responsables[a] ? 1 : 0;
+              const tieneNumeroB = responsables[b] ? 1 : 0;
+              return tieneNumeroB - tieneNumeroA; // Orden descendente (primero los que tienen número)
+            });
+
             return (
               <div key={planta} style={styles.plantaCard}>
                 <div style={styles.plantaHeader}>
@@ -200,8 +262,8 @@ export default function Home() {
                   </span>
                 </div>
                 <div style={styles.tecnicosList}>
-                  {tecnicosHoy.length > 0 ? (
-                    tecnicosHoy.map((nombre, idx) => {
+                  {tecnicosOrdenados.length > 0 ? (
+                    tecnicosOrdenados.map((nombre, idx) => {
                       // Buscar el número de teléfono del responsable
                       const telefonoResponsable = responsables[nombre] || null;
                       const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
@@ -264,30 +326,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Debug: Fecha y hora actual */}
-      <div style={styles.debugContainer}>
-        <h3 style={styles.debugTitle}>🕐 Debug - Información del Sistema</h3>
-        <div style={styles.debugInfo}>
-          <div style={styles.debugItem}>
-            <strong>Fecha y hora actual:</strong> {new Date().toLocaleString('es-EC', {
-              timeZone: 'America/Guayaquil',
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit'
-            })}
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Hora actual (24h):</strong> {new Date().getHours()}:00
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Fecha ISO:</strong> {new Date().toISOString().split("T")[0]}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -480,7 +518,8 @@ const styles = {
     marginLeft: '0.5rem',
   },
   debugContainer: {
-    marginTop: '2rem',
+    marginTop: '1rem',
+    marginBottom: '2rem',
     backgroundColor: '#fff3cd',
     borderRadius: '8px',
     padding: '1rem',
