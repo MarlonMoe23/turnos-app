@@ -195,7 +195,7 @@ export default function Home() {
 
       {/* Turnos de hoy */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoy</h2>
+        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoyc</h2>
         <div style={styles.plantasGrid}>
           {["CMA", "CMS"].map(planta => {
             const tecnicosHoy = turnosHoy
