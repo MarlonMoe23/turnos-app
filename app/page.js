@@ -25,6 +25,8 @@ export default function Home() {
   function obtenerFechaTurnoActivo() {
     const ahora = new Date();
     console.log("🔍 Hora actual completa:", ahora);
+    console.log("🔍 Hora actual toString:", ahora.toString());
+    console.log("🔍 Hora actual toLocaleString:", ahora.toLocaleString('es-EC'));
     
     // Obtener fecha actual en formato YYYY-MM-DD
     const fechaActual = ahora.toISOString().split("T")[0];
@@ -33,20 +35,28 @@ export default function Home() {
     // Obtener hora actual en formato 24h
     const horaActual = ahora.getHours();
     console.log("🔍 Hora actual (número):", horaActual);
+    console.log("🔍 Minutos actuales:", ahora.getMinutes());
+    console.log("🔍 Segundos actuales:", ahora.getSeconds());
     
     // REGLA SIMPLE:
     // Si son las 8:00 AM o después → buscar técnicos de HOY
     // Si es antes de las 8:00 AM → buscar técnicos de AYER
     
+    console.log("🔍 Evaluando condición: horaActual >= 8");
+    console.log("🔍 Es decir:", horaActual, ">=", 8);
+    console.log("🔍 Resultado de la condición:", horaActual >= 8);
+    
     if (horaActual >= 8) {
-      console.log("🔍 Es >= 8AM, turno empezó HOY");
+      console.log("🔍 ✅ Es >= 8AM, turno empezó HOY");
+      console.log("🔍 ✅ Retornando:", fechaActual);
       return fechaActual;
     } else {
-      console.log("🔍 Es < 8AM, turno empezó AYER");
+      console.log("🔍 ❌ Es < 8AM, turno empezó AYER");
       const ayer = new Date(ahora);
       ayer.setDate(ayer.getDate() - 1);
       const fechaAyer = ayer.toISOString().split("T")[0];
-      console.log("🔍 Fecha de ayer:", fechaAyer);
+      console.log("🔍 ❌ Fecha de ayer:", fechaAyer);
+      console.log("🔍 ❌ Retornando:", fechaAyer);
       return fechaAyer;
     }
   }
