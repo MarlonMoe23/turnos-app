@@ -350,7 +350,7 @@ export default function Home() {
             onClick={handleInstallClick}
             style={styles.installButton}
           >
-            📱 Instalar App
+            Instalar esta App en tu 📱
           </button>
         )}
 
@@ -424,6 +424,8 @@ export default function Home() {
       </div>
 
       <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+
 
       {/* Consulta por técnico */}
       <div style={styles.section}>
@@ -458,7 +460,7 @@ export default function Home() {
 
       {/* Consulta por fecha */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📆 Consultar Turnos por Fecha</h2>
+        <h2 style={styles.sectionTitle}>🔍 Consultar Turnos por Fecha</h2>
         <select
           onChange={e => setFechaSeleccionada(e.target.value)}
           value={fechaSeleccionada}

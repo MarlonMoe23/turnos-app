@@ -1,11 +1,11 @@
 {
   "name": "Limpieza de Filtros",
   "short_name": "Filtros",
-  "description": "Sistema de gestión y consulta de turnos para limpieza de filtros industriales",
+  "description": "Sistema de gestión y consulta de turnos para limpieza de filtros del SAE",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",
-  "theme_color": "#10b981",
+  "theme_color": "#1043b9",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "es",
