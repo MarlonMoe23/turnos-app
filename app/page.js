@@ -31,14 +31,14 @@ export default function Home() {
 
     let fechaTurnoActivo;
 
-    if (ahora < ochoAMHoy) {
+    if (ahora >= ochoAMHoy) {
+      // Si es 8am o después, el turno activo comenzó hoy
+      fechaTurnoActivo = ahora.toISOString().split("T")[0];
+    } else {
       // Si es antes de las 8am, el turno activo comenzó ayer
       const ayer = new Date(ahora);
       ayer.setDate(ayer.getDate() - 1);
       fechaTurnoActivo = ayer.toISOString().split("T")[0];
-    } else {
-      // Si es después de las 8am, el turno activo comenzó hoy
-      fechaTurnoActivo = ahora.toISOString().split("T")[0];
     }
 
     return fechaTurnoActivo;
@@ -54,20 +54,20 @@ export default function Home() {
 
     let fechaInicio, fechaFin;
 
-    if (ahora < ochoAMHoy) {
+    if (ahora >= ochoAMHoy) {
+      // Si es 8am o después, el turno comenzó hoy a las 8am
+      fechaInicio = new Date(ochoAMHoy);
+
+      // Y termina mañana a las 8am
+      fechaFin = new Date(ochoAMHoy);
+      fechaFin.setDate(fechaFin.getDate() + 1);
+    } else {
       // Si es antes de las 8am, el turno comenzó ayer a las 8am
       fechaInicio = new Date(ochoAMHoy);
       fechaInicio.setDate(fechaInicio.getDate() - 1);
 
       // Y termina hoy a las 8am
       fechaFin = new Date(ochoAMHoy);
-    } else {
-      // Si es después de las 8am, el turno comenzó hoy a las 8am
-      fechaInicio = new Date(ochoAMHoy);
-
-      // Y termina mañana a las 8am
-      fechaFin = new Date(ochoAMHoy);
-      fechaFin.setDate(fechaFin.getDate() + 1);
     }
 
     return { fechaInicio, fechaFin };
