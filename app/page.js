@@ -1,39 +1,4 @@
-function verTurnos(nombre) {
-    const hoy = new Date().toISOString().split("T")[0];
-
-    const tecnico = asignaciones.filter(t =>
-      t.nombre === nombre &&
-      t.fechas.some(fecha => fecha >= hoy) // Solo fechas de hoy en adelante
-    );
-
-    if (tecnico.length === 0) return null;
-
-    return (
-      <div style={styles.turnosContainer}>
-        {tecnico.map((t, i) => {
-          // Filtrar solo las fechas de hoy en adelante
-          const fechasFuturas = t.fechas.filter(fecha => fecha >= hoy);
-
-          if (fechasFuturas.length === 0) return null;
-
-          return (
-            <div key={i} style={styles.turnoCard}>
-              <div style={styles.plantaBadge}>
-                {t.planta}
-              </div>
-              <div style={styles.fechas}>
-                {fechasFuturas.map((fecha, idx) => (
-                  <span key={idx} style={styles.fechaTag}>
-                    {formatearFecha(fecha)}
-                  </span>
-                ))}
-              </div>
-            </div>
-          );
-        }).filter(Boolean)}
-      </div>
-    );
-  }"use client";
+"use client";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -188,6 +153,38 @@ export default function Home() {
       month: 'short'
     });
   }
+
+function verTurnos(nombre) {
+    const hoy = new Date().toISOString().split("T")[0];
+    const tecnico = asignaciones.filter(t =>
+      t.nombre === nombre &&
+      t.fechas.some(fecha => fecha >= hoy) // Solo fechas de hoy en adelante
+    );
+    if (tecnico.length === 0) return null;
+    return (
+      <div style={styles.turnosContainer}>
+        {tecnico.map((t, i) => {
+          // Filtrar solo las fechas de hoy en adelante
+          const fechasFuturas = t.fechas.filter(fecha => fecha >= hoy);
+          if (fechasFuturas.length === 0) return null;
+          return (
+            <div key={i} style={styles.turnoCard}>
+              <div style={styles.plantaBadge}>
+                {t.planta}
+              </div>
+              <div style={styles.fechas}>
+                {fechasFuturas.map((fecha, idx) => (
+                  <span key={idx} style={styles.fechaTag}>
+                    {formatearFecha(fecha)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          );
+        }).filter(Boolean)}
+      </div>
+    );
+
 
   function verTurnosPorFecha(fecha) {
     const turnosFecha = asignaciones.filter(t =>
