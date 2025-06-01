@@ -32,8 +32,9 @@ export default function Home() {
       // Convertir la fecha actual a formato ISO (YYYY-MM-DD)
       const fechaActual = ahora.toISOString().split("T")[0];
 
-      // Crear fecha con hora 8am de hoy
-      const ochoAMHoy = new Date(fechaActual + "T08:00:00");
+      // Crear fecha con hora 8am de hoy - CORREGIDO
+      const ochoAMHoy = new Date();
+      ochoAMHoy.setHours(8, 0, 0, 0);
 
       let fechaTurno;
 
@@ -131,11 +132,12 @@ export default function Home() {
     );
   }
 
-  // Calcular fechas del turno activo
+  // Calcular fechas del turno activo - FUNCIÓN CORREGIDA
   function obtenerFechasTurnoActivo() {
     const ahora = new Date();
-    const fechaActual = ahora.toISOString().split("T")[0];
-    const ochoAMHoy = new Date(fechaActual);
+    
+    // CREAR CORRECTAMENTE LAS 8AM DE HOY EN HORA LOCAL
+    const ochoAMHoy = new Date();
     ochoAMHoy.setHours(8, 0, 0, 0);
 
     let fechaInicio, fechaFin;
@@ -178,7 +180,6 @@ export default function Home() {
       {/* Header */}
       <div style={styles.header}>
         <h1 style={styles.title}>Turnos de Limpieza de Filtros</h1>
-
 
         <div style={styles.turnoActivoCard}>
           <div style={styles.turnoLabel}>
