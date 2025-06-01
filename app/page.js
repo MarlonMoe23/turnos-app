@@ -23,9 +23,10 @@ export default function Home() {
     "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
-  // LÓGICA PARA CALCULAR LA FECHA DEL TURNO ACTIVO (SIN LOGS)
+  // NUEVA LÓGICA - PROBLEMA SOLUCIONADO: USAR FECHA LOCAL NO UTC
   function obtenerFechaTurnoActivo() {
     const ahora = new Date();
+    console.log("🔍 Hora actual completa:", ahora);
     
     // USAR FECHA LOCAL NO UTC
     const año = ahora.getFullYear();
@@ -33,37 +34,54 @@ export default function Home() {
     const dia = String(ahora.getDate()).padStart(2, '0');
     const fechaActual = `${año}-${mes}-${dia}`;
     
+    console.log("🔍 Fecha actual (LOCAL):", fechaActual);
+    
+    // Obtener hora actual en formato 24h
     const horaActual = ahora.getHours();
+    console.log("🔍 Hora actual (número):", horaActual);
+    
+    console.log("🔍 Evaluando condición: horaActual >= 8");
+    console.log("🔍 Es decir:", horaActual, ">=", 8);
+    console.log("🔍 Resultado de la condición:", horaActual >= 8);
     
     if (horaActual >= 8) {
+      console.log("🔍 ✅ Es >= 8AM, turno empezó HOY");
+      console.log("🔍 ✅ Retornando:", fechaActual);
       return fechaActual;
     } else {
+      console.log("🔍 ❌ Es < 8AM, turno empezó AYER");
       const ayer = new Date(ahora);
       ayer.setDate(ayer.getDate() - 1);
       
+      // CALCULAR FECHA DE AYER EN LOCAL TAMBIÉN
       const añoAyer = ayer.getFullYear();
       const mesAyer = String(ayer.getMonth() + 1).padStart(2, '0');
       const diaAyer = String(ayer.getDate()).padStart(2, '0');
       const fechaAyer = `${añoAyer}-${mesAyer}-${diaAyer}`;
       
+      console.log("🔍 ❌ Fecha de ayer (LOCAL):", fechaAyer);
+      console.log("🔍 ❌ Retornando:", fechaAyer);
       return fechaAyer;
     }
   }
 
-  // LÓGICA PARA EL HEADER (SIN LOGS)
+  // NUEVA LÓGICA PARA EL HEADER - REESCRITA DESDE CERO
   function obtenerRangoTurnoActivo() {
     const ahora = new Date();
     const horaActual = ahora.getHours();
     
+    // Variables para las fechas de inicio y fin
     let fechaInicio, fechaFin;
     
     if (horaActual >= 8) {
+      // Turno actual: HOY 8AM → MAÑANA 8AM
       fechaInicio = new Date(ahora);
       fechaInicio.setHours(8, 0, 0, 0);
       
       fechaFin = new Date(fechaInicio);
       fechaFin.setDate(fechaFin.getDate() + 1);
     } else {
+      // Turno actual: AYER 8AM → HOY 8AM
       fechaFin = new Date(ahora);
       fechaFin.setHours(8, 0, 0, 0);
       
@@ -79,7 +97,7 @@ export default function Home() {
       const res = await fetch("/data/turnos.json");
       const data = await res.json();
 
-      // USAR LA FUNCIÓN PARA OBTENER LA FECHA DEL TURNO ACTIVO
+      // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
       const fechaTurno = obtenerFechaTurnoActivo();
 
       const asignadosHoy = data.asignaciones.filter(t =>
@@ -95,31 +113,25 @@ export default function Home() {
 
       setAsignaciones(data.asignaciones);
 
-      // OBTENER FECHAS DISPONIBLES DESDE HOY EN ADELANTE
+      // Obtener todas las fechas únicas y filtrar desde hoy en adelante
+      const todasLasFechas = Array.from(
+        new Set(data.asignaciones.flatMap(t => t.fechas))
+      );
+      
       const hoy = new Date().toISOString().split("T")[0];
-      const todasLasFechas = new Set();
+      const fechasFuturas = todasLasFechas
+        .filter(fecha => fecha >= hoy)
+        .sort();
       
-      data.asignaciones.forEach(asignacion => {
-        asignacion.fechas.forEach(fecha => {
-          if (fecha >= hoy) {
-            todasLasFechas.add(fecha);
-          }
-        });
-      });
-      
-      const fechasOrdenadas = Array.from(todasLasFechas).sort();
-      setFechasDisponibles(fechasOrdenadas);
+      setFechasDisponibles(fechasFuturas);
     }
 
     cargarDatos();
   }, []);
 
   useEffect(() => {
-    const savedTecnico = localStorage.getItem("tecnicoSeleccionado");
-    const savedFecha = localStorage.getItem("fechaSeleccionada");
-    
-    if (savedTecnico) setTecnicoSeleccionado(savedTecnico);
-    if (savedFecha) setFechaSeleccionada(savedFecha);
+    const saved = localStorage.getItem("tecnicoSeleccionado");
+    if (saved) setTecnicoSeleccionado(saved);
   }, []);
 
   useEffect(() => {
@@ -127,12 +139,6 @@ export default function Home() {
       localStorage.setItem("tecnicoSeleccionado", tecnicoSeleccionado);
     }
   }, [tecnicoSeleccionado]);
-
-  useEffect(() => {
-    if (fechaSeleccionada) {
-      localStorage.setItem("fechaSeleccionada", fechaSeleccionada);
-    }
-  }, [fechaSeleccionada]);
 
   function formatearNombre(nombreCompleto) {
     const palabras = nombreCompleto.split(' ');
@@ -154,19 +160,34 @@ export default function Home() {
     });
   }
 
-function verTurnos(nombre) {
+  function formatearFechaCompleta(fecha) {
+    const fechaObj = new Date(fecha + 'T00:00:00');
+    return fechaObj.toLocaleDateString('es-EC', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  function verTurnos(nombre) {
     const hoy = new Date().toISOString().split("T")[0];
+
     const tecnico = asignaciones.filter(t =>
       t.nombre === nombre &&
       t.fechas.some(fecha => fecha >= hoy) // Solo fechas de hoy en adelante
     );
+
     if (tecnico.length === 0) return null;
+
     return (
       <div style={styles.turnosContainer}>
         {tecnico.map((t, i) => {
           // Filtrar solo las fechas de hoy en adelante
           const fechasFuturas = t.fechas.filter(fecha => fecha >= hoy);
+
           if (fechasFuturas.length === 0) return null;
+
           return (
             <div key={i} style={styles.turnoCard}>
               <div style={styles.plantaBadge}>
@@ -184,58 +205,75 @@ function verTurnos(nombre) {
         }).filter(Boolean)}
       </div>
     );
-
+  }
 
   function verTurnosPorFecha(fecha) {
-    const turnosFecha = asignaciones.filter(t =>
+    const asignadosFecha = asignaciones.filter(t =>
       t.fechas.includes(fecha)
     );
 
-    if (turnosFecha.length === 0) return null;
+    if (asignadosFecha.length === 0) {
+      return (
+        <div style={styles.sinAsignacionFecha}>
+          No hay técnicos asignados para esta fecha
+        </div>
+      );
+    }
 
     // Agrupar por planta
-    const turnosPorPlanta = {};
-    turnosFecha.forEach(turno => {
-      if (!turnosPorPlanta[turno.planta]) {
-        turnosPorPlanta[turno.planta] = [];
+    const asignacionesPorPlanta = asignadosFecha.reduce((acc, t) => {
+      if (!acc[t.planta]) {
+        acc[t.planta] = [];
       }
-      turnosPorPlanta[turno.planta].push(turno.nombre);
-    });
+      acc[t.planta].push(t.nombre);
+      return acc;
+    }, {});
 
     return (
-      <div style={styles.fechaResultadosContainer}>
-        {Object.keys(turnosPorPlanta).sort().map(planta => (
-          <div key={planta} style={styles.plantaCard}>
-            <div style={styles.plantaHeader}>
-              <span style={styles.plantaName}>{planta}</span>
-              <span style={styles.contadorTecnicos}>
-                {turnosPorPlanta[planta].length} técnico{turnosPorPlanta[planta].length !== 1 ? 's' : ''}
-              </span>
-            </div>
-            <div style={styles.tecnicosList}>
-              {turnosPorPlanta[planta].map((nombre, idx) => {
-                const telefonoResponsable = responsables[nombre] || null;
-                const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
+      <div style={styles.fechaResultContainer}>
+        <div style={styles.plantasGridFecha}>
+          {Object.entries(asignacionesPorPlanta).map(([planta, tecnicos]) => {
+            // Ordenar técnicos: primero los que tienen número de teléfono
+            const tecnicosOrdenados = [...tecnicos].sort((a, b) => {
+              const tieneNumeroA = responsables[a] ? 1 : 0;
+              const tieneNumeroB = responsables[b] ? 1 : 0;
+              return tieneNumeroB - tieneNumeroA;
+            });
 
-                return (
-                  <div key={idx} style={styles.tecnicoChip}>
-                    {formatearNombre(nombre)}
-                    {enlaceWhatsApp && (
-                      <a
-                        href={enlaceWhatsApp}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={styles.telefonoEnlace}
-                      >
-                        📞 llamar
-                      </a>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+            return (
+              <div key={planta} style={styles.plantaCardFecha}>
+                <div style={styles.plantaHeader}>
+                  <span style={styles.plantaName}>{planta}</span>
+                  <span style={styles.contadorTecnicos}>
+                    {tecnicos.length} técnico{tecnicos.length !== 1 ? 's' : ''}
+                  </span>
+                </div>
+                <div style={styles.tecnicosList}>
+                  {tecnicosOrdenados.map((nombre, idx) => {
+                    const telefonoResponsable = responsables[nombre] || null;
+                    const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
+
+                    return (
+                      <div key={idx} style={styles.tecnicoChip}>
+                        {formatearNombre(nombre)}
+                        {enlaceWhatsApp && (
+                          <a
+                            href={enlaceWhatsApp}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={styles.telefonoEnlace}
+                          >
+                            📞 llamar
+                          </a>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -269,22 +307,6 @@ function verTurnos(nombre) {
             <span style={styles.fechaTexto}>
               {fechaInicioFormateada} 8AM - {fechaFinFormateada} 8AM
             </span>
-          </div>
-        </div>
-      </div>
-
-      {/* DEBUG INFO - Se puede quitar después */}
-      <div style={styles.debugContainer}>
-        <h4 style={styles.debugTitle}>🐛 Info de Debug (temporal)</h4>
-        <div style={styles.debugInfo}>
-          <div style={styles.debugItem}>
-            <strong>Hora actual:</strong> {new Date().toLocaleString('es-EC')}
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Fecha del turno activo:</strong> {obtenerFechaTurnoActivo()}
-          </div>
-          <div style={styles.debugItem}>
-            <strong>Técnicos asignados encontrados:</strong> {turnosHoy.length}
           </div>
         </div>
       </div>
@@ -347,7 +369,6 @@ function verTurnos(nombre) {
       </div>
 
       <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
-      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
 
       {/* Consulta por técnico */}
       <div style={styles.section}>
@@ -378,9 +399,11 @@ function verTurnos(nombre) {
         )}
       </div>
 
-      {/* NUEVA SECCIÓN: Consulta por fecha */}
+      <hr style={{ margin: '2rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+
+      {/* Consulta por fecha */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📅 Consultar Turnos por Fecha</h2>
+        <h2 style={styles.sectionTitle}>📆 Consultar Turnos por Fecha</h2>
         <select
           onChange={e => setFechaSeleccionada(e.target.value)}
           value={fechaSeleccionada}
@@ -389,15 +412,15 @@ function verTurnos(nombre) {
           <option value="">Selecciona una fecha...</option>
           {fechasDisponibles.map((fecha, idx) => (
             <option key={idx} value={fecha}>
-              {formatearFecha(fecha)} ({fecha})
+              {formatearFechaCompleta(fecha)}
             </option>
           ))}
         </select>
 
         {fechaSeleccionada && (
           <div style={styles.detalleContainer}>
-            <h3 style={styles.tecnicoNombre}>
-              📅 {formatearFecha(fechaSeleccionada)} ({fechaSeleccionada})
+            <h3 style={styles.fechaNombre}>
+              📅 {formatearFechaCompleta(fechaSeleccionada)}
             </h3>
             <div style={styles.proximosTurnos}>
               <span style={styles.proximosLabel}>Técnicos asignados para esta fecha:</span>
@@ -420,37 +443,37 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '1.5rem', // Reducido
+    marginBottom: '1.5rem',
   },
   title: {
-    fontSize: '1.5rem', // Reducido
+    fontSize: '1.5rem',
     fontWeight: 'bold',
     color: '#1e293b',
     margin: '0 0 0.5rem 0',
   },
   subtitle: {
     color: '#64748b',
-    fontSize: '0.8rem', // Reducido
+    fontSize: '0.8rem',
     margin: '0 0 1rem 0',
   },
   turnoActivoCard: {
     backgroundColor: 'white',
-    borderRadius: '12px', // Reducido
-    padding: '0.75rem', // Reducido
-    boxShadow: '0 4px 12px -2px rgba(0, 0, 0, 0.1)', // Reducido
+    borderRadius: '12px',
+    padding: '0.75rem',
+    boxShadow: '0 4px 12px -2px rgba(0, 0, 0, 0.1)',
     border: '2px solid #10b981',
-    maxWidth: '400px', // Reducido
+    maxWidth: '400px',
     margin: '0 auto',
   },
   turnoLabel: {
-    fontSize: '0.9rem', // Reducido
+    fontSize: '0.9rem',
     fontWeight: 'bold',
     color: '#10b981',
-    marginBottom: '0.5rem', // Reducido
+    marginBottom: '0.5rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '0.25rem', // Reducido
+    gap: '0.25rem',
   },
   fechasContainer: {
     display: 'flex',
@@ -459,7 +482,7 @@ const styles = {
   },
   fechaTexto: {
     display: 'block',
-    fontSize: '0.9rem', // Reducido
+    fontSize: '0.9rem',
     fontWeight: '600',
     color: '#1e293b',
   },
@@ -477,7 +500,19 @@ const styles = {
     gap: '1rem',
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
   },
+  plantasGridFecha: {
+    display: 'grid',
+    gap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  },
   plantaCard: {
+    backgroundColor: 'white',
+    borderRadius: '12px',
+    padding: '1.5rem',
+    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+    border: '1px solid #e2e8f0',
+  },
+  plantaCardFecha: {
     backgroundColor: 'white',
     borderRadius: '12px',
     padding: '1.5rem',
@@ -524,6 +559,16 @@ const styles = {
     fontStyle: 'italic',
     fontSize: '0.9rem',
   },
+  sinAsignacionFecha: {
+    color: '#94a3b8',
+    fontStyle: 'italic',
+    fontSize: '0.9rem',
+    textAlign: 'center',
+    padding: '2rem',
+    backgroundColor: '#f8fafc',
+    borderRadius: '8px',
+    border: '1px solid #e2e8f0',
+  },
   select: {
     width: '100%',
     padding: '0.75rem',
@@ -549,6 +594,12 @@ const styles = {
     color: '#1e293b',
     marginBottom: '0.5rem',
   },
+  fechaNombre: {
+    fontSize: '1.1rem',
+    fontWeight: '600',
+    color: '#1e293b',
+    marginBottom: '0.5rem',
+  },
   proximosTurnos: {
     marginBottom: '1rem',
   },
@@ -561,6 +612,9 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '0.75rem',
+  },
+  fechaResultContainer: {
+    marginTop: '1rem',
   },
   turnoCard: {
     backgroundColor: '#f8fafc',
@@ -597,39 +651,5 @@ const styles = {
     fontWeight: '500',
     textDecoration: 'none',
     marginLeft: '0.5rem',
-  },
-  debugContainer: {
-    marginTop: '1rem',
-    marginBottom: '2rem',
-    backgroundColor: '#fff3cd',
-    borderRadius: '8px',
-    padding: '1rem',
-    border: '1px solid #ffeaa7',
-  },
-  fechaResultadosContainer: {
-    display: 'grid',
-    gap: '1rem',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    marginTop: '1rem',
-  },
-  debugTitle: {
-    fontSize: '1rem',
-    fontWeight: '600',
-    color: '#856404',
-    marginBottom: '0.75rem',
-    margin: 0,
-  },
-  debugInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-  },
-  debugItem: {
-    fontSize: '0.85rem',
-    color: '#856404',
-    backgroundColor: '#fff',
-    padding: '0.5rem',
-    borderRadius: '4px',
-    border: '1px solid #ffeaa7',
   },
 };
