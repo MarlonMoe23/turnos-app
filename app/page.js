@@ -21,54 +21,60 @@ export default function Home() {
     "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
-  // FUNCIÓN CENTRALIZADA PARA CALCULAR LA FECHA DEL TURNO ACTIVO
+  // NUEVA LÓGICA - REESCRITA DESDE CERO
   function obtenerFechaTurnoActivo() {
     const ahora = new Date();
+    console.log("🔍 Hora actual completa:", ahora);
     
-    // LÓGICA REPLANTEADA:
-    // Necesito calcular qué fecha del JSON corresponde al turno activo actual
+    // Obtener fecha actual en formato YYYY-MM-DD
+    const fechaActual = ahora.toISOString().split("T")[0];
+    console.log("🔍 Fecha actual (string):", fechaActual);
     
-    // Crear las 8AM de hoy
-    const ochoAMHoy = new Date();
-    ochoAMHoy.setHours(8, 0, 0, 0);
+    // Obtener hora actual en formato 24h
+    const horaActual = ahora.getHours();
+    console.log("🔍 Hora actual (número):", horaActual);
     
-    // Si la hora actual es ANTES de las 8AM de hoy,
-    // significa que el turno activo empezó AYER (ayer a las 8AM - hoy a las 8AM)
-    // Por tanto, debo buscar técnicos asignados para AYER
-    if (ahora < ochoAMHoy) {
+    // REGLA SIMPLE:
+    // Si son las 8:00 AM o después → buscar técnicos de HOY
+    // Si es antes de las 8:00 AM → buscar técnicos de AYER
+    
+    if (horaActual >= 8) {
+      console.log("🔍 Es >= 8AM, turno empezó HOY");
+      return fechaActual;
+    } else {
+      console.log("🔍 Es < 8AM, turno empezó AYER");
       const ayer = new Date(ahora);
       ayer.setDate(ayer.getDate() - 1);
-      return ayer.toISOString().split("T")[0];
+      const fechaAyer = ayer.toISOString().split("T")[0];
+      console.log("🔍 Fecha de ayer:", fechaAyer);
+      return fechaAyer;
     }
-    
-    // Si la hora actual es las 8AM o después,
-    // significa que el turno activo empezó HOY (hoy a las 8AM - mañana a las 8AM)
-    // Por tanto, debo buscar técnicos asignados para HOY
-    return ahora.toISOString().split("T")[0];
   }
 
-  // FUNCIÓN PARA CALCULAR LAS FECHAS DE INICIO Y FIN DEL TURNO ACTIVO (PARA EL HEADER)
+  // NUEVA LÓGICA PARA EL HEADER - REESCRITA DESDE CERO
   function obtenerRangoTurnoActivo() {
     const ahora = new Date();
+    const horaActual = ahora.getHours();
     
-    // Crear las 8AM de hoy
-    const ochoAMHoy = new Date();
-    ochoAMHoy.setHours(8, 0, 0, 0);
-
+    // Variables para las fechas de inicio y fin
     let fechaInicio, fechaFin;
-
-    if (ahora < ochoAMHoy) {
-      // Turno activo: ayer 8AM - hoy 8AM
-      fechaInicio = new Date(ochoAMHoy);
-      fechaInicio.setDate(fechaInicio.getDate() - 1);
-      fechaFin = new Date(ochoAMHoy);
-    } else {
-      // Turno activo: hoy 8AM - mañana 8AM  
-      fechaInicio = new Date(ochoAMHoy);
-      fechaFin = new Date(ochoAMHoy);
+    
+    if (horaActual >= 8) {
+      // Turno actual: HOY 8AM → MAÑANA 8AM
+      fechaInicio = new Date(ahora);
+      fechaInicio.setHours(8, 0, 0, 0);
+      
+      fechaFin = new Date(fechaInicio);
       fechaFin.setDate(fechaFin.getDate() + 1);
+    } else {
+      // Turno actual: AYER 8AM → HOY 8AM
+      fechaFin = new Date(ahora);
+      fechaFin.setHours(8, 0, 0, 0);
+      
+      fechaInicio = new Date(fechaFin);
+      fechaInicio.setDate(fechaInicio.getDate() - 1);
     }
-
+    
     return { fechaInicio, fechaFin };
   }
 
