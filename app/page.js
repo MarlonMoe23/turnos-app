@@ -21,36 +21,75 @@ export default function Home() {
     "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
+  // FUNCIÓN CENTRALIZADA PARA CALCULAR LA FECHA DEL TURNO ACTIVO
+  function obtenerFechaTurnoActivo() {
+    const ahora = new Date();
+    
+    // Crear las 8AM de hoy en hora local
+    const ochoAMHoy = new Date();
+    ochoAMHoy.setHours(8, 0, 0, 0);
+
+    let fechaTurnoActivo;
+
+    if (ahora < ochoAMHoy) {
+      // Si es antes de las 8am, el turno activo comenzó ayer
+      const ayer = new Date(ahora);
+      ayer.setDate(ayer.getDate() - 1);
+      fechaTurnoActivo = ayer.toISOString().split("T")[0];
+    } else {
+      // Si es después de las 8am, el turno activo comenzó hoy
+      fechaTurnoActivo = ahora.toISOString().split("T")[0];
+    }
+
+    return fechaTurnoActivo;
+  }
+
+  // FUNCIÓN PARA CALCULAR LAS FECHAS DE INICIO Y FIN DEL TURNO ACTIVO (PARA EL HEADER)
+  function obtenerRangoTurnoActivo() {
+    const ahora = new Date();
+    
+    // Crear las 8AM de hoy en hora local
+    const ochoAMHoy = new Date();
+    ochoAMHoy.setHours(8, 0, 0, 0);
+
+    let fechaInicio, fechaFin;
+
+    if (ahora < ochoAMHoy) {
+      // Si es antes de las 8am, el turno comenzó ayer a las 8am
+      fechaInicio = new Date(ochoAMHoy);
+      fechaInicio.setDate(fechaInicio.getDate() - 1);
+
+      // Y termina hoy a las 8am
+      fechaFin = new Date(ochoAMHoy);
+    } else {
+      // Si es después de las 8am, el turno comenzó hoy a las 8am
+      fechaInicio = new Date(ochoAMHoy);
+
+      // Y termina mañana a las 8am
+      fechaFin = new Date(ochoAMHoy);
+      fechaFin.setDate(fechaFin.getDate() + 1);
+    }
+
+    return { fechaInicio, fechaFin };
+  }
+
   useEffect(() => {
     async function cargarDatos() {
       const res = await fetch("/data/turnos.json");
       const data = await res.json();
 
-      // Obtener fecha y hora actual en Ecuador
-      const ahora = new Date();
+      // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
+      const fechaTurno = obtenerFechaTurnoActivo();
 
-      // Convertir la fecha actual a formato ISO (YYYY-MM-DD)
-      const fechaActual = ahora.toISOString().split("T")[0];
-
-      // Crear fecha con hora 8am de hoy - CORREGIDO
-      const ochoAMHoy = new Date();
-      ochoAMHoy.setHours(8, 0, 0, 0);
-
-      let fechaTurno;
-
-      // Si la hora actual es antes de las 8am, el turno activo comenzó ayer
-      if (ahora < ochoAMHoy) {
-        const ayer = new Date(ahora);
-        ayer.setDate(ayer.getDate() - 1);
-        fechaTurno = ayer.toISOString().split("T")[0];
-      } else {
-        // Si es después de las 8am, el turno activo comenzó hoy
-        fechaTurno = fechaActual;
-      }
+      console.log("🔍 DEBUG - Fecha del turno activo:", fechaTurno);
+      console.log("🔍 DEBUG - Hora actual:", new Date().toLocaleString('es-EC'));
 
       const asignadosHoy = data.asignaciones.filter(t =>
         t.fechas.includes(fechaTurno)
       );
+      
+      console.log("🔍 DEBUG - Técnicos asignados para hoy:", asignadosHoy);
+      
       setTurnosHoy(asignadosHoy);
 
       const listaTecnicos = Array.from(
@@ -132,36 +171,8 @@ export default function Home() {
     );
   }
 
-  // Calcular fechas del turno activo - FUNCIÓN CORREGIDA
-  function obtenerFechasTurnoActivo() {
-    const ahora = new Date();
-    
-    // CREAR CORRECTAMENTE LAS 8AM DE HOY EN HORA LOCAL
-    const ochoAMHoy = new Date();
-    ochoAMHoy.setHours(8, 0, 0, 0);
-
-    let fechaInicio, fechaFin;
-
-    if (ahora < ochoAMHoy) {
-      // Si es antes de las 8am, el turno comenzó ayer a las 8am
-      fechaInicio = new Date(ochoAMHoy);
-      fechaInicio.setDate(fechaInicio.getDate() - 1);
-
-      // Y termina hoy a las 8am
-      fechaFin = new Date(ochoAMHoy);
-    } else {
-      // Si es después de las 8am, el turno comenzó hoy a las 8am
-      fechaInicio = new Date(ochoAMHoy);
-
-      // Y termina mañana a las 8am
-      fechaFin = new Date(ochoAMHoy);
-      fechaFin.setDate(fechaFin.getDate() + 1);
-    }
-
-    return { fechaInicio, fechaFin };
-  }
-
-  const { fechaInicio, fechaFin } = obtenerFechasTurnoActivo();
+  // USAR LA FUNCIÓN PARA EL HEADER
+  const { fechaInicio, fechaFin } = obtenerRangoTurnoActivo();
 
   const fechaInicioFormateada = fechaInicio.toLocaleDateString('es-EC', {
     weekday: 'short',
@@ -187,15 +198,31 @@ export default function Home() {
           </div>
           <div style={styles.fechasContainer}>
             <span style={styles.fechaTexto}>
-              {fechaInicioFormateada} 5PM - {fechaFinFormateada} 8AM
+              {fechaInicioFormateada} 8AM - {fechaFinFormateada} 8AM
             </span>
+          </div>
+        </div>
+      </div>
+
+      {/* DEBUG INFO - TEMPORAL PARA VERIFICAR FUNCIONAMIENTO */}
+      <div style={styles.debugContainer}>
+        <h4 style={styles.debugTitle}>🐛 Info de Debug (temporal)</h4>
+        <div style={styles.debugInfo}>
+          <div style={styles.debugItem}>
+            <strong>Hora actual:</strong> {new Date().toLocaleString('es-EC')}
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Fecha del turno activo:</strong> {obtenerFechaTurnoActivo()}
+          </div>
+          <div style={styles.debugItem}>
+            <strong>Técnicos asignados encontrados:</strong> {turnosHoy.length}
           </div>
         </div>
       </div>
 
       {/* Turnos de hoy */}
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoycccccc</h2>
+        <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoy</h2>
         <div style={styles.plantasGrid}>
           {["CMA", "CMS"].map(planta => {
             const tecnicosHoy = turnosHoy
@@ -474,7 +501,8 @@ const styles = {
     marginLeft: '0.5rem',
   },
   debugContainer: {
-    marginTop: '2rem',
+    marginTop: '1rem',
+    marginBottom: '2rem',
     backgroundColor: '#fff3cd',
     borderRadius: '8px',
     padding: '1rem',
