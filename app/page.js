@@ -25,49 +25,48 @@ export default function Home() {
   function obtenerFechaTurnoActivo() {
     const ahora = new Date();
     
-    // Crear las 8AM de hoy en hora local
+    // LÓGICA REPLANTEADA:
+    // Necesito calcular qué fecha del JSON corresponde al turno activo actual
+    
+    // Crear las 8AM de hoy
     const ochoAMHoy = new Date();
     ochoAMHoy.setHours(8, 0, 0, 0);
-
-    let fechaTurnoActivo;
-
-    if (ahora >= ochoAMHoy) {
-      // Si es 8am o después, el turno activo comenzó hoy
-      fechaTurnoActivo = ahora.toISOString().split("T")[0];
-    } else {
-      // Si es antes de las 8am, el turno activo comenzó ayer
+    
+    // Si la hora actual es ANTES de las 8AM de hoy,
+    // significa que el turno activo empezó AYER (ayer a las 8AM - hoy a las 8AM)
+    // Por tanto, debo buscar técnicos asignados para AYER
+    if (ahora < ochoAMHoy) {
       const ayer = new Date(ahora);
       ayer.setDate(ayer.getDate() - 1);
-      fechaTurnoActivo = ayer.toISOString().split("T")[0];
+      return ayer.toISOString().split("T")[0];
     }
-
-    return fechaTurnoActivo;
+    
+    // Si la hora actual es las 8AM o después,
+    // significa que el turno activo empezó HOY (hoy a las 8AM - mañana a las 8AM)
+    // Por tanto, debo buscar técnicos asignados para HOY
+    return ahora.toISOString().split("T")[0];
   }
 
   // FUNCIÓN PARA CALCULAR LAS FECHAS DE INICIO Y FIN DEL TURNO ACTIVO (PARA EL HEADER)
   function obtenerRangoTurnoActivo() {
     const ahora = new Date();
     
-    // Crear las 8AM de hoy en hora local
+    // Crear las 8AM de hoy
     const ochoAMHoy = new Date();
     ochoAMHoy.setHours(8, 0, 0, 0);
 
     let fechaInicio, fechaFin;
 
-    if (ahora >= ochoAMHoy) {
-      // Si es 8am o después, el turno comenzó hoy a las 8am
-      fechaInicio = new Date(ochoAMHoy);
-
-      // Y termina mañana a las 8am
-      fechaFin = new Date(ochoAMHoy);
-      fechaFin.setDate(fechaFin.getDate() + 1);
-    } else {
-      // Si es antes de las 8am, el turno comenzó ayer a las 8am
+    if (ahora < ochoAMHoy) {
+      // Turno activo: ayer 8AM - hoy 8AM
       fechaInicio = new Date(ochoAMHoy);
       fechaInicio.setDate(fechaInicio.getDate() - 1);
-
-      // Y termina hoy a las 8am
       fechaFin = new Date(ochoAMHoy);
+    } else {
+      // Turno activo: hoy 8AM - mañana 8AM  
+      fechaInicio = new Date(ochoAMHoy);
+      fechaFin = new Date(ochoAMHoy);
+      fechaFin.setDate(fechaFin.getDate() + 1);
     }
 
     return { fechaInicio, fechaFin };
