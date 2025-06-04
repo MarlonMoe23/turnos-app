@@ -1,4 +1,4 @@
-const CACHE_NAME = 'limpieza-filtros-v1';
+const CACHE_NAME = 'limpieza-filtros-v2';
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
