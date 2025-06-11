@@ -1,264 +1,89 @@
 {
   "asignaciones": [
     {
-      "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
-      "planta": "CMA",
-      "fechas": ["2025-05-31", "2025-06-11", "2025-06-16", "2025-06-28"]
-    },
-    {
-      "nombre": "PEÑALOZA ARAUJO CARLOS ANDRES",
-      "planta": "CMA",
-      "fechas": ["2025-05-31", "2025-06-02", "2025-06-14", "2025-06-16", "2025-06-26"]
-    },
-    {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
-      "planta": "CMA",
-      "fechas": ["2025-05-31", "2025-06-10", "2025-06-14", "2025-06-28"]
-    },
-    {
-      "nombre": "CELA CEVALLOS JEFFERSON GABRIEL",
-      "planta": "CMS",
-      "fechas": ["2025-05-31", "2025-06-15", "2025-06-28"]
-    },
-    {
-      "nombre": "OJEDA GUAMBO DARIO JAVIER",
-      "planta": "CMS",
-      "fechas": ["2025-05-31", "2025-06-28"]
-    },
-    {
-      "nombre": "CELA CEVALLOS JEFFERSON GABRIEL",
-      "planta": "CMA",
-      "fechas": ["2025-06-01", "2025-06-02", "2025-06-10", "2025-06-12", "2025-06-25", "2025-06-30"]
-    },
-    {
-      "nombre": "JEREZ MIGUEL",
-      "planta": "CMA",
-      "fechas": ["2025-06-01", "2025-06-13", "2025-06-15", "2025-06-24", "2025-06-29"]
-    },
-    {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMA",
-      "fechas": ["2025-06-01", "2025-06-13", "2025-06-24", "2025-06-26"]
-    },
-    {
-      "nombre": "APARICIO OLMEDO ALDO ALEJANDRO",
       "planta": "CMS",
-      "fechas": ["2025-06-01", "2025-06-10", "2025-06-24"]
-    },
-    {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMS",
-      "fechas": ["2025-06-01", "2025-06-13", "2025-06-24", "2025-06-27"]
-    },
-    {
-      "nombre": "OJEDA GUAMBO DARIO JAVIER",
-      "planta": "CMA",
-      "fechas": ["2025-06-02", "2025-06-25", "2025-06-30"]
-    },
-    {
-      "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
-      "planta": "CMS",
-      "fechas": ["2025-06-02", "2025-06-14", "2025-06-26"]
-    },
-    {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
-      "planta": "CMS",
-      "fechas": ["2025-06-02", "2025-06-12", "2025-06-16", "2025-06-26"]
-    },
-    {
-      "nombre": "ANDRADE MANTILLA ANTONY ALEXANDER",
-      "planta": "CMA",
-      "fechas": ["2025-06-03", "2025-06-08", "2025-06-18", "2025-06-20"]
-    },
-    {
-      "nombre": "AVILA VELASTEGUI JOSE LUIS",
-      "planta": "CMA",
-      "fechas": ["2025-06-03", "2025-06-06", "2025-06-18", "2025-06-23"]
-    },
-    {
-      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
-      "planta": "CMA",
-      "fechas": ["2025-06-03", "2025-06-08", "2025-06-20"]
-    },
-    {
-      "nombre": "AGUIRRE CARRIÓN JAVIER",
-      "planta": "CMS",
-      "fechas": ["2025-06-03", "2025-06-18"]
-    },
-    {
-      "nombre": "CARRION ESPINOSA JUAN PABLO",
-      "planta": "CMS",
-      "fechas": ["2025-06-03", "2025-06-08", "2025-06-20"]
-    },
-    {
-      "nombre": "CAIZA RUIZ BYRON STALIN",
-      "planta": "CMA",
-      "fechas": ["2025-06-04", "2025-06-09", "2025-06-21", "2025-06-23"]
-    },
-    {
-      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
-      "planta": "CMA",
-      "fechas": ["2025-06-04", "2025-06-09", "2025-06-21"]
-    },
-    {
-      "nombre": "MOLINA DANIEL",
-      "planta": "CMA",
-      "fechas": ["2025-06-04", "2025-06-07", "2025-06-19", "2025-06-21"]
-    },
-    {
-      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
-      "planta": "CMS",
-      "fechas": ["2025-06-04", "2025-06-09", "2025-06-21"]
-    },
-    {
-      "nombre": "GUACHIMBOZA DAVALOS JORGE ISMAEL",
-      "planta": "CMS",
-      "fechas": ["2025-06-04"]
-    },
-    {
-      "nombre": "AGUIRRE CARRIÓN JAVIER",
-      "planta": "CMA",
-      "fechas": ["2025-06-05", "2025-06-08", "2025-06-20", "2025-06-22"]
-    },
-    {
-      "nombre": "CARRION ESPINOSA JUAN PABLO",
-      "planta": "CMA",
-      "fechas": ["2025-06-05", "2025-06-17", "2025-06-22"]
-    },
-    {
-      "nombre": "TUMBACO MELBIN",
-      "planta": "CMA",
-      "fechas": ["2025-06-05", "2025-06-17", "2025-06-22"]
-    },
-    {
-      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
-      "planta": "CMS",
-      "fechas": ["2025-06-05", "2025-06-17", "2025-06-22"]
-    },
-    {
-      "nombre": "SANGOPANTA FRANKLIN",
-      "planta": "CMS",
-      "fechas": ["2025-06-05", "2025-06-22"]
-    },
-    {
-      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
-      "planta": "CMA",
-      "fechas": ["2025-06-06", "2025-06-18", "2025-06-23"]
-    },
-    {
-      "nombre": "GUACHIMBOZA DAVALOS JORGE ISMAEL",
-      "planta": "CMA",
-      "fechas": ["2025-06-06", "2025-06-09"]
-    },
-    {
-      "nombre": "ANDRADE MANTILLA ANTONY ALEXANDER",
-      "planta": "CMS",
-      "fechas": ["2025-06-06", "2025-06-23"]
-    },
-    {
-      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
-      "planta": "CMS",
-      "fechas": ["2025-06-06", "2025-06-18", "2025-06-23"]
-    },
-    {
-      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
-      "planta": "CMA",
-      "fechas": ["2025-06-07", "2025-06-19"]
-    },
-    {
-      "nombre": "SANGOPANTA FRANKLIN",
-      "planta": "CMA",
-      "fechas": ["2025-06-07", "2025-06-17", "2025-06-19"]
-    },
-    {
-      "nombre": "CAIZA RUIZ BYRON STALIN",
-      "planta": "CMS",
-      "fechas": ["2025-06-07", "2025-06-19"]
-    },
-    {
-      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
-      "planta": "CMS",
-      "fechas": ["2025-06-07", "2025-06-19"]
-    },
-    {
-      "nombre": "TUMBACO MELBIN",
-      "planta": "CMS",
-      "fechas": ["2025-06-08", "2025-06-20"]
-    },
-    {
-      "nombre": "AVILA VELASTEGUI JOSE LUIS",
-      "planta": "CMS",
-      "fechas": ["2025-06-09", "2025-06-21"]
-    },
-    {
-      "nombre": "COLLAGUAZO LUIS",
-      "planta": "CMA",
-      "fechas": ["2025-06-10", "2025-06-15", "2025-06-24", "2025-06-27"]
-    },
-    {
-      "nombre": "HARO CUADRADO ALEX FERNANDO",
-      "planta": "CMS",
-      "fechas": ["2025-06-10", "2025-06-14", "2025-06-25", "2025-06-30"]
-    },
-    {
-      "nombre": "MARQUEZ GERARDO",
-      "planta": "CMA",
-      "fechas": ["2025-06-11", "2025-06-13", "2025-06-25", "2025-06-28"]
+      "fechas": ["2025-06-11"]
     },
     {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMA",
-      "fechas": ["2025-06-11", "2025-06-15", "2025-06-29"]
+      "fechas": ["2025-06-11"]
     },
     {
       "nombre": "JEREZ MIGUEL",
       "planta": "CMS",
-      "fechas": ["2025-06-11", "2025-06-27"]
+      "fechas": ["2025-06-11"]
     },
     {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMS",
-      "fechas": ["2025-06-11", "2025-06-15", "2025-06-29"]
-    },
-    {
-      "nombre": "APARICIO OLMEDO ALDO ALEJANDRO",
+      "nombre": "MARQUEZ GERARDO",
       "planta": "CMA",
-      "fechas": ["2025-06-12", "2025-06-14", "2025-06-26", "2025-06-29"]
+      "fechas": ["2025-06-11"]
+    },
+    {
+      "nombre": "NARVAEZ GARZON WILLIAN WAGNER",
+      "planta": "CMA",
+      "fechas": ["2025-06-11"]
     },
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-06-12", "2025-06-16", "2025-06-27"]
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
     },
     {
-      "nombre": "PEÑALOZA ARAUJO CARLOS ANDRES",
-      "planta": "CMS",
-      "fechas": ["2025-06-12", "2025-06-29"]
-    },
-    {
-      "nombre": "COLLAGUAZO LUIS",
-      "planta": "CMS",
-      "fechas": ["2025-06-13", "2025-06-30"]
-    },
-    {
-      "nombre": "MARQUEZ GERARDO",
-      "planta": "CMS",
-      "fechas": ["2025-06-16"]
-    },
-    {
-      "nombre": "MOLINA DANIEL",
-      "planta": "CMS",
-      "fechas": ["2025-06-17"]
-    },
-    {
-      "nombre": "ERAZO BENITES JORGE LUIS",
-      "planta": "CMS",
-      "fechas": ["2025-06-25"]
-    },
-    {
-      "nombre": "ERAZO BENITES JORGE LUIS",
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMA",
-      "fechas": ["2025-06-27", "2025-06-30"]
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
+    },
+    {
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
+      "planta": "CMA",
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-16"]
+    },
+    {
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
+      "planta": "CMS",
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
+    },
+    {
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMS",
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
+    },
+    {
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "planta": "CMA",
+      "fechas": ["2025-06-14", "2025-06-15"]
+    },
+    {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMS",
+      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
+      "planta": "CMA",
+      "fechas": ["2025-06-17", "2025-06-18", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMS",
+      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
+      "planta": "CMA",
+      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
+      "planta": "CMA",
+      "fechas": ["2025-06-17", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "LARA TAQUEZ CRISTIAN DIEGO",
+      "planta": "CMA",
+      "fechas": ["2025-06-18", "2025-06-19", "2025-06-21"]
     }
   ]
 }
