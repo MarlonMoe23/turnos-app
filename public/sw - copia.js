@@ -1,16 +1,10 @@
-const CACHE_NAME = 'limpieza-filtros-v4'; // Incrementa versión
+const CACHE_NAME = 'limpieza-filtros-v3';
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
   '/static/css/main.css',
-  '/manifest.json'
-  // ❌ Quitamos '/data/turnos.json' del cache
-];
-
-// Archivos que NUNCA deben cachearse
-const NEVER_CACHE = [
   '/data/turnos.json',
-  // Agrega otros archivos que cambien frecuentemente
+  '/manifest.json'
 ];
 
 // Instalar el service worker y cachear recursos
@@ -23,6 +17,7 @@ self.addEventListener('install', event => {
       })
       .catch(err => {
         console.log('Error al cachear:', err);
+        // No bloquear la instalación si falla el cache
         return Promise.resolve();
       })
   );
@@ -46,43 +41,26 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Función para verificar si un archivo no debe cachearse
-function shouldNeverCache(url) {
-  return NEVER_CACHE.some(path => url.includes(path));
-}
-
-// Interceptar requests
+// Interceptar requests y servir desde cache cuando sea posible
 self.addEventListener('fetch', event => {
-  // Si es un archivo que no debe cachearse, siempre ir a la red
-  if (shouldNeverCache(event.request.url)) {
-    event.respondWith(
-      fetch(event.request).catch(() => {
-        // Si falla, devolver un JSON básico para turnos
-        if (event.request.url.includes('turnos.json')) {
-          return new Response('{"error": "Sin conexión", "turnos": []}', {
-            headers: { 'Content-Type': 'application/json' }
-          });
-        }
-        throw new Error('No disponible offline');
-      })
-    );
-    return;
-  }
-
-  // Para otros archivos, usar cache normal
   event.respondWith(
     caches.match(event.request)
       .then(response => {
+        // Cache hit - devolver respuesta desde cache
         if (response) {
           return response;
         }
 
+        // No está en cache, hacer fetch normal
         return fetch(event.request).then(response => {
+          // Verificar si recibimos una respuesta válida
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
 
+          // Clonar la respuesta
           const responseToCache = response.clone();
+
           caches.open(CACHE_NAME)
             .then(cache => {
               cache.put(event.request, responseToCache);
@@ -90,6 +68,7 @@ self.addEventListener('fetch', event => {
 
           return response;
         }).catch(() => {
+          // Si falla el fetch y no está en cache, mostrar página offline básica
           if (event.request.destination === 'document') {
             return new Response(`
               <!DOCTYPE html>
