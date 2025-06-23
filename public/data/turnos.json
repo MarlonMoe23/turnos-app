@@ -1,18 +1,8 @@
 {
   "asignaciones": [
     {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMS",
-      "fechas": ["2025-06-11"]
-    },
-    {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMA",
-      "fechas": ["2025-06-11"]
-    },
-    {
-      "nombre": "JEREZ MIGUEL",
-      "planta": "CMS",
       "fechas": ["2025-06-11"]
     },
     {
@@ -28,47 +18,27 @@
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16", "2025-06-24", "2025-06-25", "2025-06-26", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMA",
-      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16", "2025-06-24", "2025-06-25", "2025-06-26", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMA",
-      "fechas": ["2025-06-12", "2025-06-13", "2025-06-16"]
-    },
-    {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMS",
-      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
-    },
-    {
-      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
-      "planta": "CMS",
-      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16"]
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-16", "2025-06-24", "2025-06-25", "2025-06-28", "2025-06-29"]
     },
     {
       "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-06-14", "2025-06-15"]
-    },
-    {
-      "nombre": "CARRION ESPINOSA JUAN PABLO",
-      "planta": "CMS",
-      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+      "fechas": ["2025-06-14", "2025-06-15", "2025-06-26", "2025-06-27", "2025-06-30"]
     },
     {
       "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
       "planta": "CMA",
       "fechas": ["2025-06-17", "2025-06-18", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
-    },
-    {
-      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
-      "planta": "CMS",
-      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
     },
     {
       "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
@@ -84,6 +54,46 @@
       "nombre": "LARA TAQUEZ CRISTIAN DIEGO",
       "planta": "CMA",
       "fechas": ["2025-06-18", "2025-06-19", "2025-06-21"]
+    },
+    {
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
+      "planta": "CMS",
+      "fechas": ["2025-06-11"]
+    },
+    {
+      "nombre": "JEREZ MIGUEL",
+      "planta": "CMS",
+      "fechas": ["2025-06-11"]
+    },
+    {
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
+      "planta": "CMS",
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16", "2025-06-24", "2025-06-25", "2025-06-26", "2025-06-27", "2025-06-28"]
+    },
+    {
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMS",
+      "fechas": ["2025-06-12", "2025-06-13", "2025-06-14", "2025-06-15", "2025-06-16", "2025-06-29", "2025-06-30"]
+    },
+    {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMS",
+      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMS",
+      "fechas": ["2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23"]
+    },
+    {
+      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "planta": "CMA",
+      "fechas": ["2025-06-24", "2025-06-25", "2025-06-26", "2025-06-29", "2025-06-30"]
+    },
+    {
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMA",
+      "fechas": ["2025-06-27", "2025-06-28"]
     }
   ]
 }
