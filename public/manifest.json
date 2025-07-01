@@ -1,7 +1,7 @@
 {
-  "name": "Limpieza de Filtros",
-  "short_name": "Filtros",
-  "description": "Sistema de gestión y consulta de turnos para limpieza de filtros del SAE",
+  "name": "Atenciòn Emergentes",
+  "short_name": "Emergentes",
+  "description": "Sistema de gestión y consulta de turnos para atención de emergentes en Complejo Hidroeléctrico Toachi Pilatón",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'limpieza-filtros-v7'; // Incrementa versión
+const CACHE_NAME = 'limpieza-filtros-v8'; // Incrementa versión
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
@@ -95,7 +95,7 @@ self.addEventListener('fetch', event => {
               <!DOCTYPE html>
               <html>
                 <head>
-                  <title>Sin conexión - Limpieza de Filtros</title>
+                  <title>Sin conexión - Atención Emergentes</title>
                   <meta name="viewport" content="width=device-width, initial-scale=1">
                   <style>
                     body { 

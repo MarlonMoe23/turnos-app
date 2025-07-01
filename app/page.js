@@ -345,7 +345,7 @@ export default function Home() {
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <h1 style={styles.title}>Limpieza de Filtros</h1>
+        <h1 style={styles.title}>Atención Emergentes</h1>
         
         {/* Botón de instalación PWA */}
         {showInstallButton && (
@@ -373,7 +373,7 @@ export default function Home() {
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoy</h2>
         <div style={styles.plantasGrid}>
-          {["CMA", "CMS"].map(planta => {
+          {["Central Alluriquín", "Central Sarapullo"].map(planta => {
             const tecnicosHoy = turnosHoy
               .filter(t => t.planta === planta)
               .map(t => t.nombre);
