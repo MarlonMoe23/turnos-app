@@ -373,7 +373,7 @@ export default function Home() {
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>📅 Técnicos Asignados Hoy</h2>
         <div style={styles.plantasGrid}>
-          {["Central Alluriquín", "Central Sarapullo"].map(planta => {
+          {["CMA", "CMS"].map(planta => {
             const tecnicosHoy = turnosHoy
               .filter(t => t.planta === planta)
               .map(t => t.nombre);

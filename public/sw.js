@@ -1,4 +1,4 @@
-const CACHE_NAME = 'limpieza-filtros-v8'; // Incrementa versión
+const CACHE_NAME = 'limpieza-filtros-v9'; // Incrementa versión
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
