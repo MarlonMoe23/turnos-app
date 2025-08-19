@@ -1,134 +1,124 @@
 {
   "asignaciones": [
     {
-      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMS",
-      "fechas": ["2025-07-30", "2025-08-02", "2025-08-13", "2025-08-16", "2025-08-27", "2025-08-30"]
-    },
-    {
-      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
-      "planta": "CMS",
-      "fechas": ["2025-07-30", "2025-08-02", "2025-08-13", "2025-08-16", "2025-08-27", "2025-08-30"]
-    },
-    {
-      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
-      "planta": "CMA",
-      "fechas": ["2025-07-30", "2025-08-02", "2025-08-13", "2025-08-16", "2025-08-27", "2025-08-30"]
-    },
-    {
-      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
-      "planta": "CMA",
-      "fechas": ["2025-07-30", "2025-08-02", "2025-08-13", "2025-08-16", "2025-08-27", "2025-08-30"]
-    },
-    {
-      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
-      "planta": "CMS",
-      "fechas": ["2025-07-31", "2025-08-03", "2025-08-14", "2025-08-17", "2025-08-28", "2025-08-31"]
-    },
-    {
-      "nombre": "LARA TAQUEZ CRISTIAN DIEGO",
-      "planta": "CMS",
-      "fechas": ["2025-07-31", "2025-08-03"]
-    },
-    {
-      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
-      "planta": "CMA",
-      "fechas": ["2025-07-31", "2025-08-03", "2025-08-14", "2025-08-17", "2025-08-28", "2025-08-31"]
-    },
-    {
-      "nombre": "LARA TAQUEZ CRISTIAN DIEGO",
-      "planta": "CMA",
-      "fechas": ["2025-07-31", "2025-08-03"]
-    },
-    {
-      "nombre": "CARRION ESPINOSA JUAN PABLO",
-      "planta": "CMS",
-      "fechas": ["2025-08-01", "2025-08-04", "2025-08-12", "2025-08-15", "2025-08-18", "2025-08-26", "2025-08-29", "2025-09-01"]
-    },
-    {
-      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
-      "planta": "CMS",
-      "fechas": ["2025-08-01", "2025-08-04", "2025-08-12", "2025-08-15", "2025-08-18", "2025-08-26", "2025-08-29", "2025-09-01"]
-    },
-    {
-      "nombre": "CARRION ESPINOSA JUAN PABLO",
-      "planta": "CMA",
-      "fechas": ["2025-08-01", "2025-08-04", "2025-08-12", "2025-08-15", "2025-08-18", "2025-08-26", "2025-08-29", "2025-09-01"]
-    },
-    {
-      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
-      "planta": "CMA",
-      "fechas": ["2025-08-01", "2025-08-04", "2025-08-12", "2025-08-15", "2025-08-18", "2025-08-26", "2025-08-29", "2025-09-01"]
-    },
-    {
-      "nombre": "HARO CUADRADO ALEX FERNANDO",
-      "planta": "CMS",
-      "fechas": ["2025-08-05", "2025-08-08", "2025-08-19", "2025-08-22", "2025-08-25"]
+      "fechas": ["2025-08-19", "2025-08-22", "2025-08-25", "2025-09-02", "2025-09-05", "2025-09-08"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMS",
-      "fechas": ["2025-08-05", "2025-08-09", "2025-08-19", "2025-08-22", "2025-08-25"]
+      "fechas": ["2025-08-19", "2025-08-22", "2025-08-25", "2025-09-02", "2025-09-05", "2025-09-08"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
-      "planta": "CMS",
-      "fechas": ["2025-08-06", "2025-08-14", "2025-08-17", "2025-08-28", "2025-08-31"]
-    },
-    {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMS",
-      "fechas": ["2025-08-06", "2025-08-09", "2025-08-10", "2025-08-21", "2025-08-24"]
-    },
-    {
-      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
-      "planta": "CMS",
-      "fechas": ["2025-08-07", "2025-08-10", "2025-08-20", "2025-08-23"]
-    },
-    {
-      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
-      "planta": "CMS",
-      "fechas": ["2025-08-07", "2025-08-11", "2025-08-20", "2025-08-23"]
-    },
-    {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMS",
-      "fechas": ["2025-08-08", "2025-08-11", "2025-08-21", "2025-08-24"]
-    },
-    {
-      "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-08-05", "2025-08-08", "2025-08-19", "2025-08-22", "2025-08-25"]
+      "fechas": ["2025-08-19", "2025-08-22", "2025-08-25", "2025-09-02", "2025-09-05", "2025-09-08"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMA",
-      "fechas": ["2025-08-05", "2025-08-09", "2025-08-19", "2025-08-22", "2025-08-25"]
+      "fechas": ["2025-08-19", "2025-08-22", "2025-08-25", "2025-09-02", "2025-09-05", "2025-09-08"]
     },
     {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
-      "planta": "CMA",
-      "fechas": ["2025-08-06", "2025-08-14", "2025-08-17", "2025-08-28", "2025-08-31"]
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMS",
+      "fechas": ["2025-08-20", "2025-08-23", "2025-09-03", "2025-09-06"]
     },
     {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMA",
-      "fechas": ["2025-08-06", "2025-08-09", "2025-08-10", "2025-08-21", "2025-08-24"]
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2025-08-20", "2025-08-23", "2025-09-03", "2025-09-06"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
       "planta": "CMA",
-      "fechas": ["2025-08-07", "2025-08-10", "2025-08-20", "2025-08-23"]
+      "fechas": ["2025-08-20", "2025-08-23", "2025-09-03", "2025-09-06"]
     },
     {
       "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-08-07", "2025-08-11", "2025-08-20", "2025-08-23"]
+      "fechas": ["2025-08-20", "2025-08-23", "2025-09-03", "2025-09-06"]
+    },
+    {
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
+      "planta": "CMS",
+      "fechas": ["2025-08-21", "2025-08-24", "2025-09-04", "2025-09-07"]
+    },
+    {
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
+      "planta": "CMS",
+      "fechas": ["2025-08-21", "2025-08-24", "2025-09-04", "2025-09-07"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMA",
-      "fechas": ["2025-08-08", "2025-08-11", "2025-08-21", "2025-08-24"]
+      "fechas": ["2025-08-21", "2025-08-24", "2025-09-04", "2025-09-07"]
+    },
+    {
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
+      "planta": "CMA",
+      "fechas": ["2025-08-21", "2025-08-24", "2025-09-04", "2025-09-07"]
+    },
+    {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMS",
+      "fechas": ["2025-08-26", "2025-08-29", "2025-09-01", "2025-09-09", "2025-09-12", "2025-09-15"]
+    },
+    {
+      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
+      "planta": "CMS",
+      "fechas": ["2025-08-26", "2025-08-29", "2025-09-01", "2025-09-09", "2025-09-12", "2025-09-15"]
+    },
+    {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMA",
+      "fechas": ["2025-08-26", "2025-08-29", "2025-09-01", "2025-09-09", "2025-09-12", "2025-09-15"]
+    },
+    {
+      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
+      "planta": "CMA",
+      "fechas": ["2025-08-26", "2025-08-29", "2025-09-01", "2025-09-09", "2025-09-12", "2025-09-15"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMS",
+      "fechas": ["2025-08-27", "2025-08-30", "2025-09-10", "2025-09-13"]
+    },
+    {
+      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
+      "planta": "CMS",
+      "fechas": ["2025-08-27", "2025-08-30", "2025-09-10", "2025-09-13"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMA",
+      "fechas": ["2025-08-27", "2025-08-30", "2025-09-10", "2025-09-13"]
+    },
+    {
+      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
+      "planta": "CMA",
+      "fechas": ["2025-08-27", "2025-08-30", "2025-09-10", "2025-09-13"]
+    },
+    {
+      "nombre": "HARO CUADRADO ALEX FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2025-08-28", "2025-08-31", "2025-09-11", "2025-09-14"]
+    },
+    {
+      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
+      "planta": "CMS",
+      "fechas": ["2025-08-28", "2025-08-31", "2025-09-11", "2025-09-14"]
+    },
+    {
+      "nombre": "HARO CUADRADO ALEX FERNANDO",
+      "planta": "CMA",
+      "fechas": ["2025-08-28", "2025-08-31", "2025-09-11", "2025-09-14"]
+    },
+    {
+      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
+      "planta": "CMA",
+      "fechas": ["2025-08-28", "2025-08-31", "2025-09-11", "2025-09-14"]
     }
   ]
 }
