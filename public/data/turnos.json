@@ -3,122 +3,122 @@
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMS",
-      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03"]
+      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03", "2025-11-11", "2025-11-15", "2025-11-27"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMS",
-      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03"]
-    },
-    {
-      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
-      "planta": "CMS",
-      "fechas": ["2025-10-29", "2025-11-01"]
-    },
-    {
-      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
-      "planta": "CMS",
-      "fechas": ["2025-10-29", "2025-11-01"]
-    },
-    {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMS",
-      "fechas": ["2025-10-30", "2025-11-02"]
-    },
-    {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMS",
-      "fechas": ["2025-10-30", "2025-11-02"]
-    },
-    {
-      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
-      "planta": "CMS",
-      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10"]
-    },
-    {
-      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
-      "planta": "CMS",
-      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10"]
-    },
-    {
-      "nombre": "HARO CUADRADO ALEX FERNANDO",
-      "planta": "CMS",
-      "fechas": ["2025-11-05", "2025-11-08"]
-    },
-    {
-      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
-      "planta": "CMS",
-      "fechas": ["2025-11-05", "2025-11-08"]
-    },
-    {
-      "nombre": "CARRION ESPINOSA JUAN PABLO",
-      "planta": "CMS",
-      "fechas": ["2025-11-06", "2025-11-09"]
-    },
-    {
-      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
-      "planta": "CMS",
-      "fechas": ["2025-11-06", "2025-11-09"]
+      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03", "2025-11-13", "2025-11-17", "2025-11-30"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMA",
-      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03"]
+      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03", "2025-11-13", "2025-11-17", "2025-11-30"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMA",
-      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03"]
+      "fechas": ["2025-10-28", "2025-10-31", "2025-11-03", "2025-11-11", "2025-11-15", "2025-11-27"]
+    },
+    {
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMS",
+      "fechas": ["2025-10-29", "2025-11-01", "2025-11-12", "2025-11-16", "2025-11-25", "2025-12-01"]
+    },
+    {
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2025-10-29", "2025-11-01", "2025-11-28"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
       "planta": "CMA",
-      "fechas": ["2025-10-29", "2025-11-01"]
+      "fechas": ["2025-10-29", "2025-11-01", "2025-11-14", "2025-11-28"]
     },
     {
       "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-10-29", "2025-11-01"]
+      "fechas": ["2025-10-29", "2025-11-01", "2025-11-25", "2025-12-01"]
+    },
+    {
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
+      "planta": "CMS",
+      "fechas": ["2025-10-30", "2025-11-02", "2025-11-14", "2025-11-26"]
+    },
+    {
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
+      "planta": "CMS",
+      "fechas": ["2025-10-30", "2025-11-02", "2025-11-29"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMA",
-      "fechas": ["2025-10-30", "2025-11-02"]
+      "fechas": ["2025-10-30", "2025-11-02", "2025-11-12", "2025-11-16", "2025-11-29"]
     },
     {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMA",
-      "fechas": ["2025-10-30", "2025-11-02"]
+      "fechas": ["2025-10-30", "2025-11-02", "2025-11-26"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMS",
+      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10", "2025-11-19"]
+    },
+    {
+      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
+      "planta": "CMS",
+      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10", "2025-11-22"]
     },
     {
       "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
       "planta": "CMA",
-      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10"]
+      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10", "2025-11-22"]
     },
     {
       "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
       "planta": "CMA",
-      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10"]
+      "fechas": ["2025-11-04", "2025-11-07", "2025-11-10", "2025-11-19"]
+    },
+    {
+      "nombre": "HARO CUADRADO ALEX FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2025-11-05", "2025-11-08", "2025-11-20"]
+    },
+    {
+      "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
+      "planta": "CMS",
+      "fechas": ["2025-11-05", "2025-11-08", "2025-11-23"]
     },
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-11-05", "2025-11-08"]
+      "fechas": ["2025-11-05", "2025-11-08", "2025-11-23"]
     },
     {
       "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
       "planta": "CMA",
-      "fechas": ["2025-11-05", "2025-11-08"]
+      "fechas": ["2025-11-05", "2025-11-08", "2025-11-20"]
+    },
+    {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMS",
+      "fechas": ["2025-11-06", "2025-11-09", "2025-11-18", "2025-11-24"]
+    },
+    {
+      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
+      "planta": "CMS",
+      "fechas": ["2025-11-06", "2025-11-09", "2025-11-21"]
     },
     {
       "nombre": "CARRION ESPINOSA JUAN PABLO",
       "planta": "CMA",
-      "fechas": ["2025-11-06", "2025-11-09"]
+      "fechas": ["2025-11-06", "2025-11-09", "2025-11-21"]
     },
     {
       "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
       "planta": "CMA",
-      "fechas": ["2025-11-06", "2025-11-09"]
+      "fechas": ["2025-11-06", "2025-11-09", "2025-11-18", "2025-11-24"]
     }
   ]
 }
