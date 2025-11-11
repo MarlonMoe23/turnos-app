@@ -6,6 +6,16 @@
       "fechas": ["2025-11-11", "2025-11-13", "2025-11-15", "2025-11-17", "2025-11-27"]
     },
     {
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "planta": "CMA",
+      "fechas": ["2025-11-11", "2025-11-13", "2025-11-15", "2025-11-17", "2025-11-30"]
+    },
+    {
+      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "planta": "CMS",
+      "fechas": ["2025-11-11", "2025-11-13", "2025-11-15", "2025-11-17", "2025-11-30"]
+    },
+    {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMA",
       "fechas": ["2025-11-11", "2025-11-13", "2025-11-15", "2025-11-17", "2025-11-27"]
@@ -29,16 +39,6 @@
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
       "planta": "CMA",
       "fechas": ["2025-11-12", "2025-11-14", "2025-11-16", "2025-11-28"]
-    },
-    {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
-      "planta": "CMA",
-      "fechas": ["2025-11-13", "2025-11-15", "2025-11-17", "2025-11-30"]
-    },
-    {
-      "nombre": "OJEDA GUAMBO DARIO JAVIER",
-      "planta": "CMS",
-      "fechas": ["2025-11-13", "2025-11-15", "2025-11-17", "2025-11-30"]
     },
     {
       "nombre": "CARRION ESPINOSA JUAN PABLO",
@@ -103,7 +103,7 @@
     {
       "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
       "planta": "CMA",
-      "fechas": ["2025-11-25", "2025-12-01"]
+      "fechas": ["2025-11-25"]
     },
     {
       "nombre": "VARGAS PAUCAR KEVIN RONALDO",
