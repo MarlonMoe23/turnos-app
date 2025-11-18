@@ -1,114 +1,254 @@
 {
   "asignaciones": [
     {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMS",
+      "fechas": ["2025-11-18", "2025-11-23"]
+    },
+    {
+      "nombre": "CARRION ESPINOSA JUAN PABLO",
+      "planta": "CMA",
+      "fechas": ["2025-11-20"]
+    },
+    {
+      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
+      "planta": "CMA",
+      "fechas": ["2025-11-18", "2025-11-23"]
+    },
+    {
+      "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
+      "planta": "CMS",
+      "fechas": ["2025-11-21"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMS",
+      "fechas": ["2025-11-19", "2025-11-24"]
+    },
+    {
+      "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
+      "planta": "CMA",
+      "fechas": ["2025-11-21"]
+    },
+    {
+      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
+      "planta": "CMA",
+      "fechas": ["2025-11-19", "2025-11-24"]
+    },
+    {
+      "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
+      "planta": "CMS",
+      "fechas": ["2025-11-22"]
+    },
+    {
+      "nombre": "HARO CUADRADO ALEX FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2025-11-20"]
+    },
+    {
+      "nombre": "HARO CUADRADO ALEX FERNANDO",
+      "planta": "CMA",
+      "fechas": ["2025-11-22"]
+    },
+    {
+      "nombre": "AGUIRRRE JAVIER",
+      "planta": "CMS",
+      "fechas": ["2025-11-18"]
+    },
+    {
+      "nombre": "AGUIRRRE JAVIER",
+      "planta": "CMA",
+      "fechas": ["2025-11-22"]
+    },
+    {
+      "nombre": "CAIZA BYRON",
+      "planta": "CMA",
+      "fechas": ["2025-11-18"]
+    },
+    {
+      "nombre": "CAIZA BYRON",
+      "planta": "CMS",
+      "fechas": ["2025-11-22"]
+    },
+    {
+      "nombre": "SANGOPANTA FRANKLIN",
+      "planta": "CMS",
+      "fechas": ["2025-11-19"]
+    },
+    {
+      "nombre": "SANGOPANTA FRANKLIN",
+      "planta": "CMA",
+      "fechas": ["2025-11-23"]
+    },
+    {
+      "nombre": "TUMBACO MELBIN",
+      "planta": "CMA",
+      "fechas": ["2025-11-19"]
+    },
+    {
+      "nombre": "TUMBACO MELBIN",
+      "planta": "CMS",
+      "fechas": ["2025-11-23"]
+    },
+    {
+      "nombre": "ANDRADE ANTONY",
+      "planta": "CMS",
+      "fechas": ["2025-11-20"]
+    },
+    {
+      "nombre": "ANDRADE ANTONY",
+      "planta": "CMA",
+      "fechas": ["2025-11-24"]
+    },
+    {
+      "nombre": "MOLINA DANIEL",
+      "planta": "CMA",
+      "fechas": ["2025-11-20"]
+    },
+    {
+      "nombre": "MOLINA DANIEL",
+      "planta": "CMS",
+      "fechas": ["2025-11-24"]
+    },
+    {
+      "nombre": "GUACHIMBOZA JORGE",
+      "planta": "CMS",
+      "fechas": ["2025-11-21"]
+    },
+    {
+      "nombre": "AVILA JOSE",
+      "planta": "CMA",
+      "fechas": ["2025-11-21"]
+    },
+    {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMS",
-      "fechas": ["2025-11-11", "2025-11-15"]
+      "fechas": ["2025-11-27"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMA",
-      "fechas": ["2025-11-13", "2025-11-17"]
+      "fechas": ["2025-11-30"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMA",
-      "fechas": ["2025-11-11", "2025-11-15"]
+      "fechas": ["2025-11-27"]
     },
     {
       "nombre": "OJEDA GUAMBO DARIO JAVIER",
       "planta": "CMS",
-      "fechas": ["2025-11-13", "2025-11-17"]
+      "fechas": ["2025-11-30"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
       "planta": "CMS",
-      "fechas": ["2025-11-12", "2025-11-16"]
+      "fechas": ["2025-11-25", "2025-12-01"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
       "planta": "CMA",
-      "fechas": ["2025-11-14"]
+      "fechas": ["2025-11-28"]
+    },
+    {
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "planta": "CMA",
+      "fechas": ["2025-11-25", "2025-12-01"]
+    },
+    {
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2025-11-28"]
+    },
+    {
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
+      "planta": "CMS",
+      "fechas": ["2025-11-26"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMA",
-      "fechas": ["2025-11-12", "2025-11-16"]
+      "fechas": ["2025-11-29"]
     },
     {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
+      "planta": "CMA",
+      "fechas": ["2025-11-26"]
+    },
+    {
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMS",
-      "fechas": ["2025-11-14"]
+      "fechas": ["2025-11-29"]
     },
     {
       "nombre": "CELA JEFFERSON",
       "planta": "CMA",
-      "fechas": ["2025-11-11"]
+      "fechas": ["2025-11-27"]
     },
     {
       "nombre": "CELA JEFFERSON",
       "planta": "CMS",
-      "fechas": ["2025-11-15"]
+      "fechas": ["2025-11-30"]
     },
     {
       "nombre": "PEÑALOZA CARLOS",
       "planta": "CMS",
-      "fechas": ["2025-11-11"]
+      "fechas": ["2025-11-27"]
     },
     {
       "nombre": "PEÑALOZA CARLOS",
       "planta": "CMA",
-      "fechas": ["2025-11-15"]
-    },
-    {
-      "nombre": "COLLAGUAZO LUIS",
-      "planta": "CMS",
-      "fechas": ["2025-11-12"]
+      "fechas": ["2025-12-01"]
     },
     {
       "nombre": "COLLAGUAZO LUIS",
       "planta": "CMA",
-      "fechas": ["2025-11-16"]
-    },
-    {
-      "nombre": "MARQUEZ GERARDO",
-      "planta": "CMA",
-      "fechas": ["2025-11-12"]
+      "fechas": ["2025-11-28"]
     },
     {
       "nombre": "MARQUEZ GERARDO",
       "planta": "CMS",
-      "fechas": ["2025-11-16"]
-    },
-    {
-      "nombre": "APARICIO ALDO",
-      "planta": "CMA",
-      "fechas": ["2025-11-13"]
+      "fechas": ["2025-11-28"]
     },
     {
       "nombre": "APARICIO ALDO",
       "planta": "CMS",
-      "fechas": ["2025-11-17"]
+      "fechas": ["2025-11-25"]
     },
     {
-      "nombre": "ERAZO JORGE",
-      "planta": "CMS",
-      "fechas": ["2025-11-13"]
+      "nombre": "APARICIO ALDO",
+      "planta": "CMA",
+      "fechas": ["2025-11-29"]
     },
     {
       "nombre": "ERAZO JORGE",
       "planta": "CMA",
-      "fechas": ["2025-11-17"]
+      "fechas": ["2025-11-25"]
+    },
+    {
+      "nombre": "ERAZO JORGE",
+      "planta": "CMS",
+      "fechas": ["2025-11-29"]
     },
     {
       "nombre": "JEREZ MIGUEL",
       "planta": "CMS",
-      "fechas": ["2025-11-14"]
+      "fechas": ["2025-11-26"]
+    },
+    {
+      "nombre": "JEREZ MIGUEL",
+      "planta": "CMA",
+      "fechas": ["2025-11-30"]
     },
     {
       "nombre": "NARVAEZ WAGNER",
       "planta": "CMA",
-      "fechas": ["2025-11-14"]
+      "fechas": ["2025-11-26"]
+    },
+    {
+      "nombre": "NARVAEZ WAGNER",
+      "planta": "CMS",
+      "fechas": ["2025-12-01"]
     }
   ]
 }
