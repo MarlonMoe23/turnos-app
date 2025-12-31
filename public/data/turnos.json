@@ -63,32 +63,62 @@
     {
       "nombre": "SANGOPANTA FRANKLIN",
       "planta": "CMS",
-      "fechas": ["2025-12-30", "2026-01-03"]
+      "fechas": ["2025-12-30"]
+    },
+    {
+      "nombre": "SANGOPANTA FRANKLIN",
+      "planta": "CMA",
+      "fechas": ["2026-01-03"]
     },
     {
       "nombre": "TUMBACO MELBIN",
       "planta": "CMA",
-      "fechas": ["2025-12-30", "2026-01-03"]
+      "fechas": ["2025-12-30"]
+    },
+    {
+      "nombre": "TUMBACO MELBIN",
+      "planta": "CMS",
+      "fechas": ["2026-01-03"]
     },
     {
       "nombre": "ANDRADE ANTONY",
       "planta": "CMS",
-      "fechas": ["2025-12-31", "2026-01-04"]
+      "fechas": ["2025-12-31"]
+    },
+    {
+      "nombre": "ANDRADE ANTONY",
+      "planta": "CMA",
+      "fechas": ["2026-01-04"]
     },
     {
       "nombre": "MOLINA DANIEL",
       "planta": "CMA",
-      "fechas": ["2025-12-31", "2026-01-04"]
+      "fechas": ["2025-12-31"]
+    },
+    {
+      "nombre": "MOLINA DANIEL",
+      "planta": "CMS",
+      "fechas": ["2026-01-04"]
     },
     {
       "nombre": "GUACHIMBOZA JORGE",
       "planta": "CMS",
-      "fechas": ["2026-01-01", "2026-01-05"]
+      "fechas": ["2026-01-01"]
+    },
+    {
+      "nombre": "GUACHIMBOZA JORGE",
+      "planta": "CMA",
+      "fechas": ["2026-01-05"]
     },
     {
       "nombre": "AVILA JOSE",
       "planta": "CMA",
-      "fechas": ["2026-01-01", "2026-01-05"]
+      "fechas": ["2026-01-01"]
+    },
+    {
+      "nombre": "AVILA JOSE",
+      "planta": "CMS",
+      "fechas": ["2026-01-05"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
