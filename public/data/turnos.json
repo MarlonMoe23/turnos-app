@@ -123,12 +123,12 @@
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
       "planta": "CMS",
-      "fechas": ["2026-02-03", "2026-02-09", "2026-02-19"]
+      "fechas": ["2026-02-03", "2026-02-07", "2026-02-19"]
     },
     {
-      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
       "planta": "CMA",
-      "fechas": ["2026-02-03", "2026-02-09", "2026-02-19"]
+      "fechas": ["2026-02-03", "2026-02-07", "2026-02-17"]
     },
     {
       "nombre": "COLLAGUAZO LUIS",
@@ -141,14 +141,14 @@
       "fechas": ["2026-02-03", "2026-02-09", "2026-02-19"]
     },
     {
-      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMS",
-      "fechas": ["2026-02-04", "2026-02-17"]
+      "fechas": ["2026-02-04", "2026-02-08", "2026-02-18"]
     },
     {
-      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMA",
-      "fechas": ["2026-02-04", "2026-02-17"]
+      "fechas": ["2026-02-04", "2026-02-08", "2026-02-18"]
     },
     {
       "nombre": "APARICIO ALDO",
@@ -161,14 +161,14 @@
       "fechas": ["2026-02-04", "2026-02-17", "2026-02-23"]
     },
     {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMS",
-      "fechas": ["2026-02-05", "2026-02-18"]
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "planta": "CMA",
+      "fechas": ["2026-02-05", "2026-02-09", "2026-02-22"]
     },
     {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMA",
-      "fechas": ["2026-02-05", "2026-02-18"]
+      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
+      "planta": "CMS",
+      "fechas": ["2026-02-05", "2026-02-09", "2026-02-20", "2026-02-23"]
     },
     {
       "nombre": "CELA JEFFERSON",
@@ -181,14 +181,14 @@
       "fechas": ["2026-02-05", "2026-02-18"]
     },
     {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "nombre": "URQUIZO EGAS JOSE ANDRES",
       "planta": "CMA",
-      "fechas": ["2026-02-06", "2026-02-22"]
+      "fechas": ["2026-02-06", "2026-02-21"]
     },
     {
-      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
       "planta": "CMS",
-      "fechas": ["2026-02-06", "2026-02-22"]
+      "fechas": ["2026-02-06", "2026-02-21"]
     },
     {
       "nombre": "COLLAGUAZO LUIS",
@@ -201,16 +201,6 @@
       "fechas": ["2026-02-06", "2026-02-22"]
     },
     {
-      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
-      "planta": "CMA",
-      "fechas": ["2026-02-07", "2026-02-20", "2026-02-23"]
-    },
-    {
-      "nombre": "PORRAS PÉREZ ANGELO FERNANDO",
-      "planta": "CMS",
-      "fechas": ["2026-02-07", "2026-02-20", "2026-02-23"]
-    },
-    {
       "nombre": "APARICIO ALDO",
       "planta": "CMA",
       "fechas": ["2026-02-07", "2026-02-20"]
@@ -219,16 +209,6 @@
       "nombre": "JEREZ MIGUEL",
       "planta": "CMS",
       "fechas": ["2026-02-07", "2026-02-20"]
-    },
-    {
-      "nombre": "URQUIZO EGAS JOSE ANDRES",
-      "planta": "CMA",
-      "fechas": ["2026-02-08", "2026-02-21"]
-    },
-    {
-      "nombre": "VARGAS PAUCAR KEVIN RONALDO",
-      "planta": "CMS",
-      "fechas": ["2026-02-08", "2026-02-21"]
     },
     {
       "nombre": "CELA JEFFERSON",
@@ -259,6 +239,26 @@
       "nombre": "AVILA JOSE",
       "planta": "CMS",
       "fechas": ["2026-02-15", "2026-02-26"]
+    },
+    {
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMS",
+      "fechas": ["2026-02-17"]
+    },
+    {
+      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "planta": "CMA",
+      "fechas": ["2026-02-19"]
+    },
+    {
+      "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
+      "planta": "CMA",
+      "fechas": ["2026-02-20", "2026-02-23"]
+    },
+    {
+      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "planta": "CMS",
+      "fechas": ["2026-02-22"]
     }
   ]
 }
