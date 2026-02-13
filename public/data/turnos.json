@@ -131,24 +131,14 @@
       "fechas": ["2026-02-16", "2026-02-27"]
     },
     {
-      "nombre": "APARICIO ALDO",
-      "planta": "CMS",
-      "fechas": ["2026-02-17", "2026-02-23"]
-    },
-    {
-      "nombre": "JEREZ MIGUEL",
+      "nombre": "SANGOPANTA FRANKLIN",
       "planta": "CMA",
-      "fechas": ["2026-02-17", "2026-02-23"]
+      "fechas": ["2026-02-17", "2026-02-24"]
     },
     {
-      "nombre": "CELA JEFFERSON",
-      "planta": "CMA",
-      "fechas": ["2026-02-18"]
-    },
-    {
-      "nombre": "NARVAEZ WAGNER",
+      "nombre": "TUMBACO MELBIN",
       "planta": "CMS",
-      "fechas": ["2026-02-18"]
+      "fechas": ["2026-02-17", "2026-02-24"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
@@ -161,13 +151,18 @@
       "fechas": ["2026-02-18"]
     },
     {
-      "nombre": "COLLAGUAZO LUIS",
-      "planta": "CMS",
-      "fechas": ["2026-02-19"]
+      "nombre": "CELA JEFFERSON",
+      "planta": "CMA",
+      "fechas": ["2026-02-18"]
     },
     {
-      "nombre": "MARQUEZ GERARDO",
-      "planta": "CMA",
+      "nombre": "NARVAEZ WAGNER",
+      "planta": "CMS",
+      "fechas": ["2026-02-18"]
+    },
+    {
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "planta": "CMS",
       "fechas": ["2026-02-19"]
     },
     {
@@ -176,19 +171,14 @@
       "fechas": ["2026-02-19"]
     },
     {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "nombre": "COLLAGUAZO LUIS",
       "planta": "CMS",
       "fechas": ["2026-02-19"]
     },
     {
-      "nombre": "APARICIO ALDO",
+      "nombre": "MARQUEZ GERARDO",
       "planta": "CMA",
-      "fechas": ["2026-02-20"]
-    },
-    {
-      "nombre": "JEREZ MIGUEL",
-      "planta": "CMS",
-      "fechas": ["2026-02-20"]
+      "fechas": ["2026-02-19"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
@@ -201,14 +191,14 @@
       "fechas": ["2026-02-20", "2026-02-23"]
     },
     {
-      "nombre": "CELA JEFFERSON",
-      "planta": "CMS",
-      "fechas": ["2026-02-21"]
+      "nombre": "APARICIO ALDO",
+      "planta": "CMA",
+      "fechas": ["2026-02-20"]
     },
     {
-      "nombre": "NARVAEZ WAGNER",
-      "planta": "CMA",
-      "fechas": ["2026-02-21"]
+      "nombre": "JEREZ MIGUEL",
+      "planta": "CMS",
+      "fechas": ["2026-02-20"]
     },
     {
       "nombre": "URQUIZO EGAS JOSE ANDRES",
@@ -221,6 +211,26 @@
       "fechas": ["2026-02-21"]
     },
     {
+      "nombre": "CELA JEFFERSON",
+      "planta": "CMS",
+      "fechas": ["2026-02-21"]
+    },
+    {
+      "nombre": "NARVAEZ WAGNER",
+      "planta": "CMA",
+      "fechas": ["2026-02-21"]
+    },
+    {
+      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "planta": "CMA",
+      "fechas": ["2026-02-22"]
+    },
+    {
+      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "planta": "CMS",
+      "fechas": ["2026-02-22"]
+    },
+    {
       "nombre": "COLLAGUAZO LUIS",
       "planta": "CMA",
       "fechas": ["2026-02-22"]
@@ -231,24 +241,14 @@
       "fechas": ["2026-02-22"]
     },
     {
-      "nombre": "OJEDA GUAMBO DARIO JAVIER",
+      "nombre": "APARICIO ALDO",
       "planta": "CMS",
-      "fechas": ["2026-02-22"]
+      "fechas": ["2026-02-23"]
     },
     {
-      "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
+      "nombre": "JEREZ MIGUEL",
       "planta": "CMA",
-      "fechas": ["2026-02-22"]
-    },
-    {
-      "nombre": "SANGOPANTA FRANKLIN",
-      "planta": "CMA",
-      "fechas": ["2026-02-24"]
-    },
-    {
-      "nombre": "TUMBACO MELBIN",
-      "planta": "CMS",
-      "fechas": ["2026-02-24"]
+      "fechas": ["2026-02-23"]
     }
   ]
 }
