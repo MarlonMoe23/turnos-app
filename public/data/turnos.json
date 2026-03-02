@@ -3,12 +3,12 @@
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMS",
-      "fechas": ["2026-02-25", "2026-03-10", "2026-03-16", "2026-03-26"]
+      "fechas": ["2026-02-25", "2026-03-10", "2026-03-15", "2026-03-26"]
     },
     {
       "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
       "planta": "CMA",
-      "fechas": ["2026-02-25", "2026-03-10", "2026-03-16", "2026-03-26"]
+      "fechas": ["2026-02-25", "2026-03-10", "2026-03-15", "2026-03-26"]
     },
     {
       "nombre": "ANDRADE ANTONY",
@@ -23,12 +23,12 @@
     {
       "nombre": "CARRION ESPINOSA JUAN PABLO",
       "planta": "CMS",
-      "fechas": ["2026-02-26", "2026-03-11", "2026-03-24", "2026-03-30"]
+      "fechas": ["2026-02-26", "2026-03-11", "2026-03-16", "2026-03-24", "2026-03-30"]
     },
     {
       "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
       "planta": "CMA",
-      "fechas": ["2026-02-26", "2026-03-11", "2026-03-24", "2026-03-30"]
+      "fechas": ["2026-02-26", "2026-03-24", "2026-03-30"]
     },
     {
       "nombre": "AGUIRRE JAVIER",
@@ -43,12 +43,12 @@
     {
       "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
       "planta": "CMA",
-      "fechas": ["2026-02-27", "2026-03-15", "2026-03-28"]
+      "fechas": ["2026-02-27", "2026-03-11", "2026-03-16", "2026-03-28"]
     },
     {
       "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
       "planta": "CMS",
-      "fechas": ["2026-02-27", "2026-03-15", "2026-03-28"]
+      "fechas": ["2026-02-27", "2026-03-12", "2026-03-28"]
     },
     {
       "nombre": "CAIZA BYRON",
@@ -63,7 +63,7 @@
     {
       "nombre": "HARO CUADRADO ALEX FERNANDO",
       "planta": "CMA",
-      "fechas": ["2026-02-28", "2026-03-13", "2026-03-29"]
+      "fechas": ["2026-02-28", "2026-03-12", "2026-03-29"]
     },
     {
       "nombre": "SANCHEZ BERMELLO CESAR ALEXANDER",
@@ -83,12 +83,12 @@
     {
       "nombre": "CARRION ESPINOSA JUAN PABLO",
       "planta": "CMA",
-      "fechas": ["2026-03-01", "2026-03-14", "2026-03-27"]
+      "fechas": ["2026-03-01", "2026-03-13", "2026-03-27"]
     },
     {
       "nombre": "CISNEROS BARRIOS CARLOS ANDRÉS",
       "planta": "CMS",
-      "fechas": ["2026-03-01", "2026-03-14", "2026-03-27"]
+      "fechas": ["2026-03-01", "2026-03-27"]
     },
     {
       "nombre": "MOLINA DANIEL",
@@ -103,12 +103,12 @@
     {
       "nombre": "CORDOVA VACA ROBERTO ALEJANDRO",
       "planta": "CMS",
-      "fechas": ["2026-03-02", "2026-03-12", "2026-03-25"]
+      "fechas": ["2026-03-02", "2026-03-14", "2026-03-25"]
     },
     {
       "nombre": "LOZADA VILLACIS MIGUEL ANGEL",
       "planta": "CMA",
-      "fechas": ["2026-03-02", "2026-03-12", "2026-03-25"]
+      "fechas": ["2026-03-02", "2026-03-14", "2026-03-25"]
     },
     {
       "nombre": "AGUIRRE JAVIER",
@@ -133,12 +133,12 @@
     {
       "nombre": "CELA JEFFERSON",
       "planta": "CMA",
-      "fechas": ["2026-03-03", "2026-03-09", "2026-03-19", "2026-04-01"]
+      "fechas": ["2026-03-03", "2026-03-08", "2026-03-19", "2026-04-01"]
     },
     {
-      "nombre": "NARVAEZ WAGNER",
+      "nombre": "COLLAGUAZO LUIS",
       "planta": "CMS",
-      "fechas": ["2026-03-03", "2026-03-09", "2026-03-19", "2026-04-01"]
+      "fechas": ["2026-03-03", "2026-03-08", "2026-03-17", "2026-03-23", "2026-04-05"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
@@ -151,14 +151,14 @@
       "fechas": ["2026-03-04", "2026-03-17", "2026-03-23", "2026-04-05"]
     },
     {
-      "nombre": "COLLAGUAZO LUIS",
-      "planta": "CMS",
-      "fechas": ["2026-03-04", "2026-03-17", "2026-03-23", "2026-04-05"]
-    },
-    {
       "nombre": "MARQUEZ GERARDO",
       "planta": "CMA",
-      "fechas": ["2026-03-04", "2026-03-17", "2026-03-23", "2026-04-05"]
+      "fechas": ["2026-03-04", "2026-03-09", "2026-03-17", "2026-03-23", "2026-04-05"]
+    },
+    {
+      "nombre": "APARICIO ALDO",
+      "planta": "CMS",
+      "fechas": ["2026-03-04", "2026-03-09", "2026-03-18", "2026-03-31", "2026-04-06"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
@@ -171,9 +171,9 @@
       "fechas": ["2026-03-05", "2026-03-18", "2026-03-31", "2026-04-06"]
     },
     {
-      "nombre": "APARICIO ALDO",
+      "nombre": "CELA JEFFERSON",
       "planta": "CMS",
-      "fechas": ["2026-03-05", "2026-03-18", "2026-03-31", "2026-04-06"]
+      "fechas": ["2026-03-05", "2026-03-22", "2026-04-04"]
     },
     {
       "nombre": "JEREZ MIGUEL",
@@ -191,14 +191,14 @@
       "fechas": ["2026-03-06", "2026-03-22", "2026-04-04"]
     },
     {
-      "nombre": "CELA JEFFERSON",
-      "planta": "CMS",
-      "fechas": ["2026-03-06", "2026-03-22", "2026-04-04"]
+      "nombre": "COLLAGUAZO LUIS",
+      "planta": "CMA",
+      "fechas": ["2026-03-06", "2026-03-20", "2026-04-02"]
     },
     {
-      "nombre": "NARVAEZ WAGNER",
-      "planta": "CMA",
-      "fechas": ["2026-03-06", "2026-03-22", "2026-04-04"]
+      "nombre": "MARQUEZ GERARDO",
+      "planta": "CMS",
+      "fechas": ["2026-03-06", "2026-03-20", "2026-04-02"]
     },
     {
       "nombre": "PEREZ BAYAS JEFFERSON ISRAEL",
@@ -211,14 +211,14 @@
       "fechas": ["2026-03-07", "2026-03-20", "2026-04-02"]
     },
     {
-      "nombre": "COLLAGUAZO LUIS",
+      "nombre": "APARICIO ALDO",
       "planta": "CMA",
-      "fechas": ["2026-03-07", "2026-03-20", "2026-04-02"]
+      "fechas": ["2026-03-07", "2026-03-21", "2026-04-03"]
     },
     {
-      "nombre": "MARQUEZ GERARDO",
+      "nombre": "JEREZ MIGUEL",
       "planta": "CMS",
-      "fechas": ["2026-03-07", "2026-03-20", "2026-04-02"]
+      "fechas": ["2026-03-07", "2026-03-21", "2026-04-03"]
     },
     {
       "nombre": "ORMAZA BRAVO EDGAR RAFAEL",
@@ -231,16 +231,6 @@
       "fechas": ["2026-03-08", "2026-03-21", "2026-04-03"]
     },
     {
-      "nombre": "APARICIO ALDO",
-      "planta": "CMA",
-      "fechas": ["2026-03-08", "2026-03-21", "2026-04-03"]
-    },
-    {
-      "nombre": "JEREZ MIGUEL",
-      "planta": "CMS",
-      "fechas": ["2026-03-08", "2026-03-21", "2026-04-03"]
-    },
-    {
       "nombre": "TUMBACO MELBIN",
       "planta": "CMS",
       "fechas": ["2026-03-10", "2026-03-27"]
@@ -249,6 +239,16 @@
       "nombre": "SANGOPANTA FRANKLIN",
       "planta": "CMA",
       "fechas": ["2026-03-16", "2026-03-26"]
+    },
+    {
+      "nombre": "NARVAEZ WAGNER",
+      "planta": "CMS",
+      "fechas": ["2026-03-19", "2026-04-01"]
+    },
+    {
+      "nombre": "NARVAEZ WAGNER",
+      "planta": "CMA",
+      "fechas": ["2026-03-22", "2026-04-04"]
     }
   ]
 }
