@@ -1,9 +1,16 @@
-const CACHE_NAME = 'limpieza-filtros-v16';
+const CACHE_NAME = 'limpieza-filtros-v15'; // Incrementa versión
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
   '/static/css/main.css',
   '/manifest.json'
+  // ❌ Quitamos '/data/turnos.json' del cache
+];
+
+// Archivos que NUNCA deben cachearse
+const NEVER_CACHE = [
+  '/data/turnos.json',
+  // Agrega otros archivos que cambien frecuentemente
 ];
 
 // Instalar el service worker y cachear recursos
@@ -39,8 +46,30 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+// Función para verificar si un archivo no debe cachearse
+function shouldNeverCache(url) {
+  return NEVER_CACHE.some(path => url.includes(path));
+}
+
 // Interceptar requests
 self.addEventListener('fetch', event => {
+  // Si es un archivo que no debe cachearse, siempre ir a la red
+  if (shouldNeverCache(event.request.url)) {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        // Si falla, devolver un JSON básico para turnos
+        if (event.request.url.includes('turnos.json')) {
+          return new Response('{"error": "Sin conexión", "turnos": []}', {
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        throw new Error('No disponible offline');
+      })
+    );
+    return;
+  }
+
+  // Para otros archivos, usar cache normal
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -49,7 +78,6 @@ self.addEventListener('fetch', event => {
         }
 
         return fetch(event.request).then(response => {
-          // No cachear respuestas inválidas ni cross-origin (Google Sheets, etc.)
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
