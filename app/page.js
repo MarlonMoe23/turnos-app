@@ -139,7 +139,7 @@ export default function Home() {
       // En Sheets: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → Copiar URL
       const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJEPaeJDsKUKhhBE81nShr4tapffCnwzMI2NSYmwprUFlM6LL-hUSnjBACUzSp3Rf1JU38Rnn4l3b2/pub?gid=0&single=true&output=csv";
 
-      const res = await fetch(SHEET_CSV_URL);
+      const res = await fetch(SHEET_CSV_URL + `&t=${Date.now()}`, { cache: 'no-store' });
       const csvText = await res.text();
 
       // Parsear CSV (saltar la fila de encabezado)
