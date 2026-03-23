@@ -148,14 +148,29 @@ export default function Home() {
 const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
 const dataRaw = await res.json();
 
-// Transformar al formato que ya usa tu app
+// AGRUPAR POR nombre + planta
+const agrupado = {};
+
+dataRaw.forEach(item => {
+  const key = item.nombre + "_" + item.planta;
+
+  if (!agrupado[key]) {
+    agrupado[key] = {
+      nombre: item.nombre,
+      planta: item.planta,
+      fechas: []
+    };
+  }
+
+  agrupado[key].fechas.push(item.fecha);
+});
+
+// Convertir a array final
 const data = {
-  asignaciones: dataRaw.map(item => ({
-    nombre: item.nombre,
-    planta: item.planta,
-    fechas: [item.fecha] // importante: array
-  }))
+  asignaciones: Object.values(agrupado)
 };
+
+
 
 
       // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
