@@ -137,15 +137,10 @@ export default function Home() {
     async function cargarDatos() {
       // 👇 REEMPLAZA ESTO con tu URL de Google Sheets publicado como CSV
       // En Sheets: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → Copiar URL
-      const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/pub?output=csv";
+      const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJEPaeJDsKUKhhBE81nShr4tapffCnwzMI2NSYmwprUFlM6LL-hUSnjBACUzSp3Rf1JU38Rnn4l3b2/pub?gid=0&single=true&output=csv";
 
       const res = await fetch(SHEET_CSV_URL);
       const csvText = await res.text();
-
-console.log("✅ CSV recibido:", csvText.substring(0, 300)); // 👈 agrega esto
-
-
-
 
       // Parsear CSV (saltar la fila de encabezado)
       const filas = csvText.split('\n').slice(1);
