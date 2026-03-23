@@ -26,11 +26,31 @@ export default function Home() {
     "SANCHEZ BERMELLO CESAR ALEXANDER": "+593985207705"
   };
 
-  // Convierte "26/03/2026" → "2026-03-26"
+  // Convierte cualquier formato de fecha a "2026-03-26"
   function convertirFecha(fecha) {
-    const partes = fecha.trim().split('/');
-    if (partes.length !== 3) return fecha;
-    const [dia, mes, año] = partes;
+    if (!fecha) return fecha;
+    const f = fecha.trim();
+
+    // Ya está en formato YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(f)) return f;
+
+    // Separado por / o - o .
+    const partes = f.split(/[\/\-\.]/);
+    if (partes.length !== 3) return f;
+
+    let dia, mes, año;
+
+    if (partes[0].length === 4) {
+      // YYYY/MM/DD o YYYY-MM-DD
+      [año, mes, dia] = partes;
+    } else {
+      // DD/MM/YYYY o DD/MM/YY
+      [dia, mes, año] = partes;
+    }
+
+    // Año con 2 dígitos → 2000+
+    if (año.length === 2) año = `20${año}`;
+
     return `${año}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
   }
 
