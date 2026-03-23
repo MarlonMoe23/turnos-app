@@ -140,23 +140,16 @@ export default function Home() {
     setShowInstallButton(false);
   };
 
-  useEffect(() => {
-    async function cargarDatos() {
-      // const res = await fetch("/data/turnos.json");
-      // const data = await res.json();
+  
 
 
-
-
-const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
-const dataRaw = await res.json();
 
 useEffect(() => {
   async function cargarDatos() {
     const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
     const dataRaw = await res.json();
 
-    // 🔧 Función robusta para convertir fechas
+    // 🔧 Convertir fechas correctamente
     function convertirFecha(fechaStr) {
       const partes = fechaStr.split("/");
 
@@ -164,7 +157,6 @@ useEffect(() => {
       let mes = partes[1].padStart(2, "0");
       let año = partes[2];
 
-      // Si el año viene corto (26 → 2026)
       if (año.length === 2) {
         año = "20" + año;
       }
@@ -172,7 +164,7 @@ useEffect(() => {
       return `${año}-${mes}-${dia}`;
     }
 
-    // 🔄 Agrupar por nombre + planta
+    // 🔄 Agrupar datos
     const agrupado = {};
 
     dataRaw.forEach(item => {
@@ -193,39 +185,42 @@ useEffect(() => {
       asignaciones: Object.values(agrupado)
     };
 
+    const fechaTurno = obtenerFechaTurnoActivo();
+
+    const asignadosHoy = data.asignaciones.filter(t =>
+      t.fechas.includes(fechaTurno)
+    );
+
+    setTurnosHoy(asignadosHoy);
+
+    const listaTecnicos = Array.from(
+      new Set(data.asignaciones.map(t => t.nombre))
+    ).sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+
+    setTecnicos(listaTecnicos);
+    setAsignaciones(data.asignaciones);
+
+    const todasLasFechas = Array.from(
+      new Set(data.asignaciones.flatMap(t => t.fechas))
+    );
+
+    const hoy = new Date().toISOString().split("T")[0];
+
+    const fechasFuturas = todasLasFechas
+      .filter(fecha => fecha >= hoy)
+      .sort();
+
+    setFechasDisponibles(fechasFuturas);
+  }
+
+  cargarDatos();
+}, []);
 
 
-      // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
-      const fechaTurno = obtenerFechaTurnoActivo();
 
-      const asignadosHoy = data.asignaciones.filter(t =>
-        t.fechas.includes(fechaTurno)
-      );
-      
-      setTurnosHoy(asignadosHoy);
 
-      const listaTecnicos = Array.from(
-        new Set(data.asignaciones.map(t => t.nombre))
-      ).sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
-      setTecnicos(listaTecnicos);
 
-      setAsignaciones(data.asignaciones);
 
-      // Obtener todas las fechas únicas y filtrar desde hoy en adelante
-      const todasLasFechas = Array.from(
-        new Set(data.asignaciones.flatMap(t => t.fechas))
-      );
-      
-      const hoy = new Date().toISOString().split("T")[0];
-      const fechasFuturas = todasLasFechas
-        .filter(fecha => fecha >= hoy)
-        .sort();
-      
-      setFechasDisponibles(fechasFuturas);
-    }
-
-    cargarDatos();
-  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("tecnicoSeleccionado");
