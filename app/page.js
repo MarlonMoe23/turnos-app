@@ -142,6 +142,11 @@ export default function Home() {
       const res = await fetch(SHEET_CSV_URL);
       const csvText = await res.text();
 
+console.log("✅ CSV recibido:", csvText.substring(0, 300)); // 👈 agrega esto
+
+
+
+
       // Parsear CSV (saltar la fila de encabezado)
       const filas = csvText.split('\n').slice(1);
 
