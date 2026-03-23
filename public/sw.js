@@ -1,4 +1,4 @@
-const CACHE_NAME = 'limpieza-filtros-v16';
+const CACHE_NAME = 'limpieza-filtros-v17';
 const urlsToCache = [
   '/',
   '/static/js/bundle.js',
@@ -6,7 +6,6 @@ const urlsToCache = [
   '/manifest.json'
 ];
 
-// Instalar el service worker y cachear recursos
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -22,7 +21,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activar el service worker y limpiar caches antiguos
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -39,8 +37,15 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Interceptar requests
 self.addEventListener('fetch', event => {
+  // Dejar pasar Google Sheets y cualquier request externo sin tocar
+  if (
+    event.request.url.includes('google.com') ||
+    event.request.url.includes('googleapis.com')
+  ) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -49,7 +54,6 @@ self.addEventListener('fetch', event => {
         }
 
         return fetch(event.request).then(response => {
-          // No cachear respuestas inválidas ni cross-origin (Google Sheets, etc.)
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
@@ -67,50 +71,27 @@ self.addEventListener('fetch', event => {
               <!DOCTYPE html>
               <html>
                 <head>
-                  <title>Sin conexión - Atención Emergentes</title>
+                  <title>Sin conexion - Atencion Emergentes</title>
                   <meta name="viewport" content="width=device-width, initial-scale=1">
                   <style>
-                    body { 
-                      font-family: Arial, sans-serif; 
-                      text-align: center; 
-                      padding: 2rem;
-                      background-color: #f8fafc;
-                    }
-                    .offline-container {
-                      max-width: 400px;
-                      margin: 0 auto;
-                      background: white;
-                      padding: 2rem;
-                      border-radius: 12px;
-                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                    }
+                    body { font-family: Arial, sans-serif; text-align: center; padding: 2rem; background-color: #f8fafc; }
+                    .offline-container { max-width: 400px; margin: 0 auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
                     .icon { font-size: 4rem; margin-bottom: 1rem; }
                     h1 { color: #1e293b; margin-bottom: 1rem; }
                     p { color: #64748b; }
-                    button {
-                      background: #10b981;
-                      color: white;
-                      border: none;
-                      padding: 0.75rem 1.5rem;
-                      border-radius: 8px;
-                      font-size: 1rem;
-                      cursor: pointer;
-                      margin-top: 1rem;
-                    }
+                    button { background: #10b981; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-top: 1rem; }
                   </style>
                 </head>
                 <body>
                   <div class="offline-container">
                     <div class="icon">📡</div>
-                    <h1>Sin conexión</h1>
-                    <p>No hay conexión a internet. Algunos datos pueden no estar actualizados.</p>
+                    <h1>Sin conexion</h1>
+                    <p>No hay conexion a internet. Algunos datos pueden no estar actualizados.</p>
                     <button onclick="location.reload()">Reintentar</button>
                   </div>
                 </body>
               </html>
-            `, {
-              headers: { 'Content-Type': 'text/html' }
-            });
+            `, { headers: { 'Content-Type': 'text/html' } });
           }
         });
       })
