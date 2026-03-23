@@ -142,8 +142,21 @@ export default function Home() {
 
   useEffect(() => {
     async function cargarDatos() {
-      const res = await fetch("/data/turnos.json");
-      const data = await res.json();
+      // const res = await fetch("/data/turnos.json");
+      // const data = await res.json();
+
+const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
+const dataRaw = await res.json();
+
+// Transformar al formato que ya usa tu app
+const data = {
+  asignaciones: dataRaw.map(item => ({
+    nombre: item.nombre,
+    planta: item.planta,
+    fechas: [item.fecha] // importante: array
+  }))
+};
+
 
       // USAR LA FUNCIÓN CENTRALIZADA PARA OBTENER LA FECHA DEL TURNO ACTIVO
       const fechaTurno = obtenerFechaTurnoActivo();
