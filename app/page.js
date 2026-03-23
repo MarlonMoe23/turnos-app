@@ -151,43 +151,47 @@ export default function Home() {
 const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
 const dataRaw = await res.json();
 
-// Función para convertir fecha
-function convertirFecha(fechaStr) {
-  const partes = fechaStr.split("/");
+useEffect(() => {
+  async function cargarDatos() {
+    const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
+    const dataRaw = await res.json();
 
-  const dia = partes[0].padStart(2, "0");
-  const mes = partes[1].padStart(2, "0");
-  const año = partes[2];
+    // 🔧 Función robusta para convertir fechas
+    function convertirFecha(fechaStr) {
+      const partes = fechaStr.split("/");
 
-  return `${año}-${mes}-${dia}`;
-}
+      let dia = partes[0].padStart(2, "0");
+      let mes = partes[1].padStart(2, "0");
+      let año = partes[2];
 
-// Agrupar datos
-const agrupado = {};
+      // Si el año viene corto (26 → 2026)
+      if (año.length === 2) {
+        año = "20" + año;
+      }
 
-dataRaw.forEach(item => {
-  const key = item.nombre + "_" + item.planta;
+      return `${año}-${mes}-${dia}`;
+    }
 
-  if (!agrupado[key]) {
-    agrupado[key] = {
-      nombre: item.nombre,
-      planta: item.planta,
-      fechas: []
+    // 🔄 Agrupar por nombre + planta
+    const agrupado = {};
+
+    dataRaw.forEach(item => {
+      const key = item.nombre + "_" + item.planta;
+
+      if (!agrupado[key]) {
+        agrupado[key] = {
+          nombre: item.nombre,
+          planta: item.planta,
+          fechas: []
+        };
+      }
+
+      agrupado[key].fechas.push(convertirFecha(item.fecha));
+    });
+
+    const data = {
+      asignaciones: Object.values(agrupado)
     };
-  }
-
-  agrupado[key].fechas.push(convertirFecha(item.fecha));
-});
-
-// Resultado final
-const data = {
-  asignaciones: Object.values(agrupado)
-};
-
-
-
-
-
 
 
 
