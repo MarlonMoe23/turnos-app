@@ -145,10 +145,24 @@ export default function Home() {
       // const res = await fetch("/data/turnos.json");
       // const data = await res.json();
 
+
+
+
 const res = await fetch("https://opensheet.elk.sh/1eVgJm5wHPyxFZMjhej3qi_nERtzjzSO-E7oIgC37nR0/Hoja1");
 const dataRaw = await res.json();
 
-// AGRUPAR POR nombre + planta
+// Función para convertir fecha
+function convertirFecha(fechaStr) {
+  const partes = fechaStr.split("/");
+
+  const dia = partes[0].padStart(2, "0");
+  const mes = partes[1].padStart(2, "0");
+  const año = partes[2];
+
+  return `${año}-${mes}-${dia}`;
+}
+
+// Agrupar datos
 const agrupado = {};
 
 dataRaw.forEach(item => {
@@ -162,13 +176,17 @@ dataRaw.forEach(item => {
     };
   }
 
-  agrupado[key].fechas.push(item.fecha);
+  agrupado[key].fechas.push(convertirFecha(item.fecha));
 });
 
-// Convertir a array final
+// Resultado final
 const data = {
   asignaciones: Object.values(agrupado)
 };
+
+
+
+
 
 
 
