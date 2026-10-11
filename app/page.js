@@ -300,7 +300,9 @@ export default function Home() {
                 </div>
                 <div style={styles.tecnicosList}>
                   {tecnicosOrdenados.map((nombre, idx) => {
-                    const telefonoResponsable = responsables[nombre] || null;
+                    console.log("Nombre recibido:", JSON.stringify(nombre));
+                    console.log("Teléfono encontrado:", responsables[nombre]);
+		    const telefonoResponsable = responsables[nombre] || null;
                     const enlaceWhatsApp = telefonoResponsable ? `https://wa.me/${telefonoResponsable}` : null;
                     return (
                       <div key={idx} style={styles.tecnicoChip}>
