@@ -1,99 +1,38 @@
-const CACHE_NAME = 'limpieza-filtros-v17';
-const urlsToCache = [
-  '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/manifest.json'
-];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache abierto');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => {
-        console.log('Error al cachear:', err);
-        return Promise.resolve();
-      })
-  );
+const CACHE_NAME = 'turnosfiltros-v18';
+
+self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Eliminando cache antiguo:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
+    (async () => {
+      const cacheNames = await caches.keys();
+
+      await Promise.all(
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
       );
-    })
+
+      await self.clients.claim();
+    })()
   );
-  self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
-  // Dejar pasar Google Sheets y cualquier request externo sin tocar
-  if (
-    event.request.url.includes('google.com') ||
-    event.request.url.includes('googleapis.com')
-  ) {
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
+  const url = new URL(request.url);
+
+  // No interceptar solicitudes a otros dominios,
+  // incluyendo Google Sheets.
+  if (url.origin !== self.location.origin) {
     return;
   }
 
+  // Las páginas y los recursos siempre se solicitan a la red.
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-
-        return fetch(event.request).then(response => {
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        }).catch(() => {
-          if (event.request.destination === 'document') {
-            return new Response(`
-              <!DOCTYPE html>
-              <html>
-                <head>
-                  <title>Sin conexion - Atencion Emergentes</title>
-                  <meta name="viewport" content="width=device-width, initial-scale=1">
-                  <style>
-                    body { font-family: Arial, sans-serif; text-align: center; padding: 2rem; background-color: #f8fafc; }
-                    .offline-container { max-width: 400px; margin: 0 auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-                    .icon { font-size: 4rem; margin-bottom: 1rem; }
-                    h1 { color: #1e293b; margin-bottom: 1rem; }
-                    p { color: #64748b; }
-                    button { background: #10b981; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-top: 1rem; }
-                  </style>
-                </head>
-                <body>
-                  <div class="offline-container">
-                    <div class="icon">📡</div>
-                    <h1>Sin conexion</h1>
-                    <p>No hay conexion a internet. Algunos datos pueden no estar actualizados.</p>
-                    <button onclick="location.reload()">Reintentar</button>
-                  </div>
-                </body>
-              </html>
-            `, { headers: { 'Content-Type': 'text/html' } });
-          }
-        });
-      })
+    fetch(request, { cache: 'no-store' })
   );
 });
