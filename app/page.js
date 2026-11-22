@@ -551,19 +551,6 @@ export default function Home() {
             </span>
           </div>
         </div>
-
-        <a
-          href={LINK_SALVOCONDUCTOS}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={styles.botonSalvos}
-        >
-          🚗 Ver salvoconductos
-        </a>
-
-        <div style={styles.notaSalvos}>
-          Descarga tu salvoconducto en el celular por si no tienes señal.
-        </div>
       </div>
 
       {/* Técnicos asignados hoy */}
@@ -582,6 +569,16 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* Botón de salvoconductos */}
+      <a
+        href={LINK_SALVOCONDUCTOS}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={styles.botonSalvos}
+      >
+        🚗 Ver salvoconductos
+      </a>
 
       <hr style={styles.separador} />
 
@@ -662,7 +659,7 @@ const styles = {
   botonSalvos: {
     display: "block",
     maxWidth: "400px",
-    margin: "1rem auto 0 auto",
+    margin: "-0.5rem auto 0 auto",
     backgroundColor: "#2563eb",
     color: "white",
     padding: "0.85rem 1rem",
@@ -672,12 +669,6 @@ const styles = {
     textDecoration: "none",
     textAlign: "center",
     boxShadow: "0 4px 12px -2px rgba(37, 99, 235, 0.4)",
-  },
-
-  notaSalvos: {
-    fontSize: "0.75rem",
-    color: "#64748b",
-    marginTop: "0.4rem",
   },
 
   installButton: {
