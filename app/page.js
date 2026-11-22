@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 
+// Link de la carpeta de salvoconductos (OneDrive / CELEC Cloud)
+const LINK_SALVOCONDUCTOS =
+  "https://celecgob-my.sharepoint.com/my?id=%2Fpersonal%2Fmarlon%5Fortiz%5Fcelec%5Fgob%5Fec%2FDocuments%2FSALVOS&ga=1";
+
 // Definición de los turnos (antes eran plantas CMS / CMA)
 const TURNOS = [
   {
@@ -547,6 +551,19 @@ export default function Home() {
             </span>
           </div>
         </div>
+
+        <a
+          href={LINK_SALVOCONDUCTOS}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={styles.botonSalvos}
+        >
+          🚗 Ver salvoconductos
+        </a>
+
+        <div style={styles.notaSalvos}>
+          Descarga tu salvoconducto en el celular por si no tienes señal.
+        </div>
       </div>
 
       {/* Técnicos asignados hoy */}
@@ -642,6 +659,27 @@ export default function Home() {
 }
 
 const styles = {
+  botonSalvos: {
+    display: "block",
+    maxWidth: "400px",
+    margin: "1rem auto 0 auto",
+    backgroundColor: "#2563eb",
+    color: "white",
+    padding: "0.85rem 1rem",
+    borderRadius: "12px",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    textDecoration: "none",
+    textAlign: "center",
+    boxShadow: "0 4px 12px -2px rgba(37, 99, 235, 0.4)",
+  },
+
+  notaSalvos: {
+    fontSize: "0.75rem",
+    color: "#64748b",
+    marginTop: "0.4rem",
+  },
+
   installButton: {
     backgroundColor: "#3b82f6",
     color: "white",
