@@ -119,6 +119,33 @@ const TURNOS = [
   },
 ];
 
+// ===== Supervisores =====
+// Grupo 1 y Grupo 2 trabajan 10 días (lunes a miércoles de la semana
+// siguiente) en ciclos de 14 días. El supervisor cubre las noches desde
+// el lunes de entrada hasta el martes antes de salir (el miércoles sale).
+// "entrada" es un lunes de referencia en que entró ese grupo.
+// Teléfono y link de salvoconductos se toman de la pestaña TECNICOS
+// (agregar una fila con el nombre del supervisor).
+const SUPERVISORES = [
+  { grupo: "Grupo 1", nombre: "BEJARANO EDISSON", entrada: "2026-11-16" },
+  { grupo: "Grupo 2", nombre: "BALLESTEROS LEONARDO", entrada: "2026-11-23" },
+];
+
+// Devuelve los supervisores a cargo para la fecha de turno "AAAA-MM-DD".
+// En los días en que se cruzan los dos grupos aparecen ambos.
+function diaNumero(fecha) {
+  const [a, m, d] = fecha.split("-").map(Number);
+  return Date.UTC(a, m - 1, d) / 86400000;
+}
+
+function supervisoresDeFecha(fecha) {
+  return SUPERVISORES.filter((s) => {
+    const dias = diaNumero(fecha) - diaNumero(s.entrada);
+    const posicion = ((dias % 14) + 14) % 14;
+    return posicion <= 8;
+  });
+}
+
 function infoTurno(id) {
   return (
     TURNOS.find((t) => t.id === id) || {
@@ -149,12 +176,28 @@ export default function Home() {
   );
   const [salvos, setSalvos] = useState({});
 
+  // Busca por nombre exacto; si no lo encuentra, por todas sus palabras
+  // (así "BEJARANO EDISSON" encuentra "BEJARANO ... EDISSON ...").
+  function buscarEnMapa(mapa, nombre) {
+    const clave = claveNombre(nombre);
+    if (!clave) return null;
+    if (mapa[clave]) return mapa[clave];
+
+    const palabras = clave.split(" ");
+    const encontrada = Object.keys(mapa).find((k) => {
+      const partes = k.split(" ");
+      return palabras.every((p) => partes.includes(p));
+    });
+
+    return encontrada ? mapa[encontrada] : null;
+  }
+
   function buscarTelefono(nombre) {
-    return telefonos[claveNombre(nombre)] || null;
+    return buscarEnMapa(telefonos, nombre);
   }
 
   function buscarSalvo(nombre) {
-    return salvos[claveNombre(nombre)] || null;
+    return buscarEnMapa(salvos, nombre);
   }
 
   // Convierte cualquier formato de fecha a "2026-03-26"
@@ -481,43 +524,47 @@ export default function Home() {
     });
   }
 
+  // Botones "📞 llamar" y "🚗" (salvoconductos) de una persona
+  function botonesContacto(nombre) {
+    const telefono = buscarTelefono(nombre);
+    const linkSalvo = buscarSalvo(nombre);
+
+    return (
+      <>
+        {telefono && (
+          <a
+            href={`https://wa.me/${telefono.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.telefonoEnlace}
+          >
+            📞 llamar
+          </a>
+        )}
+
+        {linkSalvo && (
+          <a
+            href={linkSalvo}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.salvoEnlace}
+            title="Salvoconductos"
+            aria-label="Salvoconductos"
+          >
+            🚗
+          </a>
+        )}
+      </>
+    );
+  }
+
   function renderTecnicos(lista) {
-    return ordenarPorTelefono(lista).map((nombre, idx) => {
-      const telefonoResponsable = buscarTelefono(nombre);
-      const linkSalvo = buscarSalvo(nombre);
-
-      const enlaceWhatsApp = telefonoResponsable
-        ? `https://wa.me/${telefonoResponsable.replace(/\D/g, "")}`
-        : null;
-
-      return (
-        <div key={idx} style={styles.tecnicoChip}>
-          {formatearNombre(nombre)}
-
-          {enlaceWhatsApp && (
-            <a
-              href={enlaceWhatsApp}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.telefonoEnlace}
-            >
-              📞 llamar
-            </a>
-          )}
-
-          {linkSalvo && (
-            <a
-              href={linkSalvo}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.salvoEnlace}
-            >
-              🚗 salvo
-            </a>
-          )}
-        </div>
-      );
-    });
+    return ordenarPorTelefono(lista).map((nombre, idx) => (
+      <div key={idx} style={styles.tecnicoChip}>
+        {formatearNombre(nombre)}
+        {botonesContacto(nombre)}
+      </div>
+    ));
   }
 
   // Tarjeta de un turno (T1 o T2) con sus técnicos
@@ -654,6 +701,11 @@ export default function Home() {
   // Calcular el rango del turno después del montaje para
   // evitar diferencias de fecha entre servidor y navegador.
   const [rangoTurnoFormateado, setRangoTurnoFormateado] = useState(null);
+  const [supervisoresHoy, setSupervisoresHoy] = useState([]);
+
+  useEffect(() => {
+    setSupervisoresHoy(supervisoresDeFecha(obtenerFechaTurnoActivo()));
+  }, []);
 
   useEffect(() => {
     const { fechaInicio, fechaFin } = obtenerRangoTurnoActivo();
@@ -698,6 +750,24 @@ export default function Home() {
                 : "Calculando turno..."}
             </span>
           </div>
+
+          {supervisoresHoy.length > 0 && (
+            <div style={styles.supervisorBloque}>
+              <div style={styles.supervisorLabel}>
+                👷 Supervisor a cargo
+              </div>
+
+              <div style={styles.supervisorLista}>
+                {supervisoresHoy.map((s) => (
+                  <div key={s.nombre} style={styles.tecnicoChip}>
+                    {s.nombre}
+                    <span style={styles.supervisorGrupo}>{s.grupo}</span>
+                    {botonesContacto(s.nombre)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -740,7 +810,22 @@ export default function Home() {
 
         {tecnicoSeleccionado && (
           <div style={styles.detalleContainer}>
-            <h3 style={styles.tecnicoNombre}>👤 {tecnicoSeleccionado}</h3>
+            <div style={styles.tecnicoEncabezado}>
+              <h3 style={styles.tecnicoNombreFila}>
+                👤 {tecnicoSeleccionado}
+              </h3>
+
+              {buscarSalvo(tecnicoSeleccionado) && (
+                <a
+                  href={buscarSalvo(tecnicoSeleccionado)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={styles.salvoBotonGrande}
+                >
+                  🚗 salvoconductos
+                </a>
+              )}
+            </div>
 
             <div style={styles.proximosTurnos}>
               <span style={styles.proximosLabel}>
@@ -1069,6 +1154,61 @@ const styles = {
     marginLeft: "0.5rem",
     padding: "0.2rem 0.5rem",
     borderRadius: "6px",
+  },
+
+  salvoBotonGrande: {
+    backgroundColor: "#2563eb",
+    color: "white",
+    fontSize: "0.85rem",
+    fontWeight: "600",
+    textDecoration: "none",
+    padding: "0.35rem 0.75rem",
+    borderRadius: "8px",
+    whiteSpace: "nowrap",
+  },
+
+  tecnicoEncabezado: {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: "0.75rem",
+    marginBottom: "0.5rem",
+  },
+
+  tecnicoNombreFila: {
+    fontSize: "1.1rem",
+    fontWeight: "600",
+    color: "#1e293b",
+    margin: 0,
+  },
+
+  supervisorBloque: {
+    marginTop: "0.75rem",
+    paddingTop: "0.75rem",
+    borderTop: "1px solid #e2e8f0",
+  },
+
+  supervisorLabel: {
+    fontSize: "0.8rem",
+    fontWeight: "bold",
+    color: "#475569",
+    marginBottom: "0.5rem",
+  },
+
+  supervisorLista: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "0.5rem",
+  },
+
+  supervisorGrupo: {
+    backgroundColor: "#f1f5f9",
+    color: "#475569",
+    fontSize: "0.7rem",
+    padding: "0.1rem 0.4rem",
+    borderRadius: "10px",
+    marginLeft: "0.4rem",
   },
 
   telefonoEnlace: {
