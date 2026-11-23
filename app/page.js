@@ -1,9 +1,109 @@
 "use client";
 import { useEffect, useState } from "react";
 
-// Link de la carpeta de salvoconductos (OneDrive / CELEC Cloud)
-const LINK_SALVOCONDUCTOS =
-  "https://celecgob-my.sharepoint.com/my?id=%2Fpersonal%2Fmarlon%5Fortiz%5Fcelec%5Fgob%5Fec%2FDocuments%2FSALVOS&ga=1";
+// ===== Google Sheets =====
+// Pestaña de turnos (gid=0) y pestañas TECNICOS y LINKS.
+const SHEET_BASE =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJEPaeJDsKUKhhBE81nShr4tapffCnwzMI2NSYmwprUFlM6LL-hUSnjBACUzSp3Rf1JU38Rnn4l3b2/pub";
+const GID_TURNOS = "0";
+// La app reconoce la pestaña TECNICOS por su encabezado
+// (NOMBRE | TELEFONO | SALVOCONDUCTO), sin importar el orden.
+const GIDS_EXTRA = ["602855405", "242957281"];
+
+function urlHoja(gid) {
+  return `${SHEET_BASE}?gid=${gid}&single=true&output=csv&t=${Date.now()}`;
+}
+
+// ===== Respaldo =====
+// Solo se usa si Google Sheets no carga.
+
+const TELEFONOS_RESPALDO = {
+  "HARO CUADRADO ALEX FERNANDO": "593995112077",
+  "OJEDA GUAMBO DARIO JAVIER": "593961058610",
+  "PEREZ BAYAS JEFFERSON ISRAEL": "593999975232",
+  "URQUIZO EGAS JOSE ANDRES": "593993996368",
+  "VARGAS PAUCAR KEVIN RONALDO": "593987888767",
+  "CARRION ESPINOSA JUAN PABLO": "593999431363",
+  "CISNEROS BARRIOS CARLOS ANDRÉS": "593967395224",
+  "CORDOVA VACA ROBERTO ALEJANDRO": "593960155937",
+  "LOZADA VILLACIS MIGUEL ANGEL": "593995851481",
+  "ORTIZ ESCOBAR MARLON ANTONIO": "593996527179",
+  "ORMAZA BRAVO EDGAR RAFAEL": "593994822263",
+  "PORRAS PÉREZ ANGELO FERNANDO": "593995016191",
+  "SANCHEZ BERMELLO CESAR ALEXANDER": "593963737123",
+};
+
+// Lee un CSV respetando comillas (por si un valor tiene comas).
+function parsearCSV(texto) {
+  const filas = [];
+  let fila = [];
+  let campo = "";
+  let enComillas = false;
+
+  for (let i = 0; i < texto.length; i++) {
+    const c = texto[i];
+
+    if (enComillas) {
+      if (c === '"' && texto[i + 1] === '"') {
+        campo += '"';
+        i++;
+      } else if (c === '"') {
+        enComillas = false;
+      } else {
+        campo += c;
+      }
+    } else if (c === '"') {
+      enComillas = true;
+    } else if (c === ",") {
+      fila.push(campo.trim());
+      campo = "";
+    } else if (c === "\n" || c === "\r") {
+      if (c === "\r" && texto[i + 1] === "\n") i++;
+      fila.push(campo.trim());
+      filas.push(fila);
+      fila = [];
+      campo = "";
+    } else {
+      campo += c;
+    }
+  }
+
+  if (campo !== "" || fila.length > 0) {
+    fila.push(campo.trim());
+    filas.push(fila);
+  }
+
+  return filas.filter((f) => f.some((v) => v !== ""));
+}
+
+// "José Andrés  Urquizo" -> "JOSE ANDRES URQUIZO" (para comparar nombres)
+function claveNombre(nombre) {
+  return (nombre || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Deja el teléfono listo para WhatsApp: 593XXXXXXXXX
+// Acepta: +593 99..., 593 99..., 099..., 99...
+function normalizarTelefono(valor) {
+  let d = String(valor || "").replace(/\D/g, "");
+  if (!d) return "";
+  if (d.startsWith("593")) return d;
+  if (d.startsWith("0")) d = d.slice(1);
+  return `593${d}`;
+}
+
+function mapaTelefonos(objeto) {
+  const mapa = {};
+  Object.entries(objeto).forEach(([nombre, tel]) => {
+    const t = normalizarTelefono(tel);
+    if (t) mapa[claveNombre(nombre)] = t;
+  });
+  return mapa;
+}
 
 // Definición de los turnos (antes eran plantas CMS / CMA)
 const TURNOS = [
@@ -43,22 +143,19 @@ export default function Home() {
   const [fechaSeleccionada, setFechaSeleccionada] = useState("");
   const [fechasDisponibles, setFechasDisponibles] = useState([]);
 
-  // Datos de los responsables y sus números de teléfono
-  const responsables = {
-    "HARO CUADRADO ALEX FERNANDO": "+593995112077",
-    "OJEDA GUAMBO DARIO JAVIER": "+593961058610",
-    "PEREZ BAYAS JEFFERSON ISRAEL": "+593999975232",
-    "URQUIZO EGAS JOSE ANDRES": "+593993996368",
-    "VARGAS PAUCAR KEVIN RONALDO": "+593987888767",
-    "CARRION ESPINOSA JUAN PABLO": "+593999431363",
-    "CISNEROS BARRIOS CARLOS ANDRÉS": "+593967395224",
-    "CORDOVA VACA ROBERTO ALEJANDRO": "+593960155937",
-    "LOZADA VILLACIS MIGUEL ANGEL": "+593995851481",
-    "ORTIZ ESCOBAR MARLON ANTONIO": "+593996527179",
-    "ORMAZA BRAVO EDGAR RAFAEL": "+593994822263",
-    "PORRAS PÉREZ ANGELO FERNANDO": "+593995016191",
-    "SANCHEZ BERMELLO CESAR ALEXANDER": "+593963737123",
-  };
+  // Teléfonos y carpetas de salvoconductos (desde Google Sheets)
+  const [telefonos, setTelefonos] = useState(() =>
+    mapaTelefonos(TELEFONOS_RESPALDO)
+  );
+  const [salvos, setSalvos] = useState({});
+
+  function buscarTelefono(nombre) {
+    return telefonos[claveNombre(nombre)] || null;
+  }
+
+  function buscarSalvo(nombre) {
+    return salvos[claveNombre(nombre)] || null;
+  }
 
   // Convierte cualquier formato de fecha a "2026-03-26"
   // Ejemplo: "02/11/26" -> "2026-11-02"
@@ -213,10 +310,7 @@ export default function Home() {
   // Formato esperado: NOMBRE | TURNO (T1/T2) | FECHA (dd/mm/aa)
   useEffect(() => {
     async function cargarDatos() {
-      const SHEET_CSV_URL =
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJEPaeJDsKUKhhBE81nShr4tapffCnwzMI2NSYmwprUFlM6LL-hUSnjBACUzSp3Rf1JU38Rnn4l3b2/pub?gid=0&single=true&output=csv";
-
-      const res = await fetch(SHEET_CSV_URL + `&t=${Date.now()}`, {
+      const res = await fetch(urlHoja(GID_TURNOS), {
         cache: "no-store",
       });
 
@@ -225,14 +319,10 @@ export default function Home() {
       }
 
       const csvText = await res.text();
-      const filas = csvText.split("\n").slice(1);
+      const filas = parsearCSV(csvText).slice(1);
       const mapaAsignaciones = {};
 
-      filas.forEach((fila) => {
-        const cols = fila
-          .split(",")
-          .map((c) => c.trim().replace(/^"|"$/g, ""));
-
+      filas.forEach((cols) => {
         const nombre = cols[0];
         const turno = normalizarTurno(cols[1]);
         const fecha = cols[2];
@@ -291,6 +381,52 @@ export default function Home() {
     });
   }, []);
 
+  // Cargar teléfonos y carpetas de salvoconductos (pestaña TECNICOS).
+  useEffect(() => {
+    async function cargarHoja(gid) {
+      const res = await fetch(urlHoja(gid), { cache: "no-store" });
+      if (!res.ok) throw new Error(`Hoja ${gid}: ${res.status}`);
+      return parsearCSV(await res.text());
+    }
+
+    GIDS_EXTRA.forEach((gid) => {
+      cargarHoja(gid)
+        .then((filas) => {
+          if (filas.length < 2) return;
+
+          const encabezado = filas[0].map((c) => claveNombre(c));
+          const iTel = encabezado.findIndex((c) => c.includes("TELEFONO"));
+
+          // Solo se procesa la pestaña que tiene la columna TELEFONO
+          if (iTel === -1) return;
+
+          const iNom = encabezado.findIndex((c) => c.includes("NOMBRE"));
+          const iSalvo = encabezado.findIndex((c) => c.includes("SALVO"));
+          const colNombre = iNom === -1 ? 0 : iNom;
+
+          const nuevosTel = {};
+          const nuevosSalvos = {};
+
+          filas.slice(1).forEach((f) => {
+            const clave = claveNombre(f[colNombre]);
+            if (!clave) return;
+
+            const t = normalizarTelefono(f[iTel]);
+            if (t) nuevosTel[clave] = t;
+
+            const url = iSalvo === -1 ? "" : (f[iSalvo] || "").trim();
+            if (url.startsWith("http")) nuevosSalvos[clave] = url;
+          });
+
+          if (Object.keys(nuevosTel).length > 0) setTelefonos(nuevosTel);
+          setSalvos(nuevosSalvos);
+        })
+        .catch((error) => {
+          console.error("No se pudo cargar una hoja extra:", error);
+        });
+    });
+  }, []);
+
   useEffect(() => {
     const saved = localStorage.getItem("tecnicoSeleccionado");
     if (saved) setTecnicoSeleccionado(saved);
@@ -339,15 +475,16 @@ export default function Home() {
 
   function ordenarPorTelefono(lista) {
     return [...lista].sort((a, b) => {
-      const tieneNumeroA = responsables[a] ? 1 : 0;
-      const tieneNumeroB = responsables[b] ? 1 : 0;
+      const tieneNumeroA = buscarTelefono(a) ? 1 : 0;
+      const tieneNumeroB = buscarTelefono(b) ? 1 : 0;
       return tieneNumeroB - tieneNumeroA;
     });
   }
 
   function renderTecnicos(lista) {
     return ordenarPorTelefono(lista).map((nombre, idx) => {
-      const telefonoResponsable = responsables[nombre] || null;
+      const telefonoResponsable = buscarTelefono(nombre);
+      const linkSalvo = buscarSalvo(nombre);
 
       const enlaceWhatsApp = telefonoResponsable
         ? `https://wa.me/${telefonoResponsable.replace(/\D/g, "")}`
@@ -365,6 +502,17 @@ export default function Home() {
               style={styles.telefonoEnlace}
             >
               📞 llamar
+            </a>
+          )}
+
+          {linkSalvo && (
+            <a
+              href={linkSalvo}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={styles.salvoEnlace}
+            >
+              🚗 salvo
             </a>
           )}
         </div>
@@ -570,16 +718,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Botón de salvoconductos */}
-      <a
-        href={LINK_SALVOCONDUCTOS}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={styles.botonSalvos}
-      >
-        🚗 Ver salvoconductos
-      </a>
-
       <hr style={styles.separador} />
 
       {/* Consulta por técnico */}
@@ -656,21 +794,6 @@ export default function Home() {
 }
 
 const styles = {
-  botonSalvos: {
-    display: "block",
-    maxWidth: "400px",
-    margin: "-0.5rem auto 0 auto",
-    backgroundColor: "#2563eb",
-    color: "white",
-    padding: "0.85rem 1rem",
-    borderRadius: "12px",
-    fontSize: "1rem",
-    fontWeight: "bold",
-    textDecoration: "none",
-    textAlign: "center",
-    boxShadow: "0 4px 12px -2px rgba(37, 99, 235, 0.4)",
-  },
-
   installButton: {
     backgroundColor: "#3b82f6",
     color: "white",
@@ -935,6 +1058,17 @@ const styles = {
     borderRadius: "6px",
     fontSize: "0.75rem",
     fontWeight: "500",
+  },
+
+  salvoEnlace: {
+    backgroundColor: "#2563eb",
+    color: "white",
+    fontSize: "0.75rem",
+    fontWeight: "600",
+    textDecoration: "none",
+    marginLeft: "0.5rem",
+    padding: "0.2rem 0.5rem",
+    borderRadius: "6px",
   },
 
   telefonoEnlace: {
