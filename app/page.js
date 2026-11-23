@@ -751,23 +751,6 @@ export default function Home() {
             </span>
           </div>
 
-          {supervisoresHoy.length > 0 && (
-            <div style={styles.supervisorBloque}>
-              <div style={styles.supervisorLabel}>
-                👷 Supervisor a cargo
-              </div>
-
-              <div style={styles.supervisorLista}>
-                {supervisoresHoy.map((s) => (
-                  <div key={s.nombre} style={styles.tecnicoChip}>
-                    {s.nombre}
-                    <span style={styles.supervisorGrupo}>{s.grupo}</span>
-                    {botonesContacto(s.nombre)}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
@@ -786,6 +769,23 @@ export default function Home() {
             />
           ))}
         </div>
+
+        {/* Supervisor de turno (debajo de T1 y T2) */}
+        {supervisoresHoy.length > 0 && (
+          <div style={styles.supervisorCard}>
+            <div style={styles.supervisorLabel}>👷 Supervisor de turno</div>
+
+            <div style={styles.tecnicosList}>
+              {supervisoresHoy.map((s) => (
+                <div key={s.nombre} style={styles.tecnicoChip}>
+                  {s.nombre}
+                  <span style={styles.supervisorGrupo}>{s.grupo}</span>
+                  {botonesContacto(s.nombre)}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <hr style={styles.separador} />
@@ -1182,24 +1182,21 @@ const styles = {
     margin: 0,
   },
 
-  supervisorBloque: {
-    marginTop: "0.75rem",
-    paddingTop: "0.75rem",
-    borderTop: "1px solid #e2e8f0",
+  supervisorCard: {
+    backgroundColor: "white",
+    borderRadius: "12px",
+    padding: "1rem 1.25rem",
+    boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+    border: "1px solid #e2e8f0",
+    borderTop: "4px solid #6366f1",
+    marginTop: "1rem",
   },
 
   supervisorLabel: {
-    fontSize: "0.8rem",
+    fontSize: "1rem",
     fontWeight: "bold",
-    color: "#475569",
-    marginBottom: "0.5rem",
-  },
-
-  supervisorLista: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: "0.5rem",
+    color: "#1e293b",
+    marginBottom: "0.75rem",
   },
 
   supervisorGrupo: {
